@@ -267,9 +267,60 @@
     .dossier-box h3 { color: var(--white); margin-bottom: 12px; font: 700 1.2rem "Cinzel", serif; }
     .dossier-box p { font-size: .92rem; }
     .constellation-list { display: grid; gap: 12px; margin-top: 16px; }
+    .constellation-list-expanded { max-height: 520px; overflow-y: auto; padding: 4px 8px 4px 2px; scrollbar-width: thin; scrollbar-color: rgba(167,139,250,.5) transparent; }
+    .constellation-list-expanded .constellation { min-height: 30px; }
+    .channel-intro { margin-top: 8px; font-size: .82rem !important; color: var(--muted-2); }
+    .constellation-list-expanded::-webkit-scrollbar { width: 5px; }
+    .constellation-list-expanded::-webkit-scrollbar-thumb { background: rgba(167,139,250,.5); border-radius: 99px; }
     .constellation { display: flex; align-items: center; gap: 12px; color: var(--white); font-size: .86rem; }
     .constellation span { color: var(--gold); font-size: 1.05rem; }
     .dossier-note { color: var(--muted-2); font-size: .78rem !important; margin-top: 18px; }
+    .constellation-title {
+      margin-left: auto;
+      color: var(--muted-2);
+      font: 600 .68rem "Space Grotesk", sans-serif;
+      white-space: nowrap;
+    }
+    .hongsi-constellation {
+      position: relative;
+      padding: 10px 12px;
+      margin: 2px -12px 0;
+      border: 1px solid rgba(246, 201, 107, .22);
+      border-radius: 12px;
+      background: linear-gradient(100deg, rgba(246, 201, 107, .07), rgba(167, 139, 250, .06));
+      cursor: pointer;
+      transition: border-color .25s, box-shadow .25s, transform .25s;
+    }
+    .hongsi-constellation:hover, .hongsi-constellation:focus-visible {
+      outline: none;
+      transform: translateX(4px);
+      border-color: rgba(246, 201, 107, .58);
+      box-shadow: 0 0 24px rgba(246, 201, 107, .09);
+    }
+    .hongsi-constellation > span:first-child { color: var(--gold); }
+    .hongsi-constellation .constellation-title { color: var(--gold); }
+    .constellation-reveal {
+      margin-top: 18px;
+      padding: 10px 13px;
+      color: var(--gold);
+      border: 1px solid rgba(246, 201, 107, .28);
+      border-radius: 10px;
+      background: rgba(246, 201, 107, .055);
+      cursor: pointer;
+      font: 700 .78rem "Space Grotesk", sans-serif;
+      transition: background .25s, border-color .25s;
+    }
+    .constellation-reveal:hover { background: rgba(246, 201, 107, .12); border-color: rgba(246, 201, 107, .6); }
+    .hongsi-message {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border: 1px solid rgba(246, 201, 107, .28);
+      border-radius: 12px;
+      color: #ffe8b5;
+      background: rgba(246, 201, 107, .055);
+      font-size: .82rem;
+      animation: toast-in .35s var(--ease);
+    }
 
     /* Contact / footer */
     .contact-panel {
@@ -293,7 +344,15 @@
 
     /* Toast */
     .toast-stack { position: fixed; right: 18px; top: 95px; z-index: 1200; display: grid; gap: 10px; width: min(340px, calc(100% - 36px)); pointer-events: none; }
-    .toast { padding: 14px 16px; border: 1px solid rgba(246,201,107,.4); border-radius: 14px; background: rgba(13,16,32,.94); box-shadow: 0 12px 35px rgba(0,0,0,.25); color: #ffe2a0; font-size: .82rem; animation: toast-in .35s var(--ease); backdrop-filter: blur(12px); }
+    .toast { padding: 12px 14px; border: 1px solid rgba(167,139,250,.42); border-left: 3px solid var(--gold); border-radius: 13px; background: linear-gradient(135deg, rgba(13,16,32,.97), rgba(33,23,55,.96)); box-shadow: 0 12px 35px rgba(0,0,0,.3); color: #e8e5ff; font-size: .82rem; line-height: 1.5; animation: toast-in .35s var(--ease); backdrop-filter: blur(12px); }
+    .toast-channel { display: block; margin-bottom: 4px; color: #a78bfa; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; }
+    .toast-name { display: block; margin-bottom: 4px; color: #ffe2a0; font-weight: 700; font-family: "Cinzel", serif; font-size: .78rem; }
+    .toast-message { display: block; color: #e8e5ff; }
+    .toast.dokkaebi-toast { border-left-color: #65dfff; }
+    .toast.dokkaebi-toast .toast-name { color: #65dfff; }
+    .toast.hongsi-toast { border-color: rgba(255,91,122,.6); border-left-color: #ff5b7a; }
+    .toast.hongsi-toast .toast-name { color: #ff9ab0; }
+    @media (max-width: 600px) { .toast-stack { right: 10px; top: 78px; width: min(310px, calc(100% - 20px)); } .toast { padding: 10px 12px; } }
     @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
     /* Responsive tablet / mobile */
@@ -394,7 +453,7 @@
 
         <div class="scenario-visual" aria-label="Visual dekoratif bertema skenario dan konstelasi">
           <div class="orbit"><i class="orbit-node n1"></i><i class="orbit-node n2"></i><i class="orbit-node n3"></i></div>
-          <div class="sigil"><div class="sigil-inner"><span class="sigil-glyph">A</span></div></div>
+          <div class="sigil"><div class="sigil-inner"><span class="sigil-glyph">G</span></div></div>
           <div class="scenario-chip chip-top"><strong>✦ SCENARIO 01</strong><small>Web Development</small></div>
           <div class="scenario-chip chip-bottom"><strong>◈ THE BUILDER</strong><small>One line at a time</small></div>
           <div class="scenario-chip chip-side"><strong>STATUS: GROWING</strong><small>Skills are in progress</small></div>
@@ -531,11 +590,43 @@
           <article class="dossier-box reveal delay-1">
             <h3>◈ Constellation Channel</h3>
             <p>Saluran kecil yang sesekali mengirim pesan ke halaman ini. Sebuah easter egg ringan untuk membuat pengalaman membaca portofolio terasa seperti memasuki skenario.</p>
-            <div class="constellation-list">
-              <div class="constellation"><span>★</span> Demon King of Salvation</div>
-              <div class="constellation"><span>★</span> Secretive Plotter</div>
-              <div class="constellation"><span>★</span> Abyssal Black Flame Dragon</div>
+            <p class="channel-intro">32 nama pengamat dalam satu saluran: karakter/julukan dari ORV, ditambah beberapa konstelasi original buatan untuk portofolio ini. Label “Original” bukan bagian dari kanon ORV.</p>
+            <div class="constellation-list constellation-list-expanded" id="constellationChannel">
+              <div class="constellation"><span>★</span> Demon King of Salvation <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Secretive Plotter <small class="constellation-title">— Unknown</small></div>
+              <div class="constellation"><span>★</span> Abyssal Black Flame Dragon <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Prisoner of the Golden Headband <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Most Ancient Dream <small class="constellation-title">— Unknown</small></div>
+              <div class="constellation"><span>★</span> Architect of the False Last Act <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Maritime War God <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> General of Steel <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Queen of the Darkest Spring <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Sage of the Great Heavens <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Master of Steel <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Demon-like Judge of Fire <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Father of the Rich Night <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>◇</span> Prisoner of the Constrictive Headband <small class="constellation-title">— Unknown · Inspired</small></div>
+              <div class="constellation"><span>★</span> One Who Hunted the King of Disasters <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Dragon-Devouring Man <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Bald General of Justice <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Saviour of Corruption <small class="constellation-title">— Mythic</small></div>
+              <div class="constellation"><span>★</span> Best Friend of Justice and Love <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Lily Blooming in the Abyss <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>★</span> Twilight-Capturing Sword <small class="constellation-title">— Legendary</small></div>
+              <div class="constellation"><span>◇</span> Dokkaebi's Best Friend <small class="constellation-title">— Hidden · Inspired</small></div>
+              <div class="constellation"><span>✧</span> The Keeper of Forgotten Pages <small class="constellation-title">— Hidden · Original</small></div>
+              <div class="constellation"><span>✧</span> The Star That Reads Tomorrow <small class="constellation-title">— Rare · Original</small></div>
+              <div class="constellation"><span>✧</span> The Archivist Beyond the Fog <small class="constellation-title">— Epic · Original</small></div>
+              <div class="constellation"><span>✧</span> The Clockmaker of Lost Hours <small class="constellation-title">— Epic · Original</small></div>
+              <div class="constellation"><span>✧</span> The Moonlit Guardian <small class="constellation-title">— Legendary · Original</small></div>
+              <div class="constellation"><span>✧</span> The Silent Witness of Winter <small class="constellation-title">— Rare · Original</small></div>
+              <div class="constellation"><span>✧</span> The Librarian at World's End <small class="constellation-title">— Mythic · Original</small></div>
+              <div class="constellation"><span>✧</span> The Wanderer Between Chapters <small class="constellation-title">— Epic · Original</small></div>
+              <div class="constellation hongsi-constellation" tabindex="0" role="button" aria-label="Konstelasi rahasia The Fox Behind the Crimson Moon"><span>✦</span> <strong>The Fox Behind the Crimson Moon (Hongsi)</strong> <small class="constellation-title">— Hidden · Secret</small></div>
+              <div class="constellation"><span>✧</span> The Little Star Beside the Developer <small class="constellation-title">— Secret · Original</small></div>
             </div>
+            <button class="constellation-reveal" id="hongsiReveal" type="button" aria-expanded="false" aria-controls="hongsiMessage">✦ Dengarkan transmisi tersembunyi</button>
+            <p class="hongsi-message" id="hongsiMessage" hidden>“Di antara 32 pengamat, <strong>The Fox Behind the Crimson Moon</strong> mengirimkan transmisi rahasia khusus untukmu. <em>Teruslah menulis skenariomu, Developer. Bahkan halaman kecil pun bisa menyimpan semesta.</em>”</p>
             <p class="dossier-note">Fan-inspired presentation. ORV and its characters belong to their respective rights holders; this portfolio is a personal, non-official project.</p>
           </article>
         </div>
@@ -686,31 +777,69 @@
       });
     }
 
-    // 6) Small constellation transmissions (an easter egg)
+    // 6) ORV-style Constellation Channel: 32 named viewers with unique comments
     const toastStack = document.getElementById("toastStack");
     const messages = [
-      "✦ A constellation is observing your progress.",
-      "◈ Scenario update: one more idea has been recorded.",
-      "★ A quiet sponsor appreciates clean, readable code.",
-      "✧ Your next level begins with the next thing you learn."
+      { name: "Demon King of Salvation", text: "‘Dia menulis jalannya sendiri. Aku ingin melihat akhir skenario ini.’" },
+      { name: "Secretive Plotter", text: "‘Hm. Menarik. Jangan berhenti hanya karena bab ini sulit.’" },
+      { name: "Abyssal Black Flame Dragon", text: "‘KWAHAHA! Kobarkan semangatmu, penulis skenario!’" },
+      { name: "Prisoner of the Golden Headband", text: "‘Konsentrasi. Bahkan perjalanan panjang dimulai dari satu langkah.’" },
+      { name: "Most Ancient Dream", text: "‘Aku ingin tahu cerita seperti apa yang akan lahir dari halaman ini.’" },
+      { name: "Architect of the False Last Act", text: "‘Sebuah rencana bagus masih bisa berubah. Sisakan ruang untuk kejutan.’" },
+      { name: "Maritime War God", text: "‘Terus maju. Jangan biarkan ombak pertama membuatmu menyerah.’" },
+      { name: "General of Steel", text: "‘Fondasi yang kokoh dibangun dari latihan yang diulang.’" },
+      { name: "Queen of the Darkest Spring", text: "‘Bahkan musim tergelap menyimpan tunas yang belum terlihat.’" },
+      { name: "Sage of the Great Heavens", text: "‘Pengetahuan adalah senjata. Teruslah belajar.’" },
+      { name: "Master of Steel", text: "‘Rapikan satu bagian hari ini. Besok, kuatkan bagian berikutnya.’" },
+      { name: "Demon-like Judge of Fire", text: "‘Aku mengawasi tekadmu. Buktikan dengan tindakan, bukan janji.’" },
+      { name: "Father of the Rich Night", text: "‘Ide yang kecil pun bisa menjadi harta jika dirawat.’" },
+      { name: "Prisoner of the Constrictive Headband", text: "‘Jangan biarkan batas yang kamu lihat hari ini menentukan esok.’" },
+      { name: "One Who Hunted the King of Disasters", text: "‘Hadapi bug satu per satu. Jangan kabur dari target.’" },
+      { name: "Dragon-Devouring Man", text: "‘Buat sesuatu yang cukup berani untuk mengejutkan dirimu sendiri.’" },
+      { name: "Bald General of Justice", text: "‘Kerjakan dengan jujur. Hasil yang baik akan mengikuti.’" },
+      { name: "Saviour of Corruption", text: "‘Kesalahan bukan akhir cerita jika kamu mau memperbaikinya.’" },
+      { name: "Best Friend of Justice and Love", text: "‘Jangan lupa beristirahat. Bahkan protagonis butuh jeda.’" },
+      { name: "Lily Blooming in the Abyss", text: "‘Karya indah dapat tumbuh dari tempat yang tidak terduga.’" },
+      { name: "Twilight-Capturing Sword", text: "‘Pilih langkahmu dengan tenang, lalu jalani tanpa ragu.’" },
+      { name: "Dokkaebi", text: "‘HAHAHA! Saluran Star Stream resmi dibuka! Tunjukkan skenariomu, Incarnation!’", type: "dokkaebi" },
+      { name: "The Keeper of Forgotten Pages", text: "‘Aku akan menjaga ide-ide yang hampir kamu lupakan.’" },
+      { name: "The Star That Reads Tomorrow", text: "‘Masa depan belum ditulis. Kamu masih bisa mengubah bab berikutnya.’" },
+      { name: "The Archivist Beyond the Fog", text: "‘Setiap percobaan meninggalkan catatan yang berguna.’" },
+      { name: "The Clockmaker of Lost Hours", text: "‘Gunakan waktumu dengan bijak, tetapi jangan takut mengambil jeda.’" },
+      { name: "The Moonlit Guardian", text: "‘Saat layar terasa gelap, ingat alasan kamu memulainya.’" },
+      { name: "The Silent Witness of Winter", text: "‘Aku tidak banyak bicara. Namun, aku melihat usahamu.’" },
+      { name: "The Librarian at World's End", text: "‘Simpan setiap pengetahuan. Suatu hari semuanya akan saling terhubung.’" },
+      { name: "The Wanderer Between Chapters", text: "‘Tidak apa-apa jika kamu belum tahu akhir ceritanya.’" },
+      { name: "The Fox Behind the Crimson Moon", text: "‘Nyaa~ Hongsi mengirim dukungan rahasia. Jangan lupa makan dan istirahat, Developer.’", type: "hongsi" },
+      { name: "The Little Star Beside the Developer", text: "‘Aku akan bersinar kecil di sampingmu sampai proyek ini tumbuh.’" }
     ];
     let messageIndex = 0;
 
     function sendConstellationMessage() {
       if (document.hidden) return;
+      const entry = messages[messageIndex];
       const toast = document.createElement("div");
-      toast.className = "toast";
-      toast.textContent = messages[messageIndex];
+      toast.className = "toast" + (entry.type === "dokkaebi" ? " dokkaebi-toast" : entry.type === "hongsi" ? " hongsi-toast" : "");
+      const channel = document.createElement("span");
+      channel.className = "toast-channel";
+      channel.textContent = "✦ STAR STREAM · PESAN MASUK";
+      const name = document.createElement("span");
+      name.className = "toast-name";
+      name.textContent = entry.name;
+      const message = document.createElement("span");
+      message.className = "toast-message";
+      message.textContent = entry.text;
+      toast.append(channel, name, message);
       toastStack.appendChild(toast);
       messageIndex = (messageIndex + 1) % messages.length;
-      window.setTimeout(() => toast.remove(), 4800);
+      window.setTimeout(() => toast.remove(), 6200);
     }
 
-    // First transmission appears after a short pause; then repeats less often.
+    // Pesan pertama muncul setelah jeda, lalu satu komentar baru setiap 9 detik.
     window.setTimeout(() => {
       sendConstellationMessage();
-      window.setInterval(sendConstellationMessage, 12000);
-    }, 6500);
+      window.setInterval(sendConstellationMessage, 9000);
+    }, 4200);
 
     // 7) Gentle cursor glow on pointer devices only
     const cursorGlow = document.getElementById("cursorGlow");
@@ -721,7 +850,19 @@
       }, { passive: true });
     }
 
-    // 8) Dynamic copyright year
+    // 8) Hidden Hongsi constellation transmission
+    const hongsiReveal = document.getElementById("hongsiReveal");
+    const hongsiMessage = document.getElementById("hongsiMessage");
+    hongsiReveal.addEventListener("click", () => {
+      const isExpanded = hongsiReveal.getAttribute("aria-expanded") === "true";
+      hongsiReveal.setAttribute("aria-expanded", String(!isExpanded));
+      hongsiMessage.hidden = isExpanded;
+      hongsiReveal.textContent = isExpanded
+        ? "✦ Dengarkan transmisi tersembunyi"
+        : "✦ Tutup transmisi";
+    });
+
+    // 9) Dynamic copyright year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
