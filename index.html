@@ -1,869 +1,1878 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#070812">
-  <meta name="description" content="Portofolio Andhika Pratama Gibero Gt.S — pelajar RPL yang membangun dunia melalui web development.">
-  <title>Gibero.dev | Main Scenario</title>
-
-  <!-- Google Fonts: dekoratif + modern. Website tetap menggunakan HTML, CSS, dan JavaScript. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* =========================================================
-       GIBERO.DEV — MAIN SCENARIO
-       Semua styling ada di file HTML ini. Tidak memakai framework.
-       ========================================================= */
-
-    :root {
-      color-scheme: dark;
-      --bg: #070812;
-      --bg-soft: #0d1020;
-      --panel: rgba(16, 21, 40, .76);
-      --panel-strong: rgba(17, 24, 45, .94);
-      --line: rgba(125, 160, 255, .2);
-      --blue: #65dfff;
-      --blue-strong: #2c9cff;
-      --violet: #a78bfa;
-      --gold: #f6c96b;
-      --white: #f5f7ff;
-      --muted: #a5afc8;
-      --muted-2: #727f9f;
-      --radius: 22px;
-      --max: 1160px;
-      --ease: cubic-bezier(.2, .75, .25, 1);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body {
-      min-width: 320px;
-      background:
-        radial-gradient(ellipse at 15% 5%, rgba(37, 99, 235, .15), transparent 35%),
-        radial-gradient(ellipse at 88% 25%, rgba(139, 92, 246, .13), transparent 34%),
-        var(--bg);
-      color: var(--muted);
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .19;
-      background-image: linear-gradient(rgba(120, 150, 255, .08) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(120, 150, 255, .08) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, black, transparent 88%);
-    }
-    a { color: inherit; text-decoration: none; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    button { font: inherit; }
-    ::selection { background: rgba(101, 223, 255, .25); color: white; }
-    .container { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      color: var(--blue); font: 700 .78rem "Space Grotesk", sans-serif;
-      letter-spacing: .18em; text-transform: uppercase;
-    }
-    .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; box-shadow: 0 0 12px currentColor; }
-    .section { padding: 110px 0 35px; }
-    .section-heading { max-width: 760px; margin-bottom: 38px; }
-    .section-heading h2 {
-      margin: 12px 0; color: var(--white);
-      font: 700 clamp(2rem, 4vw, 3.2rem)/1.12 "Space Grotesk", sans-serif;
-      letter-spacing: -.045em;
-    }
-    .section-heading p { max-width: 650px; }
-    .gradient-text {
-      color: var(--blue);
-      background: linear-gradient(100deg, var(--blue), var(--violet) 70%, #fff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Ambient particles created by JavaScript */
-    #starfield { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
-    .particle {
-      position: absolute; width: 2px; height: 2px; border-radius: 50%;
-      background: #b8ecff; opacity: .35; box-shadow: 0 0 10px #65dfff;
-      animation: twinkle var(--duration, 4s) ease-in-out infinite alternate;
-    }
-    @keyframes twinkle { from { opacity: .12; transform: scale(.7); } to { opacity: .8; transform: scale(1.5); } }
-    .cursor-glow {
-      position: fixed; width: 260px; height: 260px; border-radius: 50%;
-      pointer-events: none; z-index: -1; opacity: .12;
-      background: radial-gradient(circle, var(--blue), transparent 68%);
-      transform: translate(-50%, -50%);
-    }
-
-    /* Navbar */
-    .site-header {
-      position: fixed; inset: 0 0 auto; z-index: 1000;
-      border-bottom: 1px solid transparent;
-      transition: background .3s, border-color .3s, box-shadow .3s;
-    }
-    .site-header.scrolled {
-      background: rgba(7, 8, 18, .82); backdrop-filter: blur(18px);
-      border-color: var(--line); box-shadow: 0 10px 35px rgba(0,0,0,.18);
-    }
-    .nav-wrap { min-height: 78px; display: flex; justify-content: space-between; align-items: center; gap: 22px; }
-    .logo { color: var(--white); font: 700 1.22rem "Cinzel", serif; letter-spacing: .04em; white-space: nowrap; }
-    .logo span { color: var(--blue); text-shadow: 0 0 18px rgba(101,223,255,.7); }
-    .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { font-size: .88rem; font-weight: 700; transition: color .25s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
-    .nav-cta { color: var(--white) !important; border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; }
-    .nav-cta:hover { border-color: var(--blue); box-shadow: 0 0 22px rgba(101,223,255,.13); }
-    .menu-toggle {
-      display: none; width: 44px; height: 44px; border: 1px solid var(--line);
-      border-radius: 13px; background: var(--panel); color: var(--white); cursor: pointer;
-    }
-
-    /* Hero */
-    .hero { min-height: 100svh; display: grid; place-items: center; padding: 135px 0 70px; position: relative; }
-    .hero-layout { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 46px; }
-    .status-pill {
-      display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px;
-      border: 1px solid rgba(246,201,107,.36); border-radius: 999px;
-      color: #ffe2a0; background: rgba(246,201,107,.06);
-      font: 600 .78rem "Space Grotesk", sans-serif; margin-bottom: 25px;
-    }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
-    .hero h1 {
-      color: var(--white); font: 800 clamp(2.7rem, 6vw, 5.5rem)/.98 "Space Grotesk", sans-serif;
-      letter-spacing: -.075em; max-width: 780px;
-    }
-    .hero h1 .surname { display: block; margin-top: 10px; }
-    .hero-role { min-height: 35px; margin: 24px 0 16px; color: var(--blue); font: 700 clamp(1rem, 2vw, 1.3rem) "Space Grotesk", sans-serif; }
-    .typing-cursor { display: inline-block; width: 8px; height: 1em; margin-left: 5px; background: var(--blue); vertical-align: -.12em; animation: blink .8s steps(2, start) infinite; }
-    @keyframes blink { to { visibility: hidden; } }
-    .hero-copy { max-width: 640px; font-size: 1.02rem; }
-    .hero-copy strong { color: var(--white); font-weight: 700; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
-    .btn {
-      min-height: 48px; display: inline-flex; justify-content: center; align-items: center; gap: 10px;
-      border-radius: 13px; padding: 12px 20px; border: 1px solid var(--line);
-      font-weight: 800; font-size: .9rem; cursor: pointer;
-      transition: transform .25s var(--ease), box-shadow .25s, border-color .25s, background .25s;
-    }
-    .btn:hover { transform: translateY(-3px); }
-    .btn-primary { color: #06111c; background: linear-gradient(110deg, var(--blue), #8ab8ff 55%, #c2a6ff); border-color: transparent; box-shadow: 0 10px 30px rgba(44,156,255,.22); }
-    .btn-primary:hover { box-shadow: 0 14px 38px rgba(44,156,255,.34); }
-    .btn-secondary { color: var(--white); background: rgba(255,255,255,.025); }
-    .btn-secondary:hover { border-color: var(--blue); }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 36px; color: var(--muted-2); font-size: .8rem; }
-    .hero-meta span { display: inline-flex; gap: 8px; align-items: center; }
-    .hero-meta b { color: var(--white); }
-
-    /* Decorative ORV-inspired scenario panel — original wording, no copied novel passages */
-    .scenario-visual { position: relative; min-height: 480px; display: grid; place-items: center; isolation: isolate; }
-    .orbit {
-      position: absolute; width: min(100%, 440px); aspect-ratio: 1;
-      border: 1px solid rgba(101,223,255,.19); border-radius: 50%;
-      box-shadow: inset 0 0 50px rgba(44,156,255,.035), 0 0 60px rgba(44,156,255,.04);
-      animation: orbit-spin 36s linear infinite;
-    }
-    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px solid rgba(167,139,250,.18); border-radius: 50%; inset: 12%; }
-    .orbit::after { inset: 25%; border-color: rgba(101,223,255,.13); }
-    @keyframes orbit-spin { to { transform: rotate(360deg); } }
-    .orbit-node { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 20px var(--blue); }
-    .orbit-node.n1 { top: 12%; left: 22%; }
-    .orbit-node.n2 { bottom: 19%; right: 7%; background: var(--violet); box-shadow: 0 0 20px var(--violet); }
-    .orbit-node.n3 { top: 48%; right: -4px; width: 6px; height: 6px; }
-    .sigil {
-      position: absolute; width: 260px; aspect-ratio: 1; display: grid; place-items: center;
-      border-radius: 50%; border: 1px solid rgba(101,223,255,.35);
-      background: radial-gradient(circle, rgba(44,156,255,.13), rgba(167,139,250,.06) 45%, transparent 70%);
-      box-shadow: 0 0 70px rgba(44,156,255,.13), inset 0 0 50px rgba(167,139,250,.07);
-      animation: sigil-float 5s ease-in-out infinite;
-    }
-    @keyframes sigil-float { 50% { transform: translateY(-10px) scale(1.025); } }
-    .sigil-inner { width: 72%; aspect-ratio: 1; border: 1px solid rgba(246,201,107,.43); transform: rotate(45deg); display: grid; place-items: center; }
-    .sigil-glyph { transform: rotate(-45deg); color: var(--white); font: 700 5.5rem "Cinzel", serif; text-shadow: 0 0 28px rgba(101,223,255,.8); }
-    .scenario-chip {
-      position: absolute; padding: 12px 15px; background: rgba(10,15,31,.86);
-      border: 1px solid var(--line); border-radius: 14px; backdrop-filter: blur(14px);
-      box-shadow: 0 12px 35px rgba(0,0,0,.22); font: 600 .78rem "Space Grotesk", sans-serif;
-    }
-    .scenario-chip strong { display: block; color: var(--white); font-size: .9rem; }
-    .scenario-chip small { color: var(--muted-2); }
-    .chip-top { top: 8%; right: 0; }
-    .chip-bottom { bottom: 10%; left: 0; }
-    .chip-side { bottom: 24%; right: -3%; }
-    .hero-scroll { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--muted-2); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-    .scroll-line { height: 30px; width: 1px; background: linear-gradient(var(--blue), transparent); }
-
-    /* Scenario quotation */
-    .quote-panel {
-      position: relative; overflow: hidden; border: 1px solid rgba(101,223,255,.26);
-      border-radius: var(--radius); padding: clamp(24px, 4vw, 42px);
-      background: linear-gradient(120deg, rgba(14,24,47,.88), rgba(22,15,43,.72));
-      box-shadow: 0 20px 60px rgba(0,0,0,.12);
-    }
-    .quote-panel::after { content: "✦"; position: absolute; right: 28px; top: 0; font-size: 7rem; line-height: 1; color: rgba(101,223,255,.06); }
-    .quote-label { color: var(--gold); font: 700 .76rem "Space Grotesk", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
-    .quote-panel blockquote { max-width: 850px; margin: 16px 0; color: var(--white); font: 600 clamp(1.25rem, 3vw, 2rem)/1.45 "Cinzel", serif; }
-    .quote-panel p { font-size: .85rem; }
-
-    /* Cards */
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-    .card {
-      position: relative; overflow: hidden; padding: 26px; min-height: 210px;
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--panel); backdrop-filter: blur(12px);
-      transition: transform .35s var(--ease), border-color .35s, background .35s, box-shadow .35s;
-    }
-    .card::before { content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--blue), var(--violet), transparent); opacity: 0; transition: opacity .3s; }
-    .card:hover { transform: translateY(-7px); border-color: rgba(101,223,255,.48); background: var(--panel-strong); box-shadow: 0 18px 45px rgba(0,0,0,.2); }
-    .card:hover::before { opacity: 1; }
-    .card-icon { display: grid; place-items: center; width: 47px; height: 47px; margin-bottom: 18px; border-radius: 14px; color: var(--blue); background: rgba(101,223,255,.08); border: 1px solid rgba(101,223,255,.16); font-size: 1.25rem; }
-    .card h3 { color: var(--white); font-size: 1.08rem; margin-bottom: 9px; }
-    .card p { font-size: .9rem; }
-    .mini-tag { display: inline-flex; margin-top: 17px; padding: 5px 9px; border-radius: 7px; background: rgba(167,139,250,.09); color: #c9b8ff; border: 1px solid rgba(167,139,250,.17); font: 600 .72rem "Space Grotesk", sans-serif; }
-
-    /* Skills */
-    .skills-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 30px; align-items: start; }
-    .skill-intro { padding: 28px; border-radius: var(--radius); background: linear-gradient(145deg, rgba(44,156,255,.09), rgba(167,139,250,.07)); border: 1px solid var(--line); }
-    .skill-intro h3 { color: var(--white); font: 700 1.5rem "Space Grotesk", sans-serif; margin-bottom: 12px; }
-    .skill-intro .note { color: var(--muted-2); font-size: .82rem; margin-top: 20px; }
-    .skill-list { display: grid; gap: 17px; }
-    .skill-item { padding: 19px 21px; border: 1px solid var(--line); border-radius: 16px; background: rgba(16,21,40,.54); }
-    .skill-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: var(--white); font-size: .88rem; font-weight: 700; }
-    .skill-label span:last-child { color: var(--blue); font: 700 .8rem "Space Grotesk", sans-serif; }
-    .skill-track { height: 7px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.07); }
-    .skill-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue-strong), var(--violet)); box-shadow: 0 0 15px rgba(101,223,255,.3); transition: width 1.4s var(--ease); }
-
-    /* Projects */
-    .project-card { display: flex; flex-direction: column; min-height: 310px; }
-    .project-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
-    .project-number { color: var(--blue); font: 700 .85rem "Space Grotesk", sans-serif; letter-spacing: .1em; }
-    .project-status { font-size: .7rem; color: #b8f4d3; border: 1px solid rgba(97,223,160,.2); background: rgba(97,223,160,.06); padding: 4px 8px; border-radius: 999px; }
-    .project-card h3 { font-size: 1.2rem; }
-    .project-card p { flex: 1; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .tag { color: var(--blue); border: 1px solid rgba(101,223,255,.16); background: rgba(101,223,255,.055); padding: 5px 9px; border-radius: 7px; font: 600 .72rem "Space Grotesk", sans-serif; }
-    .project-footnote { margin-top: 20px; color: var(--muted-2); font-size: .82rem; }
-
-    /* Timeline */
-    .timeline { position: relative; max-width: 850px; padding-left: 28px; }
-    .timeline::before { content: ""; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--blue), var(--violet), transparent); }
-    .timeline-item { position: relative; padding: 0 0 30px 18px; }
-    .timeline-item::before { content: ""; position: absolute; left: -27px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--blue); box-shadow: 0 0 15px rgba(101,223,255,.55); }
-    .timeline-item h3 { color: var(--white); font-size: 1rem; margin-bottom: 5px; }
-    .timeline-item p { font-size: .9rem; }
-    .timeline-item small { color: var(--blue); font: 700 .75rem "Space Grotesk", sans-serif; letter-spacing: .1em; }
-
-    /* ORV dossier */
-    .dossier { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-    .dossier-box { padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
-    .dossier-box h3 { color: var(--white); margin-bottom: 12px; font: 700 1.2rem "Cinzel", serif; }
-    .dossier-box p { font-size: .92rem; }
-    .constellation-list { display: grid; gap: 12px; margin-top: 16px; }
-    .constellation-list-expanded { max-height: 520px; overflow-y: auto; padding: 4px 8px 4px 2px; scrollbar-width: thin; scrollbar-color: rgba(167,139,250,.5) transparent; }
-    .constellation-list-expanded .constellation { min-height: 30px; }
-    .channel-intro { margin-top: 8px; font-size: .82rem !important; color: var(--muted-2); }
-    .constellation-list-expanded::-webkit-scrollbar { width: 5px; }
-    .constellation-list-expanded::-webkit-scrollbar-thumb { background: rgba(167,139,250,.5); border-radius: 99px; }
-    .constellation { display: flex; align-items: center; gap: 12px; color: var(--white); font-size: .86rem; }
-    .constellation span { color: var(--gold); font-size: 1.05rem; }
-    .dossier-note { color: var(--muted-2); font-size: .78rem !important; margin-top: 18px; }
-    .constellation-title {
-      margin-left: auto;
-      color: var(--muted-2);
-      font: 600 .68rem "Space Grotesk", sans-serif;
-      white-space: nowrap;
-    }
-    .hongsi-constellation {
-      position: relative;
-      padding: 10px 12px;
-      margin: 2px -12px 0;
-      border: 1px solid rgba(246, 201, 107, .22);
-      border-radius: 12px;
-      background: linear-gradient(100deg, rgba(246, 201, 107, .07), rgba(167, 139, 250, .06));
-      cursor: pointer;
-      transition: border-color .25s, box-shadow .25s, transform .25s;
-    }
-    .hongsi-constellation:hover, .hongsi-constellation:focus-visible {
-      outline: none;
-      transform: translateX(4px);
-      border-color: rgba(246, 201, 107, .58);
-      box-shadow: 0 0 24px rgba(246, 201, 107, .09);
-    }
-    .hongsi-constellation > span:first-child { color: var(--gold); }
-    .hongsi-constellation .constellation-title { color: var(--gold); }
-    .constellation-reveal {
-      margin-top: 18px;
-      padding: 10px 13px;
-      color: var(--gold);
-      border: 1px solid rgba(246, 201, 107, .28);
-      border-radius: 10px;
-      background: rgba(246, 201, 107, .055);
-      cursor: pointer;
-      font: 700 .78rem "Space Grotesk", sans-serif;
-      transition: background .25s, border-color .25s;
-    }
-    .constellation-reveal:hover { background: rgba(246, 201, 107, .12); border-color: rgba(246, 201, 107, .6); }
-    .hongsi-message {
-      margin-top: 13px;
-      padding: 13px 15px;
-      border: 1px solid rgba(246, 201, 107, .28);
-      border-radius: 12px;
-      color: #ffe8b5;
-      background: rgba(246, 201, 107, .055);
-      font-size: .82rem;
-      animation: toast-in .35s var(--ease);
-    }
-
-    /* Contact / footer */
-    .contact-panel {
-      display: flex; align-items: center; justify-content: space-between; gap: 30px;
-      padding: clamp(26px, 5vw, 50px); border: 1px solid rgba(101,223,255,.25);
-      border-radius: 26px; background: radial-gradient(ellipse at 90% 20%, rgba(167,139,250,.13), transparent 45%), linear-gradient(120deg, rgba(14,24,47,.9), rgba(10,13,28,.9));
-    }
-    .contact-panel h2 { color: var(--white); font: 700 clamp(1.8rem, 3.8vw, 2.8rem)/1.15 "Space Grotesk", sans-serif; margin: 10px 0; }
-    .contact-panel p { max-width: 600px; }
-    footer { margin-top: 100px; padding: 30px 0; border-top: 1px solid var(--line); }
-    .footer-wrap { display: flex; justify-content: space-between; align-items: center; gap: 18px; font-size: .8rem; }
-    .footer-mark { color: var(--white); font-family: "Cinzel", serif; }
-    .back-top { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 12px; color: var(--blue); }
-
-    /* Reveal animations */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: .1s; } .delay-2 { transition-delay: .2s; } .delay-3 { transition-delay: .3s; }
-    .glitch { position: relative; }
-    .glitch:hover { text-shadow: 2px 0 rgba(101,223,255,.7), -2px 0 rgba(167,139,250,.7); }
-
-    /* Toast */
-    .toast-stack { position: fixed; right: 18px; top: 95px; z-index: 1200; display: grid; gap: 10px; width: min(340px, calc(100% - 36px)); pointer-events: none; }
-    .toast { padding: 12px 14px; border: 1px solid rgba(167,139,250,.42); border-left: 3px solid var(--gold); border-radius: 13px; background: linear-gradient(135deg, rgba(13,16,32,.97), rgba(33,23,55,.96)); box-shadow: 0 12px 35px rgba(0,0,0,.3); color: #e8e5ff; font-size: .82rem; line-height: 1.5; animation: toast-in .35s var(--ease); backdrop-filter: blur(12px); }
-    .toast-channel { display: block; margin-bottom: 4px; color: #a78bfa; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; }
-    .toast-name { display: block; margin-bottom: 4px; color: #ffe2a0; font-weight: 700; font-family: "Cinzel", serif; font-size: .78rem; }
-    .toast-message { display: block; color: #e8e5ff; }
-    .toast.dokkaebi-toast { border-left-color: #65dfff; }
-    .toast.dokkaebi-toast .toast-name { color: #65dfff; }
-    .toast.hongsi-toast { border-color: rgba(255,91,122,.6); border-left-color: #ff5b7a; }
-    .toast.hongsi-toast .toast-name { color: #ff9ab0; }
-    @media (max-width: 600px) { .toast-stack { right: 10px; top: 78px; width: min(310px, calc(100% - 20px)); } .toast { padding: 10px 12px; } }
-    @keyframes toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
-    /* Responsive tablet / mobile */
-    @media (max-width: 900px) {
-      .hero-layout { grid-template-columns: 1fr; gap: 12px; }
-      .hero-copy { max-width: 720px; }
-      .scenario-visual { min-height: 390px; }
-      .orbit { width: min(78vw, 350px); }
-      .sigil { width: 215px; }
-      .sigil-glyph { font-size: 4.5rem; }
-      .chip-side { right: 2%; }
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .skills-layout { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .container { width: min(100% - 30px, var(--max)); }
-      .nav-wrap { min-height: 70px; }
-      .menu-toggle { display: grid; place-items: center; }
-      .nav-links {
-        position: absolute; top: 70px; left: 15px; right: 15px; display: none;
-        align-items: stretch; gap: 0; padding: 10px; border: 1px solid var(--line);
-        border-radius: 17px; background: rgba(7,8,18,.97); box-shadow: 0 20px 50px rgba(0,0,0,.4);
-      }
-      .nav-links.open { display: grid; }
-      .nav-links a { padding: 12px 13px; margin: 2px 0; border-radius: 10px; }
-      .nav-links a:hover { background: rgba(101,223,255,.07); }
-      .nav-cta { text-align: center; }
-      .hero { min-height: auto; padding: 120px 0 50px; }
-      .hero h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
-      .status-pill { font-size: .68rem; }
-      .hero-copy { font-size: .94rem; }
-      .hero-actions { gap: 10px; }
-      .btn { width: 100%; }
-      .hero-meta { gap: 12px 18px; }
-      .scenario-visual { min-height: 330px; margin-top: 10px; }
-      .orbit { width: min(78vw, 290px); }
-      .sigil { width: 175px; }
-      .sigil-glyph { font-size: 3.6rem; }
-      .scenario-chip { padding: 9px 11px; font-size: .68rem; }
-      .scenario-chip strong { font-size: .78rem; }
-      .chip-top { top: 3%; right: 0; }
-      .chip-bottom { bottom: 4%; left: 0; }
-      .chip-side { bottom: 20%; right: 0; }
-      .section { padding: 78px 0 22px; }
-      .grid, .dossier { grid-template-columns: 1fr; }
-      .card { min-height: auto; padding: 23px; }
-      .contact-panel { align-items: stretch; flex-direction: column; }
-      .footer-wrap { flex-direction: column; text-align: center; }
-      .hero-scroll { display: none; }
-      .cursor-glow { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
-  </style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070812">
+    <meta name="description" content="Portofolio Andhika Pratama Gibero Gt.S — pelajar RPL yang membangun dunia melalui web development.">
+    <title>
+    Gibero.dev | Main Scenario
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+  color-scheme: dark;
+  --bg: #070812;
+  --bg-soft: #0d1020;
+  --panel: rgba(16,21,40,.76);
+  --panel-strong: rgba(17,24,45,.94);
+  --line: rgba(125,160,255,.2);
+  --blue: #65dfff;
+  --blue-strong: #2c9cff;
+  --violet: #a78bfa;
+  --gold: #f6c96b;
+  --white: #f5f7ff;
+  --muted: #a5afc8;
+  --muted-2: #727f9f;
+  --radius: 22px;
+  --max: 1160px;
+  --ease: cubic-bezier(.2,.75,.25,1);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+body {
+  min-width: 320px;
+  background: radial-gradient(ellipse at 15% 5%,rgba(37,99,235,.15),transparent 35%),radial-gradient(ellipse at 88% 25%,rgba(139,92,246,.13),transparent 34%),var(--bg);
+  color: var(--muted);
+  font: 15px/1.7 "Plus Jakarta Sans",sans-serif;
+  overflow-x: hidden;
+}
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .19;
+  background-image: linear-gradient(rgba(120,150,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(120,150,255,.08) 1px,transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom,#000,transparent 88%);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+::selection {
+  background: rgba(101,223,255,.25);
+  color: white;
+}
+.container {
+  width: min(var(--max),calc(100% - 44px));
+  margin-inline: auto;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue);
+  font: 700 .78rem "Space Grotesk",sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.eyebrow:before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+}
+.section {
+  padding: 100px 0 30px;
+}
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+.section-heading h2 {
+  margin: 12px 0;
+  color: var(--white);
+  font: 700 clamp(2rem,4vw,3.2rem)/1.12 "Space Grotesk",sans-serif;
+  letter-spacing: -.045em;
+}
+.section-heading p {
+  max-width: 700px;
+}
+.gradient-text {
+  color: var(--blue);
+  background: linear-gradient(100deg,var(--blue),var(--violet) 70%,#fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#starfield {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #b8ecff;
+  opacity: .35;
+  box-shadow: 0 0 10px var(--blue);
+  animation: twinkle var(--duration,4s) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from {
+    opacity: .12;
+    transform: scale(.7);
+  }
+  to {
+    opacity: .8;
+    transform: scale(1.5);
+  }
+}
+.cursor-glow {
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .12;
+  background: radial-gradient(circle,var(--blue),transparent 68%);
+  transform: translate(-50%,-50%);
+}
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  border-bottom: 1px solid transparent;
+  transition: background .3s,border-color .3s,box-shadow .3s;
+}
+.site-header.scrolled {
+  background: rgba(7,8,18,.86);
+  backdrop-filter: blur(18px);
+  border-color: var(--line);
+  box-shadow: 0 10px 35px rgba(0,0,0,.18);
+}
+.nav-wrap {
+  min-height: 78px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+}
+.logo {
+  color: var(--white);
+  font: 700 1.22rem Cinzel,serif;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.logo span {
+  color: var(--blue);
+  text-shadow: 0 0 18px rgba(101,223,255,.7);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.nav-links a {
+  font-size: .85rem;
+  font-weight: 700;
+  transition: color .25s;
+}
+.nav-links a:hover,.nav-links a.active {
+  color: var(--blue);
+}
+.nav-cta {
+  color: var(--white) !important;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+}
+.nav-cta:hover {
+  border-color: var(--blue);
+  box-shadow: 0 0 22px rgba(101,223,255,.13);
+}
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--panel);
+  color: var(--white);
+}
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 135px 0 70px;
+  position: relative;
+}
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  align-items: center;
+  gap: 46px;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid rgba(246,201,107,.36);
+  border-radius: 999px;
+  color: #ffe2a0;
+  background: rgba(246,201,107,.06);
+  font: 600 .78rem "Space Grotesk",sans-serif;
+  margin-bottom: 25px;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+}
+.hero h1 {
+  color: var(--white);
+  font: 800 clamp(2.7rem,6vw,5.5rem)/.98 "Space Grotesk",sans-serif;
+  letter-spacing: -.075em;
+  max-width: 780px;
+}
+.hero h1 .surname {
+  display: block;
+  margin-top: 10px;
+}
+.hero-role {
+  min-height: 35px;
+  margin: 24px 0 16px;
+  color: var(--blue);
+  font: 700 clamp(1rem,2vw,1.3rem) "Space Grotesk",sans-serif;
+}
+.typing-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 5px;
+  background: var(--blue);
+  vertical-align: -.12em;
+  animation: blink .8s steps(2,start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+.hero-copy {
+  max-width: 640px;
+  font-size: 1.02rem;
+}
+.hero-copy strong {
+  color: var(--white);
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 30px;
+}
+.btn {
+  min-height: 48px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 13px;
+  padding: 12px 20px;
+  border: 1px solid var(--line);
+  font-weight: 800;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: transform .25s var(--ease),box-shadow .25s,border-color .25s,background .25s;
+}
+.btn:hover {
+  transform: translateY(-3px);
+}
+.btn-primary {
+  color: #06111c;
+  background: linear-gradient(110deg,var(--blue),#8ab8ff 55%,#c2a6ff);
+  border-color: transparent;
+  box-shadow: 0 10px 30px rgba(44,156,255,.22);
+}
+.btn-primary:hover {
+  box-shadow: 0 14px 38px rgba(44,156,255,.34);
+}
+.btn-secondary {
+  color: var(--white);
+  background: rgba(255,255,255,.025);
+}
+.btn-secondary:hover {
+  border-color: var(--blue);
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 36px;
+  color: var(--muted-2);
+  font-size: .8rem;
+}
+.hero-meta span {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.hero-meta b {
+  color: var(--white);
+}
+.scenario-visual {
+  position: relative;
+  min-height: 480px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.orbit {
+  position: absolute;
+  width: min(100%,440px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(101,223,255,.19);
+  border-radius: 50%;
+  box-shadow: inset 0 0 50px rgba(44,156,255,.035),0 0 60px rgba(44,156,255,.04);
+  animation: orbit-spin 36s linear infinite;
+}
+.orbit:before,.orbit:after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(167,139,250,.18);
+  border-radius: 50%;
+  inset: 12%;
+}
+.orbit:after {
+  inset: 25%;
+  border-color: rgba(101,223,255,.13);
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.orbit-node {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 20px var(--blue);
+}
+.n1 {
+  top: 12%;
+  left: 22%;
+}
+.n2 {
+  bottom: 19%;
+  right: 7%;
+  background: var(--violet);
+  box-shadow: 0 0 20px var(--violet);
+}
+.n3 {
+  top: 48%;
+  right: -4px;
+  width: 6px;
+  height: 6px;
+}
+.sigil {
+  position: absolute;
+  width: 260px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(101,223,255,.35);
+  background: radial-gradient(circle,rgba(44,156,255,.13),rgba(167,139,250,.06) 45%,transparent 70%);
+  box-shadow: 0 0 70px rgba(44,156,255,.13),inset 0 0 50px rgba(167,139,250,.07);
+  animation: sigil-float 5s ease-in-out infinite;
+}
+@keyframes sigil-float {
+  50% {
+    transform: translateY(-10px) scale(1.025);
+  }
+}
+.sigil-inner {
+  width: 72%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(246,201,107,.43);
+  transform: rotate(45deg);
+  display: grid;
+  place-items: center;
+}
+.sigil-glyph {
+  transform: rotate(-45deg);
+  color: var(--white);
+  font: 700 5.5rem Cinzel,serif;
+  text-shadow: 0 0 28px rgba(101,223,255,.8);
+}
+.scenario-chip {
+  position: absolute;
+  padding: 12px 15px;
+  background: rgba(10,15,31,.86);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 35px rgba(0,0,0,.22);
+  font: 600 .78rem "Space Grotesk",sans-serif;
+}
+.scenario-chip strong {
+  display: block;
+  color: var(--white);
+  font-size: .9rem;
+}
+.scenario-chip small {
+  color: var(--muted-2);
+}
+.chip-top {
+  top: 8%;
+  right: 0;
+}
+.chip-bottom {
+  bottom: 10%;
+  left: 0;
+}
+.chip-side {
+  bottom: 24%;
+  right: -3%;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted-2);
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scroll-line {
+  height: 30px;
+  width: 1px;
+  background: linear-gradient(var(--blue),transparent);
+}
+.quote-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(101,223,255,.26);
+  border-radius: var(--radius);
+  padding: clamp(24px,4vw,42px);
+  background: linear-gradient(120deg,rgba(14,24,47,.88),rgba(22,15,43,.72));
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+}
+.quote-panel:after {
+  content: "✦";
+  position: absolute;
+  right: 28px;
+  top: 0;
+  font-size: 7rem;
+  line-height: 1;
+  color: rgba(101,223,255,.06);
+}
+.quote-label {
+  color: var(--gold);
+  font: 700 .76rem "Space Grotesk",sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.quote-panel blockquote {
+  max-width: 850px;
+  margin: 16px 0;
+  color: var(--white);
+  font: 600 clamp(1.25rem,3vw,2rem)/1.45 Cinzel,serif;
+}
+.quote-panel p {
+  font-size: .85rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 20px;
+}
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+  min-height: 210px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  transition: transform .35s var(--ease),border-color .35s,background .35s,box-shadow .35s;
+}
+.card:before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,var(--blue),var(--violet),transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(101,223,255,.48);
+  background: var(--panel-strong);
+  box-shadow: 0 18px 45px rgba(0,0,0,.2);
+}
+.card:hover:before {
+  opacity: 1;
+}
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  color: var(--blue);
+  background: rgba(101,223,255,.08);
+  border: 1px solid rgba(101,223,255,.16);
+  font-size: 1.25rem;
+}
+.card h3 {
+  color: var(--white);
+  font-size: 1.08rem;
+  margin-bottom: 9px;
+}
+.card p {
+  font-size: .9rem;
+}
+.mini-tag {
+  display: inline-flex;
+  margin-top: 17px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: rgba(167,139,250,.09);
+  color: #c9b8ff;
+  border: 1px solid rgba(167,139,250,.17);
+  font: 600 .72rem "Space Grotesk",sans-serif;
+}
+.skills-layout {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 30px;
+  align-items: start;
+}
+.skill-intro {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: linear-gradient(145deg,rgba(44,156,255,.09),rgba(167,139,250,.07));
+  border: 1px solid var(--line);
+}
+.skill-intro h3 {
+  color: var(--white);
+  font: 700 1.5rem "Space Grotesk",sans-serif;
+  margin-bottom: 12px;
+}
+.note {
+  color: var(--muted-2);
+  font-size: .82rem;
+  margin-top: 20px;
+}
+.skill-list {
+  display: grid;
+  gap: 17px;
+}
+.skill-item {
+  padding: 19px 21px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(16,21,40,.54);
+}
+.skill-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: var(--white);
+  font-size: .88rem;
+  font-weight: 700;
+}
+.skill-label span:last-child {
+  color: var(--blue);
+  font: 700 .8rem "Space Grotesk",sans-serif;
+}
+.skill-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255,255,255,.07);
+}
+.skill-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,var(--blue-strong),var(--violet));
+  box-shadow: 0 0 15px rgba(101,223,255,.3);
+  transition: width 1.4s var(--ease);
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 310px;
+}
+.project-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.project-number {
+  color: var(--blue);
+  font: 700 .85rem "Space Grotesk",sans-serif;
+  letter-spacing: .1em;
+}
+.project-status {
+  font-size: .7rem;
+  color: #b8f4d3;
+  border: 1px solid rgba(97,223,160,.2);
+  background: rgba(97,223,160,.06);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+.project-card h3 {
+  font-size: 1.2rem;
+}
+.project-card p {
+  flex: 1;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.tag {
+  color: var(--blue);
+  border: 1px solid rgba(101,223,255,.16);
+  background: rgba(101,223,255,.055);
+  padding: 5px 9px;
+  border-radius: 7px;
+  font: 600 .72rem "Space Grotesk",sans-serif;
+}
+.project-footnote {
+  margin-top: 20px;
+  color: var(--muted-2);
+  font-size: .82rem;
+}
+.timeline {
+  position: relative;
+  max-width: 850px;
+  padding-left: 28px;
+}
+.timeline:before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(var(--blue),var(--violet),transparent);
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 30px 18px;
+}
+.timeline-item:before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--blue);
+  box-shadow: 0 0 15px rgba(101,223,255,.55);
+}
+.timeline-item h3 {
+  color: var(--white);
+  font-size: 1rem;
+  margin: 5px 0;
+}
+.timeline-item p {
+  font-size: .9rem;
+}
+.timeline-item small {
+  color: var(--blue);
+  font: 700 .75rem "Space Grotesk",sans-serif;
+  letter-spacing: .1em;
+}
+.dossier {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.dossier-box {
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.dossier-box h3 {
+  color: var(--white);
+  margin-bottom: 12px;
+  font: 700 1.2rem Cinzel,serif;
+}
+.dossier-box p {
+  font-size: .92rem;
+}
+.constellation-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.constellation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  font-size: .86rem;
+}
+.constellation span {
+  color: var(--gold);
+  font-size: 1.05rem;
+}
+.dossier-note {
+  color: var(--muted-2);
+  font-size: .78rem !important;
+  margin-top: 18px;
+}
+.contact-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: clamp(26px,5vw,50px);
+  border: 1px solid rgba(101,223,255,.25);
+  border-radius: 26px;
+  background: radial-gradient(ellipse at 90% 20%,rgba(167,139,250,.13),transparent 45%),linear-gradient(120deg,rgba(14,24,47,.9),rgba(10,13,28,.9));
+}
+.contact-panel h2 {
+  color: var(--white);
+  font: 700 clamp(1.8rem,3.8vw,2.8rem)/1.15 "Space Grotesk",sans-serif;
+  margin: 10px 0;
+}
+.contact-panel p {
+  max-width: 600px;
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: .7fr 1.3fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+.contact-note {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+}
+.socials {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+.social {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255,255,255,.025);
+  transition: transform .2s,border-color .2s,box-shadow .2s;
+}
+.social:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue);
+  box-shadow: 0 8px 22px rgba(32,54,75,.18);
+}
+.social-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(101,223,255,.08);
+  border: 1px solid rgba(101,223,255,.16);
+  color: var(--blue);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.social b {
+  display: block;
+  font-size: .84rem;
+  color: var(--white);
+}
+.social small {
+  font-size: .72rem;
+  color: var(--muted-2);
+  overflow-wrap: anywhere;
+}
+.contact-note h3 {
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.contact-note p {
+  font-size: .88rem;
+}
+.contact-note .note {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+footer {
+  margin-top: 95px;
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+}
+.footer-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  font-size: .8rem;
+}
+.footer-mark {
+  color: var(--white);
+  font-family: Cinzel,serif;
+}
+.back-top {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--blue);
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .75s var(--ease),transform .75s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.delay-1 {
+  transition-delay: .1s;
+}
+.delay-2 {
+  transition-delay: .2s;
+}
+.delay-3 {
+  transition-delay: .3s;
+}
+.toast-stack {
+  position: fixed;
+  right: 18px;
+  top: 95px;
+  z-index: 1200;
+  display: grid;
+  gap: 10px;
+  width: min(340px,calc(100% - 36px));
+  pointer-events: none;
+}
+.toast {
+  padding: 12px 14px;
+  border: 1px solid rgba(167,139,250,.42);
+  border-left: 3px solid var(--gold);
+  border-radius: 13px;
+  background: linear-gradient(135deg,rgba(13,16,32,.97),rgba(33,23,55,.96));
+  box-shadow: 0 12px 35px rgba(0,0,0,.3);
+  color: #e8e5ff;
+  font-size: .82rem;
+  line-height: 1.5;
+  animation: toast-in .35s var(--ease);
+  backdrop-filter: blur(12px);
+}
+.toast-channel {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--violet);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.toast-name {
+  display: block;
+  margin-bottom: 4px;
+  color: #ffe2a0;
+  font-weight: 700;
+  font-family: Cinzel,serif;
+  font-size: .78rem;
+}
+.toast-message {
+  display: block;
+  color: #e8e5ff;
+}
+.toast.dokkaebi-toast {
+  border-left-color: var(--blue);
+}
+.toast.dokkaebi-toast .toast-name {
+  color: var(--blue);
+}
+.toast.hongsi-toast {
+  border-color: rgba(255,91,122,.6);
+  border-left-color: #ff5b7a;
+}
+.toast.hongsi-toast .toast-name {
+  color: #ff9ab0;
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/*Floating, draggable Hongsi*/
+.hongsi-companion {
+  position: fixed;
+  z-index: 1300;
+  left: calc(100% - 115px);
+  bottom: 24px;
+  width: 94px;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  touch-action: none;
+  user-select: none;
+}
+.hongsi-speech {
+  display: none;
+  width: 220px;
+  max-width: min(220px,70vw);
+  padding: 10px 12px;
+  border: 1px solid rgba(101,223,255,.35);
+  border-radius: 13px;
+  background: rgba(9,14,29,.96);
+  box-shadow: 0 10px 35px rgba(0,0,0,.35);
+  color: var(--white);
+  font-size: .72rem;
+  line-height: 1.45;
+  transform: translateY(5px);
+  animation: toast-in .25s ease;
+}
+.hongsi-speech.show {
+  display: block;
+}
+.hongsi-speech strong {
+  display: block;
+  color: var(--blue);
+  font: 700 .62rem "Space Grotesk",sans-serif;
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+}
+.hongsi-character {
+  position: relative;
+  width: 76px;
+  height: 78px;
+  border: 1px solid rgba(101,223,255,.5);
+  border-radius: 25px 25px 20px 20px;
+  background: linear-gradient(145deg,#24385b,#11172c 70%);
+  box-shadow: 0 0 25px rgba(101,223,255,.17),inset 0 0 18px rgba(167,139,250,.14);
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  transition: transform .18s,filter .18s;
+  touch-action: none;
+}
+.hongsi-character:active {
+  cursor: grabbing;
+}
+.hongsi-character .horn {
+  position: absolute;
+  top: -9px;
+  width: 17px;
+  height: 23px;
+  background: linear-gradient(#ffe4a1,#bd8738);
+  clip-path: polygon(50% 0,100% 100%,0 100%);
+  filter: drop-shadow(0 0 5px rgba(246,201,107,.35));
+}
+.hongsi-character .horn.left {
+  left: 10px;
+  transform: rotate(-22deg);
+}
+.hongsi-character .horn.right {
+  right: 10px;
+  transform: rotate(22deg);
+}
+.hongsi-face {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 9px rgba(101,223,255,.25));
+  z-index: 1;
+}
+.hongsi-cloak {
+  position: absolute;
+  bottom: -5px;
+  width: 64px;
+  height: 23px;
+  border-radius: 8px 8px 18px 18px;
+  background: linear-gradient(90deg,#4e3b83,#1b2142);
+  border: 1px solid rgba(167,139,250,.35);
+}
+.hongsi-companion.walking .hongsi-character {
+  animation: hongsi-walk .35s ease-in-out infinite alternate;
+}
+@keyframes hongsi-walk {
+  to {
+    transform: translateY(-5px) rotate(3deg);
+  }
+}
+.hongsi-companion.angry .hongsi-character {
+  border-color: #ff5b7a;
+  box-shadow: 0 0 25px rgba(255,91,122,.4);
+  filter: saturate(1.2);
+  animation: hongsi-angry .12s linear infinite alternate;
+}
+@keyframes hongsi-angry {
+  to {
+    transform: translateX(4px) rotate(5deg);
+  }
+}
+.hongsi-companion.shaken .hongsi-character {
+  animation: hongsi-shake .08s linear infinite alternate;
+}
+@keyframes hongsi-shake {
+  to {
+    transform: translateX(-7px) rotate(-10deg);
+  }
+}
+.hongsi-tip {
+  font: 600 .58rem "Space Grotesk",sans-serif;
+  color: var(--muted-2);
+  text-align: center;
+  white-space: nowrap;
+}
+.toast-global {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 1400;
+  display: none;
+  max-width: calc(100% - 30px);
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(9,14,29,.96);
+  color: var(--white);
+  font-size: .82rem;
+  box-shadow: 0 15px 40px #0006;
+}
+.toast-global.show {
+  display: block;
+  animation: toast-in .25s ease;
+}
+@media (max-width:900px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .hero-copy {
+    max-width: 720px;
+  }
+  .scenario-visual {
+    min-height: 390px;
+  }
+  .orbit {
+    width: min(78vw,350px);
+  }
+  .sigil {
+    width: 215px;
+  }
+  .grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .skills-layout {
+    grid-template-columns: 1fr;
+  }
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .hongsi-companion {
+    width: 80px;
+  }
+}
+@media (max-width:640px) {
+  .container {
+    width: min(calc(100% - 30px),var(--max));
+  }
+  .nav-wrap {
+    min-height: 70px;
+  }
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+  }
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    right: 15px;
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    background: rgba(7,8,18,.97);
+    box-shadow: 0 20px 50px rgba(0,0,0,.4);
+  }
+  .nav-links.open {
+    display: grid;
+  }
+  .nav-links a {
+    padding: 12px 13px;
+    margin: 2px 0;
+    border-radius: 10px;
+  }
+  .nav-links a:hover {
+    background: rgba(101,223,255,.07);
+  }
+  .nav-cta {
+    text-align: center;
+  }
+  .hero {
+    min-height: auto;
+    padding: 120px 0 50px;
+  }
+  .hero h1 {
+    font-size: clamp(2.55rem,12vw,4rem);
+  }
+  .status-pill {
+    font-size: .68rem;
+  }
+  .hero-copy {
+    font-size: .94rem;
+  }
+  .hero-actions {
+    gap: 10px;
+  }
+  .btn {
+    width: 100%;
+  }
+  .hero-meta {
+    gap: 12px 18px;
+  }
+  .scenario-visual {
+    min-height: 330px;
+    margin-top: 10px;
+  }
+  .orbit {
+    width: min(78vw,290px);
+  }
+  .sigil {
+    width: 175px;
+  }
+  .sigil-glyph {
+    font-size: 3.6rem;
+  }
+  .scenario-chip {
+    padding: 9px 11px;
+    font-size: .68rem;
+  }
+  .scenario-chip strong {
+    font-size: .78rem;
+  }
+  .chip-top {
+    top: 3%;
+    right: 0;
+  }
+  .chip-bottom {
+    bottom: 4%;
+    left: 0;
+  }
+  .chip-side {
+    bottom: 20%;
+    right: 0;
+  }
+  .section {
+    padding: 78px 0 22px;
+  }
+  .grid,.dossier {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    min-height: auto;
+    padding: 23px;
+  }
+  .contact-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .socials {
+    grid-template-columns: 1fr;
+  }
+  .footer-wrap {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-scroll {
+    display: none;
+  }
+  .cursor-glow {
+    display: none;
+  }
+  .section-heading {
+    margin-bottom: 25px;
+  }
+  .hongsi-companion {
+    left: auto;
+    right: 8px;
+    bottom: 12px;
+  }
+  .hongsi-speech {
+    width: 190px;
+  }
+  .hongsi-tip {
+    font-size: .54rem;
+  }
+  .toast-stack {
+    right: 10px;
+    top: 78px;
+    width: min(310px,calc(100% - 20px));
+  }
+  .toast {
+    padding: 10px 12px;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+    </style>
 </head>
 <body>
-  <div id="starfield" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
-
+  <div id="starfield" aria-hidden="true">
+  </div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true">
+  </div>
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true">
+  </div>
   <header class="site-header" id="siteHeader">
     <div class="container nav-wrap">
-      <a class="logo" href="#home" aria-label="Gibero.dev beranda">Gibero<span>.dev</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a class="logo" href="#home" aria-label="Gibero.dev beranda">Gibero<span>.dev</span></a><button class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navLinks">☰</button>
       <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
-        <a href="#about">Tentang</a>
-        <a href="#skills">Keahlian</a>
-        <a href="#projects">Proyek</a>
-        <a href="#orv">ORV Archive</a>
-        <a class="nav-cta" href="#contact">Hubungi</a>
+        <a href="#about">Tentang</a><a href="#skills">Keahlian</a><a href="#projects">Proyek</a><a href="#journey">Perjalanan</a><a href="#orv">ORV Archive</a><a class="nav-cta" href="#contact">Hubungi</a>
       </nav>
     </div>
   </header>
-
   <main>
     <section class="hero" id="home">
       <div class="container hero-layout">
         <div class="hero-content">
-          <div class="status-pill"><span class="status-dot"></span> MAIN SCENARIO ACTIVE · 2026</div>
-          <p class="eyebrow">Personal portfolio / XI RPL</p>
-          <h1 class="glitch">Andhika Pratama <span class="surname gradient-text">Gibero Gt.S</span></h1>
-          <div class="hero-role"><span id="typingText"></span><span class="typing-cursor" aria-hidden="true"></span></div>
+          <div class="status-pill">
+            <span class="status-dot"></span> MAIN SCENARIO ACTIVE · 2026
+          </div>
+          <p class="eyebrow">
+            Personal portfolio / XI RPL
+          </p>
+          <h1 class="glitch">
+            Andhika Pratama <span class="surname gradient-text">Gibero Gt.S</span>
+          </h1>
+          <div class="hero-role">
+            <span id="typingText"></span><span class="typing-cursor" aria-hidden="true"></span>
+          </div>
           <p class="hero-copy">
             Aku adalah pelajar <strong>Rekayasa Perangkat Lunak</strong> yang sedang belajar membangun website dari struktur, desain, sampai fitur yang benar-benar bekerja. Bagiku, setiap baris kode adalah satu langkah untuk menciptakan dunia digital versiku sendiri.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">Jelajahi Proyek <span aria-hidden="true">↗</span></a>
-            <a class="btn btn-secondary" href="#about">Baca Skenario <span aria-hidden="true">⌄</span></a>
+            <a class="btn btn-primary" href="#projects">Jelajahi Proyek <span aria-hidden="true">↗</span></a><a class="btn btn-secondary" href="#about">Baca Skenario <span aria-hidden="true">⌄</span></a>
           </div>
           <div class="hero-meta">
-            <span>⌘ <b>Web Development</b></span>
-            <span>✦ SMK Putra Anda Binjai</span>
-            <span>◈ Learning by building</span>
+            <span>⌘ <b>Web Development</b></span><span>✦ SMK Putra Anda Binjai</span><span>◈ Learning by building</span>
           </div>
         </div>
-
         <div class="scenario-visual" aria-label="Visual dekoratif bertema skenario dan konstelasi">
-          <div class="orbit"><i class="orbit-node n1"></i><i class="orbit-node n2"></i><i class="orbit-node n3"></i></div>
-          <div class="sigil"><div class="sigil-inner"><span class="sigil-glyph">A</span></div></div>
-          <div class="scenario-chip chip-top"><strong>✦ SCENARIO 01</strong><small>Web Development</small></div>
-          <div class="scenario-chip chip-bottom"><strong>◈ THE BUILDER</strong><small>One line at a time</small></div>
-          <div class="scenario-chip chip-side"><strong>STATUS: GROWING</strong><small>Skills are in progress</small></div>
+          <div class="orbit">
+            <i class="orbit-node n1"></i><i class="orbit-node n2"></i><i class="orbit-node n3"></i>
+          </div>
+          <div class="sigil">
+            <div class="sigil-inner">
+              <span class="sigil-glyph">✦</span>
+            </div>
+          </div>
+          <div class="scenario-chip chip-top">
+            <strong>✦ SCENARIO 01</strong><small>Web Development</small>
+          </div>
+          <div class="scenario-chip chip-bottom">
+            <strong>◈ THE BUILDER</strong><small>One line at a time</small>
+          </div>
+          <div class="scenario-chip chip-side">
+            <strong>STATUS: GROWING</strong><small>Skills are in progress</small>
+          </div>
         </div>
       </div>
       <a class="hero-scroll" href="#about"><span class="scroll-line"></span> Scroll to discover</a>
     </section>
-
     <section class="section" id="about">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">The person behind the code</span>
-          <h2>Bukan sekadar tampilan.<br><span class="gradient-text">Ini proses bertumbuh.</span></h2>
-          <p>Aku masih berada di tahap belajar, tetapi aku ingin setiap proyek menjadi bukti bahwa ide bisa dikembangkan menjadi sesuatu yang nyata. Aku suka menggabungkan logika, desain antarmuka, dan sedikit cerita di dalam sebuah website.</p>
+          <h2>
+            Bukan sekadar tampilan.<br><span class="gradient-text">Ini proses bertumbuh.</span>
+          </h2>
+          <p>
+            Aku masih berada di tahap belajar, tetapi aku ingin setiap proyek menjadi bukti bahwa ide bisa dikembangkan menjadi sesuatu yang nyata. Aku suka menggabungkan logika, desain antarmuka, dan sedikit cerita di dalam sebuah website.
+          </p>
         </div>
-
         <div class="quote-panel reveal">
-          <div class="quote-label">✦ A note from the author</div>
-          <blockquote>“Skenario belum selesai selama masih ada sesuatu yang bisa kupelajari, diperbaiki, dan kubangun.”</blockquote>
-          <p>Catatan pribadi — terinspirasi oleh tema perjuangan, skenario, dan konstelasi dalam Omniscient Reader’s Viewpoint.</p>
+          <div class="quote-label">
+            ✦ A note from the author
+          </div>
+          <blockquote>
+            “Skenario belum selesai selama masih ada sesuatu yang bisa kupelajari, diperbaiki, dan kubangun.”
+          </blockquote>
+          <p>
+            Catatan pribadi — terinspirasi oleh tema perjuangan, skenario, dan konstelasi dalam Omniscient Reader’s Viewpoint.
+          </p>
         </div>
-
         <div class="grid" style="margin-top:22px">
           <article class="card reveal">
-            <div class="card-icon">⌘</div>
-            <h3>Web Development</h3>
-            <p>Mempelajari cara menyusun halaman, membangun layout responsif, dan membuat interaksi menggunakan teknologi web dasar.</p>
+            <div class="card-icon">
+              ⌘
+            </div>
+            <h3>
+              Web Development
+            </h3>
+            <p>
+              Mempelajari cara menyusun halaman, membangun layout responsif, dan membuat interaksi menggunakan teknologi web dasar.
+            </p>
             <span class="mini-tag">Build · Test · Improve</span>
           </article>
           <article class="card reveal delay-1">
-            <div class="card-icon">◇</div>
-            <h3>UI & Visual Identity</h3>
-            <p>Bereksperimen dengan palet warna, tipografi, glass effect, animasi, dan pengalaman pengguna agar website punya karakter sendiri.</p>
+            <div class="card-icon">
+              ◇
+            </div>
+            <h3>
+              UI & Visual Identity
+            </h3>
+            <p>
+              Bereksperimen dengan palet warna, tipografi, glass effect, animasi, dan pengalaman pengguna agar website punya karakter sendiri.
+            </p>
             <span class="mini-tag">Design with purpose</span>
           </article>
           <article class="card reveal delay-2">
-            <div class="card-icon">✧</div>
-            <h3>Belajar lewat proyek</h3>
-            <p>Aku belajar paling banyak saat mencoba membuat fitur, menemukan bug, membaca ulang kode, lalu memperbaikinya sedikit demi sedikit.</p>
+            <div class="card-icon">
+              ✧
+            </div>
+            <h3>
+              Belajar lewat proyek
+            </h3>
+            <p>
+              Aku belajar paling banyak saat mencoba membuat fitur, menemukan bug, membaca ulang kode, lalu memperbaikinya sedikit demi sedikit.
+            </p>
             <span class="mini-tag">Progress over perfection</span>
           </article>
         </div>
       </div>
     </section>
-
     <section class="section" id="skills">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Current attributes</span>
-          <h2>Status <span class="gradient-text">Keahlian</span></h2>
-          <p>Daftar ini menggambarkan area yang sedang kupelajari. Angka dapat kamu sesuaikan dengan kemampuan yang benar-benar sudah kamu uji sendiri.</p>
+          <h2>
+            Status <span class="gradient-text">Keahlian</span>
+          </h2>
+          <p>
+            Daftar ini menggambarkan area yang sedang kupelajari. Angka dapat disesuaikan dengan kemampuan yang benar-benar sudah diuji sendiri.
+          </p>
         </div>
         <div class="skills-layout">
           <aside class="skill-intro reveal">
-            <h3>Level up, one skill at a time.</h3>
-            <p>Tujuanku bukan sekadar menghafal sintaks. Aku ingin memahami alasan sebuah layout bekerja, bagaimana data diproses, dan bagaimana pengalaman pengguna bisa dibuat lebih baik.</p>
-            <p class="note">Catatan: persentase adalah indikator pribadi, bukan sertifikasi atau hasil tes resmi.</p>
+            <h3>
+              Level up, one skill at a time.
+            </h3>
+            <p>
+              Tujuanku bukan sekadar menghafal sintaks. Aku ingin memahami alasan sebuah layout bekerja, bagaimana data diproses, dan bagaimana pengalaman pengguna bisa dibuat lebih baik.
+            </p>
+            <p class="note">
+              Catatan: persentase adalah indikator pribadi, bukan sertifikasi atau hasil tes resmi.
+            </p>
           </aside>
           <div class="skill-list">
-            <div class="skill-item reveal"><div class="skill-label"><span>HTML5 · Semantic Structure</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-level="85"></div></div></div>
-            <div class="skill-item reveal delay-1"><div class="skill-label"><span>CSS3 · Layout & Animation</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-level="75"></div></div></div>
-            <div class="skill-item reveal delay-2"><div class="skill-label"><span>JavaScript · DOM & Interaction</span><span>65%</span></div><div class="skill-track"><div class="skill-fill" data-level="65"></div></div></div>
-            <div class="skill-item reveal delay-3"><div class="skill-label"><span>Responsive Web Design</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-level="75"></div></div></div>
-            <div class="skill-item reveal"><div class="skill-label"><span>PHP & Database · Learning</span><span>In progress</span></div><div class="skill-track"><div class="skill-fill" data-level="40"></div></div></div>
+            <div class="skill-item reveal">
+              <div class="skill-label">
+                <span>HTML5 · Semantic Structure</span><span>85%</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" data-level="85">
+                </div>
+              </div>
+            </div>
+            <div class="skill-item reveal delay-1">
+              <div class="skill-label">
+                <span>CSS3 · Layout & Animation</span><span>75%</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" data-level="75">
+                </div>
+              </div>
+            </div>
+            <div class="skill-item reveal delay-2">
+              <div class="skill-label">
+                <span>JavaScript · DOM & Interaction</span><span>65%</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" data-level="65">
+                </div>
+              </div>
+            </div>
+            <div class="skill-item reveal delay-3">
+              <div class="skill-label">
+                <span>Responsive Web Design</span><span>75%</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" data-level="75">
+                </div>
+              </div>
+            </div>
+            <div class="skill-item reveal">
+              <div class="skill-label">
+                <span>PHP & Database · Learning</span><span>In progress</span>
+              </div>
+              <div class="skill-track">
+                <div class="skill-fill" data-level="40">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
     <section class="section" id="projects">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Records of creation</span>
-          <h2>Arsip <span class="gradient-text">Skenario</span></h2>
-          <p>Beberapa arah eksplorasi web development-ku. Bagian ini sengaja dibuat mudah diperbarui saat proyek dan fiturnya berkembang.</p>
+          <h2>
+            Arsip <span class="gradient-text">Skenario</span>
+          </h2>
+          <p>
+            Beberapa arah eksplorasi web development-ku. Bagian ini sengaja dibuat mudah diperbarui saat proyek dan fiturnya berkembang.
+          </p>
         </div>
         <div class="grid">
           <article class="card project-card reveal">
-            <div class="project-top"><span class="project-number">PROJECT / 01</span><span class="project-status">Developing</span></div>
-            <h3>School Hub</h3>
-            <p>Website sekolah dengan sistem akun, dashboard admin, artikel, perpustakaan, serta konsep asisten virtual bernama Hongsi. Proyek ini menjadi ruang untuk belajar menghubungkan antarmuka dengan database dan fitur nyata.</p>
-            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MariaDB</span></div>
+            <div class="project-top">
+              <span class="project-number">PROJECT / 01</span><span class="project-status">Developing</span>
+            </div>
+            <h3>
+              School Hub
+            </h3>
+            <p>
+              Website sekolah dengan sistem akun, dashboard admin, artikel, perpustakaan, game, koleksi rahasia, serta konsep asisten virtual bernama Hongsi. Proyek ini menjadi ruang untuk belajar menghubungkan antarmuka dengan database dan fitur nyata.
+            </p>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MariaDB</span>
+            </div>
           </article>
           <article class="card project-card reveal delay-1">
-            <div class="project-top"><span class="project-number">PROJECT / 02</span><span class="project-status">Personal</span></div>
-            <h3>Gibero.dev Portfolio</h3>
-            <p>Website personal bertema ORV untuk memperkenalkan identitas, proses belajar, minat, dan proyek web development melalui pengalaman visual yang interaktif.</p>
-            <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsive UI</span></div>
+            <div class="project-top">
+              <span class="project-number">PROJECT / 02</span><span class="project-status">Personal</span>
+            </div>
+            <h3>
+              Gibero.dev Portfolio
+            </h3>
+            <p>
+              Website personal bertema ORV untuk memperkenalkan identitas, proses belajar, minat, dan proyek web development melalui pengalaman visual yang interaktif.
+            </p>
+            <div class="tags">
+              <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsive UI</span>
+            </div>
           </article>
           <article class="card project-card reveal delay-2">
-            <div class="project-top"><span class="project-number">PROJECT / 03</span><span class="project-status">Experiment</span></div>
-            <h3>UI & Interaction Lab</h3>
-            <p>Ruang eksperimen untuk komponen kartu, efek hover, transisi, tipografi, dan animasi antarmuka. Komponen yang berhasil bisa dikembangkan kembali untuk proyek yang lebih besar.</p>
-            <div class="tags"><span class="tag">CSS Motion</span><span class="tag">Glassmorphism</span><span class="tag">DOM</span></div>
+            <div class="project-top">
+              <span class="project-number">PROJECT / 03</span><span class="project-status">Experiment</span>
+            </div>
+            <h3>
+              UI & Interaction Lab
+            </h3>
+            <p>
+              Ruang eksperimen untuk komponen kartu, efek hover, transisi, tipografi, dan animasi antarmuka. Komponen yang berhasil bisa dikembangkan kembali untuk proyek yang lebih besar.
+            </p>
+            <div class="tags">
+              <span class="tag">CSS Motion</span><span class="tag">Glass Effect</span><span class="tag">DOM</span>
+            </div>
           </article>
         </div>
-        <p class="project-footnote reveal">Status proyek dapat diubah sesuai kondisi sebenarnya. Tambahkan tautan demo atau repository hanya jika sudah tersedia.</p>
+        <p class="project-footnote reveal">
+          Status proyek dapat diubah sesuai kondisi sebenarnya. Tambahkan tautan demo atau repository hanya jika sudah tersedia.
+        </p>
       </div>
     </section>
-
     <section class="section" id="journey">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Character progression</span>
-          <h2>Jejak <span class="gradient-text">Perjalanan</span></h2>
-          <p>Setiap proyek meninggalkan sesuatu: pengalaman baru, bug yang akhirnya terpecahkan, atau ide yang ingin dicoba lagi.</p>
+          <h2>
+            Jejak <span class="gradient-text">Perjalanan</span>
+          </h2>
+          <p>
+            Setiap proyek meninggalkan sesuatu: pengalaman baru, bug yang akhirnya terpecahkan, atau ide yang ingin dicoba lagi.
+          </p>
         </div>
         <div class="timeline">
-          <div class="timeline-item reveal"><small>CHAPTER 01 · THE BEGINNING</small><h3>Mulai mengenal web</h3><p>Mempelajari struktur HTML, styling CSS, dan bagaimana sebuah halaman ditampilkan oleh browser.</p></div>
-          <div class="timeline-item reveal"><small>CHAPTER 02 · EXPERIMENTATION</small><h3>Membuat tampilan lebih hidup</h3><p>Bereksperimen dengan layout, animasi, efek interaksi, dan desain responsif untuk perangkat yang berbeda.</p></div>
-          <div class="timeline-item reveal"><small>CHAPTER 03 · BUILDING SYSTEMS</small><h3>Mengembangkan School Hub</h3><p>Mulai menghadapi tantangan yang lebih besar: login, data pengguna, database, fitur admin, dan integrasi antarfungsi.</p></div>
-          <div class="timeline-item reveal"><small>CHAPTER 04 · NEXT SCENARIO</small><h3>Belajar lebih dalam</h3><p>Memperbaiki kualitas kode, menguji fitur, memahami keamanan dasar, dan mengembangkan proyek dengan lebih terstruktur.</p></div>
+          <div class="timeline-item reveal">
+            <small>CHAPTER 01 · THE BEGINNING</small>
+            <h3>
+              Mulai mengenal web
+            </h3>
+            <p>
+              Mempelajari struktur HTML, styling CSS, dan bagaimana sebuah halaman ditampilkan oleh browser.
+            </p>
+          </div>
+          <div class="timeline-item reveal">
+            <small>CHAPTER 02 · EXPERIMENTATION</small>
+            <h3>
+              Membuat tampilan lebih hidup
+            </h3>
+            <p>
+              Bereksperimen dengan layout, animasi, efek interaksi, dan desain responsif untuk perangkat yang berbeda.
+            </p>
+          </div>
+          <div class="timeline-item reveal">
+            <small>CHAPTER 03 · BUILDING SYSTEMS</small>
+            <h3>
+              Mengembangkan School Hub
+            </h3>
+            <p>
+              Mulai menghadapi tantangan yang lebih besar: login, data pengguna, database, fitur admin, dan integrasi antarfungsi.
+            </p>
+          </div>
+          <div class="timeline-item reveal">
+            <small>CHAPTER 04 · NEXT SCENARIO</small>
+            <h3>
+              Belajar lebih dalam
+            </h3>
+            <p>
+              Memperbaiki kualitas kode, menguji fitur, memahami keamanan dasar, dan mengembangkan proyek dengan lebih terstruktur.
+            </p>
+          </div>
         </div>
       </div>
     </section>
-
     <section class="section" id="orv">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">A reader's archive</span>
-          <h2>ORV <span class="gradient-text">Archive</span></h2>
-          <p>Omniscient Reader’s Viewpoint bukan hanya inspirasi visual di halaman ini. Tema skenario, cerita, dan para konstelasi menjadi cara menyenangkan untuk membingkai perjalanan belajarku.</p>
+          <h2>
+            ORV <span class="gradient-text">Archive</span>
+          </h2>
+          <p>
+            Omniscient Reader’s Viewpoint menjadi inspirasi visual untuk membingkai perjalanan belajar ini melalui tema skenario, cerita, dan para konstelasi.
+          </p>
         </div>
         <div class="dossier">
           <article class="dossier-box reveal">
-            <h3>■ Main Scenario</h3>
-            <p>Di ORV, sebuah cerita dapat mengubah cara seseorang melihat dunia. Dalam web development, ide juga baru terasa berarti ketika diwujudkan, diuji, dan dibagikan kepada orang lain.</p>
+            <h3>
+              ■ Main Scenario
+            </h3>
+            <p>
+              Di ORV, sebuah cerita dapat mengubah cara seseorang melihat dunia. Dalam web development, ide juga baru terasa berarti ketika diwujudkan, diuji, dan dibagikan kepada orang lain.
+            </p>
             <div class="constellation-list">
-              <div class="constellation"><span>✦</span> Cerita sebagai sumber inspirasi</div>
-              <div class="constellation"><span>✦</span> Skenario sebagai target berikutnya</div>
-              <div class="constellation"><span>✦</span> Progress sebagai bagian dari perjalanan</div>
+              <div class="constellation">
+                <span>✦</span> Cerita sebagai sumber inspirasi
+              </div>
+              <div class="constellation">
+                <span>✦</span> Skenario sebagai target berikutnya
+              </div>
+              <div class="constellation">
+                <span>✦</span> Progress sebagai bagian dari perjalanan
+              </div>
             </div>
+            <p class="dossier-note">
+              Fan-inspired presentation. ORV and its characters belong to their respective rights holders; this is a personal, non-official project.
+            </p>
           </article>
           <article class="dossier-box reveal delay-1">
-            <h3>◈ Constellation Channel</h3>
-            <p>Saluran kecil yang sesekali mengirim pesan ke halaman ini. Sebuah easter egg ringan untuk membuat pengalaman membaca portofolio terasa seperti memasuki skenario.</p>
-            <p class="channel-intro">32 nama pengamat dalam satu saluran: karakter/julukan dari ORV, ditambah beberapa konstelasi original buatan untuk portofolio ini. Label “Original” bukan bagian dari kanon ORV.</p>
-            <div class="constellation-list constellation-list-expanded" id="constellationChannel">
-              <div class="constellation"><span>★</span> Demon King of Salvation <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Secretive Plotter <small class="constellation-title">— Unknown</small></div>
-              <div class="constellation"><span>★</span> Abyssal Black Flame Dragon <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Prisoner of the Golden Headband <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Most Ancient Dream <small class="constellation-title">— Unknown</small></div>
-              <div class="constellation"><span>★</span> Architect of the False Last Act <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Maritime War God <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> General of Steel <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Queen of the Darkest Spring <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Sage of the Great Heavens <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Master of Steel <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Demon-like Judge of Fire <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Father of the Rich Night <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>◇</span> Prisoner of the Constrictive Headband <small class="constellation-title">— Unknown · Inspired</small></div>
-              <div class="constellation"><span>★</span> One Who Hunted the King of Disasters <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Dragon-Devouring Man <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Bald General of Justice <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Saviour of Corruption <small class="constellation-title">— Mythic</small></div>
-              <div class="constellation"><span>★</span> Best Friend of Justice and Love <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Lily Blooming in the Abyss <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>★</span> Twilight-Capturing Sword <small class="constellation-title">— Legendary</small></div>
-              <div class="constellation"><span>◇</span> Dokkaebi's Best Friend <small class="constellation-title">— Hidden · Inspired</small></div>
-              <div class="constellation"><span>✧</span> The Keeper of Forgotten Pages <small class="constellation-title">— Hidden · Original</small></div>
-              <div class="constellation"><span>✧</span> The Star That Reads Tomorrow <small class="constellation-title">— Rare · Original</small></div>
-              <div class="constellation"><span>✧</span> The Archivist Beyond the Fog <small class="constellation-title">— Epic · Original</small></div>
-              <div class="constellation"><span>✧</span> The Clockmaker of Lost Hours <small class="constellation-title">— Epic · Original</small></div>
-              <div class="constellation"><span>✧</span> The Moonlit Guardian <small class="constellation-title">— Legendary · Original</small></div>
-              <div class="constellation"><span>✧</span> The Silent Witness of Winter <small class="constellation-title">— Rare · Original</small></div>
-              <div class="constellation"><span>✧</span> The Librarian at World's End <small class="constellation-title">— Mythic · Original</small></div>
-              <div class="constellation"><span>✧</span> The Wanderer Between Chapters <small class="constellation-title">— Epic · Original</small></div>
-              <div class="constellation hongsi-constellation" tabindex="0" role="button" aria-label="Konstelasi rahasia The Fox Behind the Crimson Moon"><span>✦</span> <strong>The Fox Behind the Crimson Moon (Hongsi)</strong> <small class="constellation-title">— Hidden · Secret</small></div>
-              <div class="constellation"><span>✧</span> The Little Star Beside the Developer <small class="constellation-title">— Secret · Original</small></div>
+            <h3>
+              ◈ Constellation Channel
+            </h3>
+            <p>
+              Saluran ini menerima komentar fiksi secara berkala. Nama dan pesan muncul sebagai transmisi, bukan sebagai daftar panjang, agar pengunjung bisa merasakan suasana Star Stream saat menjelajahi portofolio.
+            </p>
+            <div class="constellation-list">
+              <div class="constellation">
+                <span>✦</span> <span style="color:var(--muted)">32 transmisi unik · komentar bergantian</span>
+              </div>
+              <div class="constellation">
+                <span>✦</span> <span style="color:var(--muted)">Ada transmisi rahasia dari Hongsi</span>
+              </div>
+              <div class="constellation">
+                <span>✦</span> <span style="color:var(--muted)">Pesan bersifat fiksi dan dibuat untuk portofolio</span>
+              </div>
             </div>
-            <button class="constellation-reveal" id="hongsiReveal" type="button" aria-expanded="false" aria-controls="hongsiMessage">✦ Dengarkan transmisi tersembunyi</button>
-            <p class="hongsi-message" id="hongsiMessage" hidden>“Di antara 32 pengamat, <strong>The Fox Behind the Crimson Moon</strong> mengirimkan transmisi rahasia khusus untukmu. <em>Teruslah menulis skenariomu, Developer. Bahkan halaman kecil pun bisa menyimpan semesta.</em>”</p>
-            <p class="dossier-note">Fan-inspired presentation. ORV and its characters belong to their respective rights holders; this portfolio is a personal, non-official project.</p>
+            <button class="btn btn-secondary" id="hongsiReveal" type="button" style="margin-top:20px">✦ Dengarkan transmisi tersembunyi</button>
+            <p class="dossier-note" id="hongsiMessage" hidden>
+              “The Fox Behind the Crimson Moon mengirim transmisi rahasia: selamat datang, pengunjung. Semoga kamu menemukan sesuatu yang menarik di halaman ini.”
+            </p>
           </article>
         </div>
       </div>
     </section>
-
     <section class="section" id="contact">
       <div class="container">
         <div class="contact-panel reveal">
           <div>
             <span class="eyebrow">End of this chapter?</span>
-            <h2>Belum. Ini baru <span class="gradient-text">permulaan.</span></h2>
-            <p>Portofolio ini akan terus berkembang bersama kemampuan dan proyek yang kubangun. Setiap masukan bisa menjadi petunjuk untuk skenario berikutnya.</p>
+            <h2>
+              Belum. Ini baru <span class="gradient-text">permulaan.</span>
+            </h2>
+            <p>
+              Portofolio ini akan terus berkembang bersama kemampuan dan proyek yang kubangun. Setiap masukan bisa menjadi petunjuk untuk skenario berikutnya.
+            </p>
           </div>
-          <a class="btn btn-primary" href="#home">Kembali ke Awal ↑</a>
+          <a class="btn btn-primary" href="mailto:dhikaginting17@gmail.com">Kirim pesan ↗</a>
+        </div>
+        <div class="contact-layout">
+          <article class="contact-note reveal">
+            <h3>
+              ✉ Transmission gate
+            </h3>
+            <p>
+              Untuk pertanyaan, masukan, atau peluang kolaborasi, silakan hubungi melalui salah satu kanal publik berikut.
+            </p>
+            <p class="note">
+              Tautan kontak disiapkan untuk pengunjung website. Pastikan informasi publik ini tetap sesuai sebelum dipublikasikan.
+            </p>
+          </article>
+          <div class="socials reveal">
+            <a class="social" href="https://www.instagram.com/reader__1703/" target="_blank" rel="noopener noreferrer"><span class="social-icon">◎</span><span><b>Instagram</b><small>@reader__1703</small></span></a><a class="social" href="https://www.tiktok.com/@0money173" target="_blank" rel="noopener noreferrer"><span class="social-icon">♪</span><span><b>TikTok</b><small>@0money173</small></span></a><a class="social" href="https://x.com/AndhikaGin73580" target="_blank" rel="noopener noreferrer"><span class="social-icon">𝕏</span><span><b>X / Twitter</b><small>@AndhikaGin73580</small></span></a><a class="social" href="https://wa.me/6285810370776" target="_blank" rel="noopener noreferrer"><span class="social-icon">◉</span><span><b>WhatsApp</b><small>0858-1037-0776</small></span></a><a class="social" href="mailto:dhikaginting17@gmail.com"><span class="social-icon">✉</span><span><b>Email</b><small>dhikaginting17@gmail.com</small></span></a>
+          </div>
         </div>
       </div>
     </section>
   </main>
-
   <footer>
     <div class="container footer-wrap">
-      <p>© <span id="year"></span> <span class="footer-mark">Gibero.dev</span> · Built one line at a time.</p>
-      <p>HTML · CSS · JavaScript <span aria-hidden="true">✦</span> XI RPL</p>
+      <p>
+        © <span id="year"></span> <span class="footer-mark">Gibero.dev</span> · Built one line at a time.
+      </p>
+      <p>
+        HTML · CSS · JavaScript ✦ XI RPL
+      </p>
       <a class="back-top" href="#home" aria-label="Kembali ke atas">↑</a>
     </div>
   </footer>
-
+  <div class="hongsi-companion" id="hongsiCompanion" aria-label="Hongsi, dokkaebi pendamping pengunjung">
+    <div class="hongsi-speech show" id="hongsiSpeech" role="status">
+      <strong id="hongsiSpeechTitle">HONGSI · DOKKAEBI</strong><span id="hongsiSpeechText">Nyaa~ Selamat datang! Seret Hongsi untuk memindahkannya. Jangan digoyang terlalu kencang, ya!</span>
+    </div>
+    <button class="hongsi-character" id="hongsiCharacter" type="button" aria-label="Ajak Hongsi bicara" title="Tarik untuk memindahkan Hongsi"><span class="horn left"></span><span class="horn right"></span><span class="hongsi-cloak"></span><span class="hongsi-face" id="hongsiFace">🐯</span></button><span class="hongsi-tip">SERET / KLIK HONGSI</span>
+  </div>
+  <div class="toast-global" id="globalToast" role="status">
+  </div>
   <script>
-    /* =========================================================
-       JavaScript interactions: typing, starfield, menu, reveal,
-       progress bars, navbar state, constellation messages.
-       ========================================================= */
-
-    // 1) Typing effect
-    const typingElement = document.getElementById("typingText");
-    const phrases = [
-      "Junior Web Developer in Progress",
-      "XI RPL · SMK Putra Anda Binjai",
-      "Building my own digital world",
-      "Main Scenario: School Hub"
-    ];
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    let typingTimer;
-
-    function typeLoop() {
-      const phrase = phrases[phraseIndex];
-      typingElement.textContent = phrase.slice(0, charIndex);
-
-      let delay = deleting ? 36 : 72;
-      if (!deleting && charIndex === phrase.length) {
-        deleting = true;
-        delay = 1550;
-      } else if (deleting && charIndex === 0) {
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        delay = 280;
-      } else {
-        charIndex += deleting ? -1 : 1;
-      }
-      typingTimer = window.setTimeout(typeLoop, delay);
-    }
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Typing title
+const typingElement = document.getElementById('typingText');
+const phrases = ['Junior Web Developer in Progress', 'XI RPL · SMK Putra Anda Binjai', 'Building my own digital world', 'Main Scenario: School Hub'];
+let phraseIndex = 0, charIndex = 0, deleting = false;
+function typeLoop() { const phrase = phrases[phraseIndex]; typingElement.textContent = phrase.slice(0, charIndex); let delay = deleting ? 36 : 72; if (!deleting && charIndex === phrase.length) {
+    deleting = true;
+    delay = 1550;
+}
+else if (deleting && charIndex === 0) {
+    deleting = false;
+    phraseIndex = (phraseIndex + 1) % phrases.length;
+    delay = 280;
+}
+else {
+    charIndex += deleting ? -1 : 1;
+} window.setTimeout(typeLoop, delay); }
+if (!reducedMotion)
     typeLoop();
-
-    // 2) Starfield particles; CSS handles the animation
-    const starfield = document.getElementById("starfield");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reducedMotion) {
-      const particleCount = window.innerWidth < 640 ? 28 : 55;
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement("span");
-        particle.className = "particle";
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.setProperty("--duration", `${2.5 + Math.random() * 5}s`);
-        particle.style.animationDelay = `${Math.random() * 4}s`;
-        fragment.appendChild(particle);
-      }
-      starfield.appendChild(fragment);
+else
+    typingElement.textContent = phrases[0];
+// Starfield
+const starfield = document.getElementById('starfield');
+if (!reducedMotion) {
+    const count = innerWidth < 640 ? 28 : 55;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.top = `${Math.random() * 100}%`;
+        p.style.setProperty('--duration', `${2.5 + Math.random() * 5}s`);
+        p.style.animationDelay = `${Math.random() * 4}s`;
+        frag.appendChild(p);
     }
-
-    // 3) Mobile navigation
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    function closeMenu() {
-      navLinks.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Buka menu navigasi");
-      menuToggle.textContent = "☰";
-    }
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Tutup menu navigasi" : "Buka menu navigasi");
-      menuToggle.textContent = isOpen ? "✕" : "☰";
-    });
-
-    navLinks.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") closeMenu();
-    });
-
-    // 4) Sticky navbar state
-    const siteHeader = document.getElementById("siteHeader");
-    function updateHeader() {
-      siteHeader.classList.toggle("scrolled", window.scrollY > 20);
-    }
-    window.addEventListener("scroll", updateHeader, { passive: true });
-    updateHeader();
-
-    // 5) Reveal elements and animate skill bars only when visible
-    const revealElements = document.querySelectorAll(".reveal");
-    const skillFills = document.querySelectorAll(".skill-fill");
-
-    if ("IntersectionObserver" in window && !reducedMotion) {
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("visible");
-
-          const fill = entry.target.querySelector(".skill-fill");
-          if (fill && !fill.dataset.animated) {
-            fill.style.width = `${fill.dataset.level || 0}%`;
-            fill.dataset.animated = "true";
-          }
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.14 });
-
-      revealElements.forEach(element => revealObserver.observe(element));
-
-      // Skill items are themselves reveal elements; animate their child bars.
-      document.querySelectorAll(".skill-item").forEach(item => {
-        revealObserver.observe(item);
-      });
-    } else {
-      revealElements.forEach(element => element.classList.add("visible"));
-      skillFills.forEach(fill => {
+    starfield.appendChild(frag);
+}
+// Navigation and header
+const menuToggle = document.getElementById('menuToggle'), navLinks = document.getElementById('navLinks');
+function closeMenu() { navLinks.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); menuToggle.setAttribute('aria-label', 'Buka menu navigasi'); menuToggle.textContent = '☰'; }
+menuToggle.addEventListener('click', () => { const open = navLinks.classList.toggle('open'); menuToggle.setAttribute('aria-expanded', String(open)); menuToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi'); menuToggle.textContent = open ? '✕' : '☰'; });
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+document.addEventListener('keydown', e => { if (e.key === 'Escape')
+    closeMenu(); });
+const siteHeader = document.getElementById('siteHeader');
+function updateHeader() { siteHeader.classList.toggle('scrolled', scrollY > 20); }
+addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
+// Reveal + skills
+const revealElements = document.querySelectorAll('.reveal'), skillFills = document.querySelectorAll('.skill-fill');
+if ('IntersectionObserver' in window && !reducedMotion) {
+    const observer = new IntersectionObserver((entries, obs) => entries.forEach(entry => { if (!entry.isIntersecting)
+        return; entry.target.classList.add('visible'); const fill = entry.target.querySelector('.skill-fill'); if (fill && !fill.dataset.animated) {
         fill.style.width = `${fill.dataset.level || 0}%`;
-      });
-    }
-
-    // 6) ORV-style Constellation Channel: 32 named viewers with unique comments
-    const toastStack = document.getElementById("toastStack");
-    const messages = [
-      { name: "Demon King of Salvation", text: "‘Dia menulis jalannya sendiri. Aku ingin melihat akhir skenario ini.’" },
-      { name: "Secretive Plotter", text: "‘Hm. Menarik. Jangan berhenti hanya karena bab ini sulit.’" },
-      { name: "Abyssal Black Flame Dragon", text: "‘KWAHAHA! Kobarkan semangatmu, penulis skenario!’" },
-      { name: "Prisoner of the Golden Headband", text: "‘Konsentrasi. Bahkan perjalanan panjang dimulai dari satu langkah.’" },
-      { name: "Most Ancient Dream", text: "‘Aku ingin tahu cerita seperti apa yang akan lahir dari halaman ini.’" },
-      { name: "Architect of the False Last Act", text: "‘Sebuah rencana bagus masih bisa berubah. Sisakan ruang untuk kejutan.’" },
-      { name: "Maritime War God", text: "‘Terus maju. Jangan biarkan ombak pertama membuatmu menyerah.’" },
-      { name: "General of Steel", text: "‘Fondasi yang kokoh dibangun dari latihan yang diulang.’" },
-      { name: "Queen of the Darkest Spring", text: "‘Bahkan musim tergelap menyimpan tunas yang belum terlihat.’" },
-      { name: "Sage of the Great Heavens", text: "‘Pengetahuan adalah senjata. Teruslah belajar.’" },
-      { name: "Master of Steel", text: "‘Rapikan satu bagian hari ini. Besok, kuatkan bagian berikutnya.’" },
-      { name: "Demon-like Judge of Fire", text: "‘Aku mengawasi tekadmu. Buktikan dengan tindakan, bukan janji.’" },
-      { name: "Father of the Rich Night", text: "‘Ide yang kecil pun bisa menjadi harta jika dirawat.’" },
-      { name: "Prisoner of the Constrictive Headband", text: "‘Jangan biarkan batas yang kamu lihat hari ini menentukan esok.’" },
-      { name: "One Who Hunted the King of Disasters", text: "‘Hadapi bug satu per satu. Jangan kabur dari target.’" },
-      { name: "Dragon-Devouring Man", text: "‘Buat sesuatu yang cukup berani untuk mengejutkan dirimu sendiri.’" },
-      { name: "Bald General of Justice", text: "‘Kerjakan dengan jujur. Hasil yang baik akan mengikuti.’" },
-      { name: "Saviour of Corruption", text: "‘Kesalahan bukan akhir cerita jika kamu mau memperbaikinya.’" },
-      { name: "Best Friend of Justice and Love", text: "‘Jangan lupa beristirahat. Bahkan protagonis butuh jeda.’" },
-      { name: "Lily Blooming in the Abyss", text: "‘Karya indah dapat tumbuh dari tempat yang tidak terduga.’" },
-      { name: "Twilight-Capturing Sword", text: "‘Pilih langkahmu dengan tenang, lalu jalani tanpa ragu.’" },
-      { name: "Dokkaebi", text: "‘HAHAHA! Saluran Star Stream resmi dibuka! Tunjukkan skenariomu, Incarnation!’", type: "dokkaebi" },
-      { name: "The Keeper of Forgotten Pages", text: "‘Aku akan menjaga ide-ide yang hampir kamu lupakan.’" },
-      { name: "The Star That Reads Tomorrow", text: "‘Masa depan belum ditulis. Kamu masih bisa mengubah bab berikutnya.’" },
-      { name: "The Archivist Beyond the Fog", text: "‘Setiap percobaan meninggalkan catatan yang berguna.’" },
-      { name: "The Clockmaker of Lost Hours", text: "‘Gunakan waktumu dengan bijak, tetapi jangan takut mengambil jeda.’" },
-      { name: "The Moonlit Guardian", text: "‘Saat layar terasa gelap, ingat alasan kamu memulainya.’" },
-      { name: "The Silent Witness of Winter", text: "‘Aku tidak banyak bicara. Namun, aku melihat usahamu.’" },
-      { name: "The Librarian at World's End", text: "‘Simpan setiap pengetahuan. Suatu hari semuanya akan saling terhubung.’" },
-      { name: "The Wanderer Between Chapters", text: "‘Tidak apa-apa jika kamu belum tahu akhir ceritanya.’" },
-      { name: "The Fox Behind the Crimson Moon", text: "‘Nyaa~ Hongsi mengirim dukungan rahasia. Jangan lupa makan dan istirahat, Developer.’", type: "hongsi" },
-      { name: "The Little Star Beside the Developer", text: "‘Aku akan bersinar kecil di sampingmu sampai proyek ini tumbuh.’" }
-    ];
-    let messageIndex = 0;
-
-    function sendConstellationMessage() {
-      if (document.hidden) return;
-      const entry = messages[messageIndex];
-      const toast = document.createElement("div");
-      toast.className = "toast" + (entry.type === "dokkaebi" ? " dokkaebi-toast" : entry.type === "hongsi" ? " hongsi-toast" : "");
-      const channel = document.createElement("span");
-      channel.className = "toast-channel";
-      channel.textContent = "✦ STAR STREAM · PESAN MASUK";
-      const name = document.createElement("span");
-      name.className = "toast-name";
-      name.textContent = entry.name;
-      const message = document.createElement("span");
-      message.className = "toast-message";
-      message.textContent = entry.text;
-      toast.append(channel, name, message);
-      toastStack.appendChild(toast);
-      messageIndex = (messageIndex + 1) % messages.length;
-      window.setTimeout(() => toast.remove(), 6200);
-    }
-
-    // Pesan pertama muncul setelah jeda, lalu satu komentar baru setiap 9 detik.
-    window.setTimeout(() => {
-      sendConstellationMessage();
-      window.setInterval(sendConstellationMessage, 9000);
-    }, 4200);
-
-    // 7) Gentle cursor glow on pointer devices only
-    const cursorGlow = document.getElementById("cursorGlow");
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reducedMotion) {
-      window.addEventListener("pointermove", event => {
-        cursorGlow.style.left = `${event.clientX}px`;
-        cursorGlow.style.top = `${event.clientY}px`;
-      }, { passive: true });
-    }
-
-    // 8) Hidden Hongsi constellation transmission
-    const hongsiReveal = document.getElementById("hongsiReveal");
-    const hongsiMessage = document.getElementById("hongsiMessage");
-    hongsiReveal.addEventListener("click", () => {
-      const isExpanded = hongsiReveal.getAttribute("aria-expanded") === "true";
-      hongsiReveal.setAttribute("aria-expanded", String(!isExpanded));
-      hongsiMessage.hidden = isExpanded;
-      hongsiReveal.textContent = isExpanded
-        ? "✦ Dengarkan transmisi tersembunyi"
-        : "✦ Tutup transmisi";
-    });
-
-    // 9) Dynamic copyright year
-    document.getElementById("year").textContent = new Date().getFullYear();
+        fill.dataset.animated = 'true';
+    } obs.unobserve(entry.target); }), { threshold: .14 });
+    revealElements.forEach(el => observer.observe(el));
+    document.querySelectorAll('.skill-item').forEach(el => observer.observe(el));
+}
+else {
+    revealElements.forEach(el => el.classList.add('visible'));
+    skillFills.forEach(fill => fill.style.width = `${fill.dataset.level || 0}%`);
+}
+// Constellation messages: 32 distinct transmissions; no permanent name list.
+const toastStack = document.getElementById('toastStack');
+const messages = [
+    { name: 'Demon King of Salvation', text: '“Dia menulis jalannya sendiri. Aku ingin melihat akhir skenario ini.”' },
+    { name: 'Secretive Plotter', text: '“Menarik. Jangan berhenti hanya karena bab ini sulit.”' },
+    { name: 'Abyssal Black Flame Dragon', text: '“KWAHAHA! Kobarkan semangatmu, penulis skenario!”' },
+    { name: 'Prisoner of the Golden Headband', text: '“Konsentrasi. Perjalanan panjang dimulai dari satu langkah.”' },
+    { name: 'Most Ancient Dream', text: '“Aku ingin tahu cerita seperti apa yang akan lahir dari halaman ini.”' },
+    { name: 'Architect of the False Last Act', text: '“Rencana bagus tetap butuh ruang untuk kejutan.”' },
+    { name: 'Maritime War God', text: '“Terus maju. Jangan biarkan ombak pertama membuatmu menyerah.”' },
+    { name: 'General of Steel', text: '“Fondasi yang kokoh dibangun dari latihan yang diulang.”' },
+    { name: 'Queen of the Darkest Spring', text: '“Bahkan musim tergelap menyimpan tunas yang belum terlihat.”' },
+    { name: 'Sage of the Great Heavens', text: '“Pengetahuan adalah senjata. Teruslah belajar.”' },
+    { name: 'Master of Steel', text: '“Rapikan satu bagian hari ini. Besok, kuatkan bagian berikutnya.”' },
+    { name: 'Demon-like Judge of Fire', text: '“Buktikan tekadmu melalui tindakan, bukan janji.”' },
+    { name: 'Father of the Rich Night', text: '“Ide kecil pun bisa menjadi harta jika dirawat.”' },
+    { name: 'Prisoner of the Constrictive Headband', text: '“Jangan biarkan batas hari ini menentukan hari esok.”' },
+    { name: 'One Who Hunted the King of Disasters', text: '“Hadapi bug satu per satu. Jangan kabur dari target.”' },
+    { name: 'Dragon-Devouring Man', text: '“Buat sesuatu yang cukup berani untuk mengejutkan dirimu sendiri.”' },
+    { name: 'Bald General of Justice', text: '“Kerjakan dengan jujur. Hasil yang baik akan mengikuti.”' },
+    { name: 'Saviour of Corruption', text: '“Kesalahan bukan akhir cerita jika kamu mau memperbaikinya.”' },
+    { name: 'Best Friend of Justice and Love', text: '“Jangan lupa beristirahat. Bahkan protagonis butuh jeda.”' },
+    { name: 'Lily Blooming in the Abyss', text: '“Karya indah dapat tumbuh dari tempat yang tidak terduga.”' },
+    { name: 'Twilight-Capturing Sword', text: '“Pilih langkahmu dengan tenang, lalu jalani tanpa ragu.”' },
+    { name: 'Dokkaebi Channel Host', text: '“HAHAHA! Saluran Star Stream resmi dibuka! Tunjukkan skenariomu, pengunjung!”', type: 'dokkaebi' },
+    { name: 'The Keeper of Forgotten Pages', text: '“Aku akan menjaga ide-ide yang hampir terlupakan.”' },
+    { name: 'The Star That Reads Tomorrow', text: '“Masa depan belum ditulis. Kamu masih bisa mengubah bab berikutnya.”' },
+    { name: 'The Archivist Beyond the Fog', text: '“Setiap percobaan meninggalkan catatan yang berguna.”' },
+    { name: 'The Clockmaker of Lost Hours', text: '“Gunakan waktu dengan bijak, tetapi jangan takut mengambil jeda.”' },
+    { name: 'The Moonlit Guardian', text: '“Saat layar terasa gelap, ingat alasan kamu memulainya.”' },
+    { name: 'The Silent Witness of Winter', text: '“Aku tidak banyak bicara. Namun, aku melihat usahamu.”' },
+    { name: "The Librarian at World's End", text: '“Simpan pengetahuanmu. Suatu hari semuanya akan saling terhubung.”' },
+    { name: 'The Wanderer Between Chapters', text: '“Tidak apa-apa jika kamu belum tahu akhir ceritanya.”' },
+    { name: 'The Fox Behind the Crimson Moon', text: '“Nyaa~ Selamat datang, pengunjung! Kalau tersesat, panggil Hongsi. Hongsi akan membantu menunjukkan arah!”', type: 'hongsi' },
+    { name: 'The Little Star Beside the Developer', text: '“Aku akan bersinar kecil di sampingmu saat proyek ini tumbuh.”' }
+];
+let messageIndex = 0, streamPaused = false, streamInterval = null;
+function sendConstellationMessage() { if (document.hidden || streamPaused)
+    return; const entry = messages[messageIndex]; const toast = document.createElement('div'); toast.className = 'toast' + (entry.type === 'dokkaebi' ? ' dokkaebi-toast' : entry.type === 'hongsi' ? ' hongsi-toast' : ''); const channel = document.createElement('span'); channel.className = 'toast-channel'; channel.textContent = '✦ STAR STREAM · PESAN MASUK'; const name = document.createElement('span'); name.className = 'toast-name'; name.textContent = entry.name; const msg = document.createElement('span'); msg.className = 'toast-message'; msg.textContent = entry.text; toast.append(channel, name, msg); toastStack.appendChild(toast); messageIndex = (messageIndex + 1) % messages.length; setTimeout(() => toast.remove(), 6200); }
+setTimeout(() => { sendConstellationMessage(); streamInterval = setInterval(sendConstellationMessage, 9000); }, 4200);
+// Hidden Hongsi transmission
+const hongsiReveal = document.getElementById('hongsiReveal'), hongsiMessage = document.getElementById('hongsiMessage');
+hongsiReveal.addEventListener('click', () => { const open = hongsiReveal.getAttribute('aria-expanded') === 'true'; hongsiReveal.setAttribute('aria-expanded', String(!open)); hongsiMessage.hidden = open; hongsiReveal.textContent = open ? '✦ Dengarkan transmisi tersembunyi' : '✦ Tutup transmisi'; if (!open)
+    hongsiSay('HONGSI · TRANSMISI RAHASIA', 'Psst... sebuah pesan tersembunyi telah terbuka. Selamat menjelajah, pengunjung!', true); });
+// Hongsi visitor guide, walking, dragging and angry reactions.
+const hongsi = document.getElementById('hongsiCompanion'), hongsiBtn = document.getElementById('hongsiCharacter'), speech = document.getElementById('hongsiSpeech'), speechTitle = document.getElementById('hongsiSpeechTitle'), speechText = document.getElementById('hongsiSpeechText'), face = document.getElementById('hongsiFace'), globalToast = document.getElementById('globalToast');
+let speechTimer = null, walkTimer = null, clicks = 0, clickReset = null, angryTimer = null, drag = null, suppressClick = false, lastWalkLine = -1;
+const walkLines = ['Nyaa~ Hongsi sedang berpatroli di Star Stream!', 'Psst... bagian proyek menyimpan beberapa catatan karya.', 'Ingin mengenal pembuat website? Coba buka bagian Tentang.', 'Kalau ingin melihat kemampuan yang sedang dipelajari, kunjungi Keahlian!', 'Hongsi menyarankan menjelajahi halaman dengan santai.', 'Butuh cara menghubungi pemilik website? Ada gerbang kontak di bawah.'];
+const clickLines = ['Nyaa! Ada pengunjung yang memanggil Hongsi?', 'Hehe, ingin melihat proyek? Tekan “Jelajahi Proyek” di bagian atas!', 'Bingung mau ke mana? Coba gunakan menu navigasi.', 'Kamu bisa membaca profil, melihat proyek, atau membuka bagian kontak.', 'Selamat datang di Star Stream kecil ini. Semoga kamu menemukan hal menarik!'];
+function hongsiSay(title, text, sticky = false) { speechTitle.textContent = title; speechText.textContent = text; speech.classList.add('show'); clearTimeout(speechTimer); if (!sticky)
+    speechTimer = setTimeout(() => speech.classList.remove('show'), 5000); }
+function showToast(text) { globalToast.textContent = text; globalToast.classList.add('show'); setTimeout(() => globalToast.classList.remove('show'), 3600); }
+function summonGuide() { hongsiSay('HONGSI · PANDUAN PENGUNJUNG', 'Nyaa~ Kamu bisa membuka Tentang untuk mengenal pembuatnya, Keahlian untuk melihat hal yang sedang dipelajari, Proyek untuk melihat karya, atau Kontak untuk mengirim pesan!', true); showToast('Hongsi: gunakan menu navigasi untuk menemukan bagian yang kamu cari. Selamat menjelajah!'); }
+document.getElementById('hongsiReveal').insertAdjacentHTML('afterend', '');
+function calmDown() { hongsi.classList.remove('angry', 'shaken'); face.textContent = '🐯'; clicks = 0; hongsiSay('HONGSI · SUDAH TENANG', 'Hmph... Hongsi sudah tenang. Lain kali, pelan-pelan saja, ya. Nyaa~', true); clearTimeout(speechTimer); speechTimer = setTimeout(() => speech.classList.remove('show'), 5000); }
+function makeAngry(fromShake) { hongsi.classList.add('angry'); if (fromShake)
+    hongsi.classList.add('shaken'); face.textContent = '😾'; hongsiSay('HONGSI · MARAH!', fromShake ? 'NYAAAA!! Jangan goyang Hongsi secepat itu! Hongsi jadi pusing! 😾' : 'NYAAAH! Jangan klik Hongsi terus-terusan! Hongsi bukan tombol spam! 😾', true); clearTimeout(angryTimer); angryTimer = setTimeout(calmDown, 6500); }
+function bounds() { return { maxLeft: Math.max(0, innerWidth - hongsi.offsetWidth), maxBottom: Math.max(0, innerHeight - hongsi.offsetHeight) }; }
+function clampPosition() { const b = bounds(); hongsi.style.left = Math.max(0, Math.min(b.maxLeft, parseFloat(hongsi.style.left) || innerWidth - hongsi.offsetWidth)) + 'px'; hongsi.style.bottom = Math.max(0, Math.min(b.maxBottom, parseFloat(hongsi.style.bottom) || 20)) + 'px'; hongsi.style.right = 'auto'; }
+function walkHongsi() { if (drag || hongsi.classList.contains('angry'))
+    return; const b = bounds(); const current = parseFloat(hongsi.style.left) || Math.max(0, innerWidth - hongsi.offsetWidth - 8); const target = Math.random() < .5 ? Math.random() * Math.min(200, innerWidth * .3) : Math.max(0, innerWidth - hongsi.offsetWidth - Math.random() * Math.min(200, innerWidth * .3)); hongsi.style.transition = 'left 2.2s cubic-bezier(.2,.8,.2,1),bottom 1.5s ease'; hongsi.style.left = Math.max(0, Math.min(b.maxLeft, target)) + 'px'; hongsi.style.bottom = Math.max(8, Math.min(b.maxBottom, 10 + Math.random() * 80)) + 'px'; hongsi.classList.add('walking'); setTimeout(() => hongsi.classList.remove('walking'), 2200); let idx = Math.floor(Math.random() * walkLines.length); if (idx === lastWalkLine)
+    idx = (idx + 1) % walkLines.length; lastWalkLine = idx; hongsiSay('HONGSI · SEDANG MENJELAJAH', walkLines[idx]); }
+if (!reducedMotion)
+    walkTimer = setInterval(walkHongsi, 12500);
+window.addEventListener('resize', clampPosition);
+hongsiBtn.addEventListener('pointerdown', e => { if (hongsi.classList.contains('angry'))
+    return; drag = { id: e.pointerId, startX: e.clientX, startY: e.clientY, lastX: e.clientX, lastT: performance.now(), lastDir: 0, reversals: 0, moved: false, history: [] }; hongsiBtn.setPointerCapture(e.pointerId); hongsi.classList.add('dragging'); hongsi.style.transition = 'none'; });
+hongsiBtn.addEventListener('pointermove', e => { if (!drag || e.pointerId !== drag.id)
+    return; const now = performance.now(), dx = e.clientX - drag.lastX, dt = Math.max(1, now - drag.lastT), speed = Math.abs(dx) / dt, dir = Math.sign(dx); if (Math.abs(e.clientX - drag.startX) + Math.abs(e.clientY - drag.startY) > 8)
+    drag.moved = true; if (speed > .65 && dir && drag.lastDir && dir !== drag.lastDir)
+    drag.reversals++; if (dir)
+    drag.lastDir = dir; drag.history.push({ x: e.clientX, t: now }); drag.history = drag.history.filter(p => now - p.t < 600); const b = bounds(); hongsi.style.left = Math.min(b.maxLeft, Math.max(0, e.clientX - hongsi.offsetWidth / 2)) + 'px'; hongsi.style.bottom = Math.min(b.maxBottom, Math.max(0, innerHeight - e.clientY - hongsi.offsetHeight / 2)) + 'px'; hongsi.style.right = 'auto'; if (drag.moved && !hongsi.classList.contains('angry') && !speech.classList.contains('show'))
+    hongsiSay('HONGSI · E-EH?!', 'Hongsi mau dibawa ke mana?! Tarik pelan-pelan, ya!', true); if (drag.reversals >= 4 && !hongsi.classList.contains('angry')) {
+    hongsi.classList.add('shaken');
+    face.textContent = '😵‍💫';
+    hongsiSay('HONGSI · PUSING!', 'W-WOIII! Jangan goyang-goyang Hongsi secepat itu!!', true);
+} drag.lastX = e.clientX; drag.lastT = now; e.preventDefault(); });
+function finishDrag(e) { if (!drag || (e && e.pointerId !== undefined && e.pointerId !== drag.id))
+    return; const moved = drag.moved, shaken = drag.reversals >= 4; drag = null; hongsi.classList.remove('dragging'); hongsi.style.transition = 'left 1.5s cubic-bezier(.2,.8,.2,1),bottom 1s ease'; if (moved) {
+    suppressClick = true;
+    setTimeout(() => suppressClick = false, 350);
+} if (shaken)
+    makeAngry(true);
+else if (moved && !hongsi.classList.contains('angry'))
+    hongsiSay('HONGSI · PINDAH TEMPAT', 'Hehe... kita berhenti di sini, ya? Hongsi sudah mendarat!'); }
+hongsiBtn.addEventListener('pointerup', finishDrag);
+hongsiBtn.addEventListener('pointercancel', finishDrag);
+hongsiBtn.addEventListener('click', () => { if (suppressClick)
+    return; if (hongsi.classList.contains('angry')) {
+    hongsiSay('HONGSI · MASIH NGAMBEK', 'Hmph! Beri Hongsi waktu untuk tenang dulu!', true);
+    return;
+} clicks++; clearTimeout(clickReset); clickReset = setTimeout(() => clicks = 0, 3800); if (clicks >= 5) {
+    makeAngry(false);
+    return;
+} hongsiSay('HONGSI · DOKKAEBI', clickLines[Math.floor(Math.random() * clickLines.length)]); if (clicks === 1)
+    showToast('Hongsi siap membantu pengunjung menjelajahi halaman ini.'); });
+// Let visitors call the guide from the Star Stream host panel.
+const guideButton = document.createElement('button');
+guideButton.type = 'button';
+guideButton.className = 'btn btn-primary';
+guideButton.textContent = 'Minta bantuan Hongsi ✦';
+guideButton.style.marginTop = '18px';
+guideButton.addEventListener('click', summonGuide);
+document.querySelector('#orv .dossier-box:last-child').appendChild(guideButton);
+// Cursor glow and year
+const cursorGlow = document.getElementById('cursorGlow');
+if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reducedMotion)
+    addEventListener('pointermove', e => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; }, { passive: true });
+document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
