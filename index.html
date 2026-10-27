@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#070812">
-    <meta name="description" content="Portofolio Andhika Pratama Gibero Gt.S — pelajar RPL yang membangun dunia melalui web development.">
+    <meta name="description" content="Portofolio Andhika Pratama Gibero Gt.S — pelajar RPL yang belajar membuat web dan game, termasuk proyek Nexora dan Nexora Story.">
     <title>
     Gibero.dev | Main Scenario
     </title>
@@ -968,6 +968,9 @@ footer {
   user-select: none;
 }
 .hongsi-speech {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
   display: none;
   width: 220px;
   max-width: min(220px,70vw);
@@ -984,6 +987,14 @@ footer {
 }
 .hongsi-speech.show {
   display: block;
+}
+.hongsi-companion.speech-left .hongsi-speech {
+  left: 0;
+  right: auto;
+}
+.hongsi-companion.speech-below .hongsi-speech {
+  top: calc(100% + 10px);
+  bottom: auto;
 }
 .hongsi-speech strong {
   display: block;
@@ -1092,6 +1103,359 @@ footer {
 .toast-global.show {
   display: block;
   animation: toast-in .25s ease;
+}
+.starstream-notice {
+  position: fixed;
+  top: clamp(88px,12vh,130px);
+  left: 50%;
+  z-index: 1500;
+  width: min(560px,calc(100% - 32px));
+  padding: 17px 48px 17px 20px;
+  overflow: hidden;
+  border: 1px solid rgba(101,223,255,.8);
+  border-radius: 5px;
+  background: linear-gradient(118deg,rgba(13,77,116,.98),rgba(12,28,60,.98) 72%);
+  box-shadow: 0 0 0 3px rgba(101,223,255,.1),0 0 34px rgba(44,156,255,.3),0 18px 48px rgba(0,0,0,.32);
+  color: #effaff;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%,-12px) scale(.98);
+}
+.starstream-notice:before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(177,235,255,.19);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.starstream-notice:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -45%;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(90deg,transparent,rgba(200,245,255,.12),transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+.starstream-notice.show:after {
+  animation: starstream-shimmer 1.2s ease-out .25s both;
+}
+.starstream-notice.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%,0) scale(1);
+  animation: starstream-notice-in .4s var(--ease) both;
+}
+.starstream-channel {
+  display: block;
+  margin-bottom: 7px;
+  color: #92e8ff;
+  font: 700 .62rem "Space Grotesk",sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.starstream-title {
+  display: block;
+  color: #f5fbff;
+  font: 700 clamp(.76rem,2.4vw,.98rem)/1.45 "Space Grotesk",sans-serif;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.starstream-copy {
+  margin-top: 5px;
+  color: rgba(232,246,255,.78);
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.starstream-close {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(177,235,255,.28);
+  border-radius: 3px;
+  background: rgba(4,17,40,.35);
+  color: #d7f5ff;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.starstream-close:hover {
+  border-color: #92e8ff;
+  background: rgba(101,223,255,.12);
+}
+@keyframes starstream-notice-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%,-12px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%,0) scale(1);
+  }
+}
+@keyframes starstream-shimmer {
+  from {
+    transform: translateX(0) skewX(-20deg);
+  }
+  to {
+    transform: translateX(480%) skewX(-20deg);
+  }
+}
+.snowfield-secret {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 28px;
+  isolation: isolate;
+  background: linear-gradient(180deg,#071326 0%,#182f4b 52%,#8297a9 100%);
+  color: #f3f8ff;
+  transition: background 2.4s ease;
+}
+.snowfield-secret.blizzard {
+  background: linear-gradient(180deg,#040b18 0%,#102744 48%,#71869b 100%);
+}
+.snowfield-secret.transitioning {
+  background: transparent;
+}
+.snowfield-secret.transitioning.blizzard {
+  background: linear-gradient(180deg,#040b18 0%,#102744 48%,#71869b 100%);
+}
+.snowfield-secret[hidden] {
+  display: none;
+}
+.snowfield-secret:before,.snowfield-secret:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.snowfield-secret:before {
+  background: radial-gradient(ellipse at 50% 35%,rgba(160,205,245,.17),transparent 42%),linear-gradient(180deg,transparent 58%,rgba(230,241,249,.78) 100%);
+  transition: opacity .3s ease,background 2.4s ease;
+}
+.snowfield-secret.transitioning:before,
+.snowfield-secret.transitioning:after,
+.snowfield-secret.transitioning .snowfield-skyline {
+  opacity: 0;
+}
+.snowfield-secret.blizzard:before {
+  background: radial-gradient(ellipse at 50% 35%,rgba(160,205,245,.26),transparent 48%),linear-gradient(180deg,rgba(218,237,255,.08),rgba(230,241,249,.88));
+}
+.snowfield-secret:after {
+  inset: auto -10% -18%;
+  height: 42%;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg,rgba(244,249,252,.92),#d2dfeb);
+  box-shadow: 0 -18px 70px rgba(221,237,251,.24);
+}
+.snowfield-whiteout {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    radial-gradient(circle at 12% 24%,rgba(255,255,255,.98) 0 2px,transparent 3px),
+    radial-gradient(circle at 68% 72%,rgba(255,255,255,.9) 0 3px,transparent 4px),
+    radial-gradient(circle at 42% 48%,rgba(255,255,255,.8) 0 1px,transparent 2px),
+    repeating-linear-gradient(165deg,transparent 0 18px,rgba(255,255,255,.32) 19px 21px,transparent 22px 38px),
+    linear-gradient(105deg,#fff 0%,#e9f6ff 48%,#fff 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.snowfield-secret.transitioning .snowfield-whiteout {
+  animation: snowfield-snow-wipe 2.2s cubic-bezier(.76,0,.24,1) both;
+}
+.snowfield-secret.transitioning .snowfield-flakes {
+  z-index: 4;
+}
+.snowfield-secret.transitioning .snowfield-dialog {
+  visibility: hidden;
+}
+.snowfield-skyline {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.snowfield-peak {
+  position: absolute;
+  bottom: 24%;
+  width: min(52vw,620px);
+  height: min(42vh,360px);
+  background: linear-gradient(145deg,#71869b,#293d56 72%);
+  clip-path: polygon(0 100%,45% 0,100% 100%);
+  opacity: .8;
+}
+.snowfield-peak:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #e8f1f7;
+  clip-path: polygon(45% 0,58% 31%,49% 24%,44% 34%,38% 25%,30% 54%,0 100%,45% 0);
+}
+.snowfield-peak.left {
+  left: -12%;
+  transform: scale(.8);
+}
+.snowfield-peak.right {
+  right: -14%;
+  bottom: 28%;
+  transform: scale(.7);
+  opacity: .56;
+}
+.snowfield-flakes {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.snowflake {
+  position: absolute;
+  top: -12px;
+  left: var(--snow-x);
+  width: var(--snow-size);
+  height: var(--snow-size);
+  border-radius: 50%;
+  background: rgba(245,251,255,.92);
+  box-shadow: 0 0 8px rgba(225,243,255,.6);
+  opacity: var(--snow-opacity);
+  animation: snowfield-fall var(--snow-duration) linear var(--snow-delay) infinite;
+  transition: background-color 1.2s ease,box-shadow 1.2s ease,opacity 1.2s ease;
+}
+.snowflake.snow-gust {
+  left: var(--gust-side);
+  top: var(--gust-top);
+  opacity: 0;
+  animation: snowfield-gust 1.2s cubic-bezier(.16,.7,.25,1) var(--gust-delay) both;
+}
+.snowfield-secret.blizzard .snowflake {
+  background: #fff;
+  box-shadow: 0 0 12px rgba(225,243,255,.9);
+  opacity: min(1,calc(var(--snow-opacity) + .25));
+}
+.snowfield-dialog {
+  position: relative;
+  z-index: 3;
+  width: min(620px,100%);
+  padding: clamp(24px,5vw,46px);
+  border: 1px solid rgba(148,221,255,.72);
+  background: linear-gradient(145deg,rgba(8,24,49,.96),rgba(10,38,66,.93));
+  box-shadow: 0 0 0 4px rgba(91,192,255,.08),0 0 48px rgba(67,173,255,.22),0 22px 90px rgba(0,0,0,.4);
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(.97);
+  clip-path: polygon(0 0,72% 0,73% 2px,100% 2px,100% 76%,calc(100% - 3px) 78%,100% 80%,100% 100%,28% 100%,27% calc(100% - 2px),0 calc(100% - 2px),0 24%,3px 22%,0 20%);
+}
+.snowfield-secret.message-reveal .snowfield-dialog {
+  visibility: visible;
+  animation: snowfield-dialog-in .65s cubic-bezier(.16,1,.3,1) both;
+}
+.snowfield-secret.message-reveal .snowfield-dialog.signal-corrupt {
+  translate: var(--notice-x,0) var(--notice-y,0);
+  filter: hue-rotate(18deg) brightness(1.12);
+  box-shadow: 3px 0 rgba(154,244,255,.55),-3px 0 rgba(255,130,155,.45),0 0 35px rgba(67,173,255,.35);
+}
+.snowfield-secret.message-reveal .snowfield-glitch {
+  transition: transform .08s steps(2,end),text-shadow .08s steps(2,end),filter .08s steps(2,end);
+}
+.snowfield-secret.message-reveal .snowfield-dialog.signal-corrupt .snowfield-glitch {
+  transform: translate(var(--text-x,0),var(--text-y,0)) skewX(var(--text-skew,0deg));
+  filter: brightness(1.25);
+  text-shadow: 2px 0 #9af4ff,-2px 0 #ff829b;
+}
+.snowfield-dialog:before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(186,231,255,.17);
+  pointer-events: none;
+  clip-path: polygon(0 0,76% 0,77% 2px,100% 2px,100% 77%,calc(100% - 2px) 79%,100% 81%,100% 100%,24% 100%,23% calc(100% - 2px),0 calc(100% - 2px),0 23%,2px 21%,0 19%);
+}
+.snowfield-dialog:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -35%;
+  width: 28%;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,#a4e7ff,rgba(255,111,145,.9),transparent);
+  box-shadow: 0 0 12px rgba(164,231,255,.7);
+  animation: snowfield-signal-break 2.8s steps(1,end) infinite;
+  pointer-events: none;
+}
+.snowfield-dialog h2 {
+  color: #f4faff;
+  font: 700 clamp(1.05rem,3.8vw,1.7rem)/1.4 "Space Grotesk",sans-serif;
+  text-shadow: 0 0 18px rgba(113,203,255,.34);
+}
+.snowfield-glitch {
+  position: relative;
+  display: block;
+  animation: snowfield-text-glitch 1.4s steps(2,end) 2;
+}
+@keyframes snowfield-fall {
+  to {
+    transform: translate3d(var(--snow-drift),110vh,0);
+  }
+}
+@keyframes snowfield-gust {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,0,0) scale(.45);
+  }
+  22% {
+    opacity: var(--snow-opacity);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--gust-x),var(--gust-drop),0) scale(1.2);
+  }
+}
+@keyframes snowfield-snow-wipe {
+  0% { transform: scaleX(0); opacity: 0; transform-origin: left center; }
+  12% { opacity: 1; }
+  42%,58% { transform: scaleX(1.04); opacity: 1; transform-origin: left center; }
+  60% { transform: scaleX(1); opacity: 1; transform-origin: right center; }
+  100% { transform: scaleX(0); opacity: .8; transform-origin: right center; }
+}
+@keyframes snowfield-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes snowfield-text-glitch {
+  0%,100% { transform: none; filter: none; text-shadow: 0 0 18px rgba(113,203,255,.34); }
+  8% { transform: translate(2px,-1px) skewX(1deg); filter: brightness(1.45); text-shadow: 2px 0 #9af4ff,-2px 0 #ff829b; }
+  12% { transform: translate(-2px,1px); text-shadow: -2px 0 #9af4ff,2px 0 #ff829b; }
+  16% { transform: none; text-shadow: 0 0 18px rgba(113,203,255,.34); }
+  49% { transform: translate(-1px,1px) skewX(-1deg); filter: hue-rotate(20deg); text-shadow: -2px 0 #9af4ff,2px 0 #ff829b; }
+  53% { transform: translate(2px,-1px); }
+  57% { transform: none; filter: none; text-shadow: 0 0 18px rgba(113,203,255,.34); }
+}
+@keyframes snowfield-signal-break {
+  0%,72%,100% { transform: translateX(0); opacity: .8; }
+  73% { transform: translateX(430%); opacity: 1; }
+  74% { transform: translateX(220%); opacity: .45; }
+  75% { transform: translateX(510%); opacity: .9; }
+  76% { transform: translateX(720%); opacity: 0; }
 }
 @media (max-width:900px) {
   .hero-layout {
@@ -1265,6 +1629,21 @@ footer {
   .toast {
     padding: 10px 12px;
   }
+  .starstream-notice {
+    top: 82px;
+    padding: 15px 43px 15px 16px;
+  }
+  .starstream-channel {
+    font-size: .58rem;
+  }
+  .starstream-copy {
+    font-size: .7rem;
+  }
+  #hongsiReveal,#snowfieldTrigger {
+    display: flex;
+    width: 100%;
+    margin: 12px 0 0 !important;
+  }
 }
 @media (prefers-reduced-motion:reduce) {
   *,*:before,*:after {
@@ -1277,6 +1656,12 @@ footer {
     opacity: 1;
     transform: none;
   }
+  .snowflake {
+    display: none;
+  }
+  .snowfield-secret.message-reveal .snowfield-dialog,.snowfield-secret.message-reveal .snowfield-glitch {
+    animation: none;
+  }
 }
     </style>
 </head>
@@ -1287,6 +1672,23 @@ footer {
   </div>
   <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true">
   </div>
+  <div class="starstream-notice" id="starstreamNotice" role="status" aria-live="polite" aria-atomic="true" aria-labelledby="starstreamTitle" hidden>
+    <span class="starstream-channel">✦ STAR STREAM · TRANSMISI KHUSUS</span>
+    <strong class="starstream-title" id="starstreamTitle">The constellation “The Fox Behind the Crimson Moon” is looking at you.</strong>
+    <p class="starstream-copy">“Nyaa~ Selamat datang, pengunjung. Semoga kamu menemukan sesuatu yang menarik di halaman ini. Kalau tersesat, panggil aku, ya!”</p>
+    <button class="starstream-close" id="starstreamClose" type="button" aria-label="Tutup transmisi">×</button>
+  </div>
+  <section class="snowfield-secret" id="snowfieldSecret" role="dialog" aria-modal="true" aria-label="Secret scenario: Snowfield" aria-hidden="true" tabindex="-1" hidden>
+    <div class="snowfield-skyline" aria-hidden="true">
+      <span class="snowfield-peak left"></span>
+      <span class="snowfield-peak right"></span>
+    </div>
+    <div class="snowfield-whiteout" aria-hidden="true"></div>
+    <div class="snowfield-flakes" id="snowfieldFlakes" aria-hidden="true"></div>
+    <div class="snowfield-dialog" id="snowfieldDialog" role="button" aria-label="Demon King of Salvation is looking at you. Klik untuk menutup." tabindex="0">
+      <h2 id="snowfieldTitle" tabindex="-1"><span class="snowfield-glitch">A CONSTELLATION “DEMON KING OF SALVATION” IS LOOKING AT YOU.</span></h2>
+    </div>
+  </section>
   <header class="site-header" id="siteHeader">
     <div class="container nav-wrap">
       <a class="logo" href="#home" aria-label="Gibero.dev beranda">Gibero<span>.dev</span></a><button class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="navLinks">☰</button>
@@ -1312,13 +1714,13 @@ footer {
             <span id="typingText"></span><span class="typing-cursor" aria-hidden="true"></span>
           </div>
           <p class="hero-copy">
-            Aku adalah pelajar <strong>Rekayasa Perangkat Lunak</strong> yang sedang belajar membangun website dari struktur, desain, sampai fitur yang benar-benar bekerja. Bagiku, setiap baris kode adalah satu langkah untuk menciptakan dunia digital versiku sendiri.
+            Aku adalah pelajar <strong>Rekayasa Perangkat Lunak</strong> yang sedang belajar membangun website dan membuat game. Lewat Nexora dan game Nexora Story, aku ingin mengubah ide dan cerita menjadi pengalaman digital yang bisa dijelajahi.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects">Jelajahi Proyek <span aria-hidden="true">↗</span></a><a class="btn btn-secondary" href="#about">Baca Skenario <span aria-hidden="true">⌄</span></a>
           </div>
           <div class="hero-meta">
-            <span>⌘ <b>Web Development</b></span><span>✦ SMK Putra Anda Binjai</span><span>◈ Learning by building</span>
+            <span>⌘ <b>Web & Game Development</b></span><span>✦ SMK Putra Anda Binjai</span><span>◈ Building Nexora</span>
           </div>
         </div>
         <div class="scenario-visual" aria-label="Visual dekoratif bertema skenario dan konstelasi">
@@ -1331,7 +1733,7 @@ footer {
             </div>
           </div>
           <div class="scenario-chip chip-top">
-            <strong>✦ SCENARIO 01</strong><small>Web Development</small>
+            <strong>✦ SCENARIO 01</strong><small>Nexora Story</small>
           </div>
           <div class="scenario-chip chip-bottom">
             <strong>◈ THE BUILDER</strong><small>One line at a time</small>
@@ -1348,10 +1750,10 @@ footer {
         <div class="section-heading reveal">
           <span class="eyebrow">The person behind the code</span>
           <h2>
-            Bukan sekadar tampilan.<br><span class="gradient-text">Ini proses bertumbuh.</span>
+            Dari ide menjadi dunia.<br><span class="gradient-text">Satu proyek demi satu.</span>
           </h2>
           <p>
-            Aku masih berada di tahap belajar, tetapi aku ingin setiap proyek menjadi bukti bahwa ide bisa dikembangkan menjadi sesuatu yang nyata. Aku suka menggabungkan logika, desain antarmuka, dan sedikit cerita di dalam sebuah website.
+            Aku sedang belajar membuat web dan game. Saat ini aku mengembangkan proyek Nexora dan membuat game bernama Nexora Story. Keduanya masih bertumbuh seiring aku belajar hal baru.
           </p>
         </div>
         <div class="quote-panel reveal">
@@ -1359,10 +1761,10 @@ footer {
             ✦ A note from the author
           </div>
           <blockquote>
-            “Skenario belum selesai selama masih ada sesuatu yang bisa kupelajari, diperbaiki, dan kubangun.”
+            “Sebuah dunia baru dimulai dari satu ide—lalu tumbuh setiap kali kita berani membangunnya.”
           </blockquote>
           <p>
-            Catatan pribadi — terinspirasi oleh tema perjuangan, skenario, dan konstelasi dalam Omniscient Reader’s Viewpoint.
+            Catatan pribadi tentang belajar, berkreasi, dan membangun Nexora Story.
           </p>
         </div>
         <div class="grid" style="margin-top:22px">
@@ -1383,10 +1785,10 @@ footer {
               ◇
             </div>
             <h3>
-              UI & Visual Identity
+              Game Development
             </h3>
             <p>
-              Bereksperimen dengan palet warna, tipografi, glass effect, animasi, dan pengalaman pengguna agar website punya karakter sendiri.
+              Sedang belajar merancang alur permainan, memahami mekanik dasar, dan mengubah ide cerita menjadi pengalaman yang bisa dimainkan.
             </p>
             <span class="mini-tag">Design with purpose</span>
           </article>
@@ -1419,10 +1821,10 @@ footer {
         <div class="skills-layout">
           <aside class="skill-intro reveal">
             <h3>
-              Level up, one skill at a time.
+              Belajar membangun web dan game.
             </h3>
             <p>
-              Tujuanku bukan sekadar menghafal sintaks. Aku ingin memahami alasan sebuah layout bekerja, bagaimana data diproses, dan bagaimana pengalaman pengguna bisa dibuat lebih baik.
+              Aku sedang mempelajari cara menyusun antarmuka web sekaligus merancang game. Nexora Story menjadi tempatku mengeksplorasi bagaimana ide dan cerita bisa dikembangkan menjadi pengalaman bermain.
             </p>
             <p class="note">
               Catatan: persentase adalah indikator pribadi, bukan sertifikasi atau hasil tes resmi.
@@ -1467,11 +1869,7 @@ footer {
             </div>
             <div class="skill-item reveal">
               <div class="skill-label">
-                <span>PHP & Database · Learning</span><span>In progress</span>
-              </div>
-              <div class="skill-track">
-                <div class="skill-fill" data-level="40">
-                </div>
+                <span>Game Development · Learning</span><span>In progress</span>
               </div>
             </div>
           </div>
@@ -1486,7 +1884,7 @@ footer {
             Arsip <span class="gradient-text">Skenario</span>
           </h2>
           <p>
-            Beberapa arah eksplorasi web development-ku. Bagian ini sengaja dibuat mudah diperbarui saat proyek dan fiturnya berkembang.
+            Nexora adalah proyek yang sedang kukembangkan, dan Nexora Story adalah game yang sedang kupelajari dan bangun. Keduanya masih terus bertumbuh seiring proses belajarku.
           </p>
         </div>
         <div class="grid">
@@ -1495,13 +1893,13 @@ footer {
               <span class="project-number">PROJECT / 01</span><span class="project-status">Developing</span>
             </div>
             <h3>
-              School Hub
+              Nexora
             </h3>
             <p>
-              Website sekolah dengan sistem akun, dashboard admin, artikel, perpustakaan, game, koleksi rahasia, serta konsep asisten virtual bernama Hongsi. Proyek ini menjadi ruang untuk belajar menghubungkan antarmuka dengan database dan fitur nyata.
+              Proyek yang sedang kukembangkan untuk mengumpulkan ide, bereksperimen, dan mengubah rencana menjadi karya digital. Detailnya akan kutambahkan saat sudah siap dibagikan.
             </p>
             <div class="tags">
-              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">MariaDB</span>
+              <span class="tag">Main Project</span><span class="tag">In Development</span>
             </div>
           </article>
           <article class="card project-card reveal delay-1">
@@ -1509,13 +1907,13 @@ footer {
               <span class="project-number">PROJECT / 02</span><span class="project-status">Personal</span>
             </div>
             <h3>
-              Gibero.dev Portfolio
+              Nexora Story
             </h3>
             <p>
-              Website personal bertema ORV untuk memperkenalkan identitas, proses belajar, minat, dan proyek web development melalui pengalaman visual yang interaktif.
+              Game yang sedang kupelajari dan kembangkan. Aku ingin mengubah ide cerita menjadi permainan sambil terus mengeksplorasi mekanik dan pengalaman pemain.
             </p>
             <div class="tags">
-              <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsive UI</span>
+              <span class="tag">Game Project</span><span class="tag">Story</span><span class="tag">In Development</span>
             </div>
           </article>
           <article class="card project-card reveal delay-2">
@@ -1523,18 +1921,18 @@ footer {
               <span class="project-number">PROJECT / 03</span><span class="project-status">Experiment</span>
             </div>
             <h3>
-              UI & Interaction Lab
+              Gibero.dev Portfolio
             </h3>
             <p>
-              Ruang eksperimen untuk komponen kartu, efek hover, transisi, tipografi, dan animasi antarmuka. Komponen yang berhasil bisa dikembangkan kembali untuk proyek yang lebih besar.
+              Website personal bertema ORV untuk memperkenalkan proses belajarku, proyek Nexora, dan perjalanan mencoba membuat game.
             </p>
             <div class="tags">
-              <span class="tag">CSS Motion</span><span class="tag">Glass Effect</span><span class="tag">DOM</span>
+              <span class="tag">ORV-inspired</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
             </div>
           </article>
         </div>
         <p class="project-footnote reveal">
-          Status proyek dapat diubah sesuai kondisi sebenarnya. Tambahkan tautan demo atau repository hanya jika sudah tersedia.
+          Nexora dan Nexora Story masih dalam proses pengembangan. Detail teknologi dan tautan akan ditambahkan saat sudah siap dibagikan.
         </p>
       </div>
     </section>
@@ -1571,19 +1969,19 @@ footer {
           <div class="timeline-item reveal">
             <small>CHAPTER 03 · BUILDING SYSTEMS</small>
             <h3>
-              Mengembangkan School Hub
+              Memulai Nexora Story
             </h3>
             <p>
-              Mulai menghadapi tantangan yang lebih besar: login, data pengguna, database, fitur admin, dan integrasi antarfungsi.
+              Mengembangkan Nexora dan belajar membuat Nexora Story—mulai dari ide cerita hingga pengalaman yang ingin kubagikan kepada pemain.
             </p>
           </div>
           <div class="timeline-item reveal">
             <small>CHAPTER 04 · NEXT SCENARIO</small>
             <h3>
-              Belajar lebih dalam
+              Mengembangkan dunia Nexora
             </h3>
             <p>
-              Memperbaiki kualitas kode, menguji fitur, memahami keamanan dasar, dan mengembangkan proyek dengan lebih terstruktur.
+              Melanjutkan Nexora dan Nexora Story, mencoba hal baru, lalu memperbaiki proyek berdasarkan apa yang kupelajari.
             </p>
           </div>
         </div>
@@ -1606,7 +2004,7 @@ footer {
               ■ Main Scenario
             </h3>
             <p>
-              Di ORV, sebuah cerita dapat mengubah cara seseorang melihat dunia. Dalam web development, ide juga baru terasa berarti ketika diwujudkan, diuji, dan dibagikan kepada orang lain.
+              ORV menginspirasiku untuk membangun dunia yang kaya cerita. Lewat Nexora dan game Nexora Story, aku ingin belajar membuat ide menjadi pengalaman digital yang bisa dijelajahi.
             </p>
             <div class="constellation-list">
               <div class="constellation">
@@ -1632,19 +2030,17 @@ footer {
             </p>
             <div class="constellation-list">
               <div class="constellation">
-                <span>✦</span> <span style="color:var(--muted)">32 transmisi unik · komentar bergantian</span>
+                <span>✦</span> <span style="color:var(--muted)">23 transmisi unik · komentar bergantian</span>
               </div>
               <div class="constellation">
-                <span>✦</span> <span style="color:var(--muted)">Ada transmisi rahasia dari Hongsi</span>
+                <span>✦</span> <span style="color:var(--muted)">Transmisi rahasia dari konstelasi ciptaanmu</span>
               </div>
               <div class="constellation">
                 <span>✦</span> <span style="color:var(--muted)">Pesan bersifat fiksi dan dibuat untuk portofolio</span>
               </div>
             </div>
-            <button class="btn btn-secondary" id="hongsiReveal" type="button" style="margin-top:20px">✦ Dengarkan transmisi tersembunyi</button>
-            <p class="dossier-note" id="hongsiMessage" hidden>
-              “The Fox Behind the Crimson Moon mengirim transmisi rahasia: selamat datang, pengunjung. Semoga kamu menemukan sesuatu yang menarik di halaman ini.”
-            </p>
+            <button class="btn btn-secondary" id="hongsiReveal" type="button" aria-expanded="false" aria-controls="starstreamNotice" style="margin-top:20px">✦ Buka transmisi tersembunyi</button>
+            <button class="btn btn-secondary" id="snowfieldTrigger" type="button" aria-haspopup="dialog" aria-controls="snowfieldSecret" style="margin:12px 0 0 8px">❄ Buka secret Snowfield</button>
           </article>
         </div>
       </div>
@@ -1710,7 +2106,7 @@ footer {
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Typing title
 const typingElement = document.getElementById('typingText');
-const phrases = ['Junior Web Developer in Progress', 'XI RPL · SMK Putra Anda Binjai', 'Building my own digital world', 'Main Scenario: School Hub'];
+const phrases = ['Learning Web & Game Development', 'XI RPL · SMK Putra Anda Binjai', 'Building the Nexora project', 'Main Scenario: Nexora Story'];
 let phraseIndex = 0, charIndex = 0, deleting = false;
 function typeLoop() { const phrase = phrases[phraseIndex]; typingElement.textContent = phrase.slice(0, charIndex); let delay = deleting ? 36 : 72; if (!deleting && charIndex === phrase.length) {
     deleting = true;
@@ -1770,93 +2166,397 @@ else {
     revealElements.forEach(el => el.classList.add('visible'));
     skillFills.forEach(fill => fill.style.width = `${fill.dataset.level || 0}%`);
 }
-// Constellation messages: 32 distinct transmissions; no permanent name list.
+// Original Star Stream messages from ORV constellations and the creator's own constellation.
 const toastStack = document.getElementById('toastStack');
 const messages = [
-    { name: 'Demon King of Salvation', text: '“Dia menulis jalannya sendiri. Aku ingin melihat akhir skenario ini.”' },
-    { name: 'Secretive Plotter', text: '“Menarik. Jangan berhenti hanya karena bab ini sulit.”' },
-    { name: 'Abyssal Black Flame Dragon', text: '“KWAHAHA! Kobarkan semangatmu, penulis skenario!”' },
-    { name: 'Prisoner of the Golden Headband', text: '“Konsentrasi. Perjalanan panjang dimulai dari satu langkah.”' },
-    { name: 'Most Ancient Dream', text: '“Aku ingin tahu cerita seperti apa yang akan lahir dari halaman ini.”' },
-    { name: 'Architect of the False Last Act', text: '“Rencana bagus tetap butuh ruang untuk kejutan.”' },
-    { name: 'Maritime War God', text: '“Terus maju. Jangan biarkan ombak pertama membuatmu menyerah.”' },
-    { name: 'General of Steel', text: '“Fondasi yang kokoh dibangun dari latihan yang diulang.”' },
-    { name: 'Queen of the Darkest Spring', text: '“Bahkan musim tergelap menyimpan tunas yang belum terlihat.”' },
-    { name: 'Sage of the Great Heavens', text: '“Pengetahuan adalah senjata. Teruslah belajar.”' },
-    { name: 'Master of Steel', text: '“Rapikan satu bagian hari ini. Besok, kuatkan bagian berikutnya.”' },
-    { name: 'Demon-like Judge of Fire', text: '“Buktikan tekadmu melalui tindakan, bukan janji.”' },
-    { name: 'Father of the Rich Night', text: '“Ide kecil pun bisa menjadi harta jika dirawat.”' },
-    { name: 'Prisoner of the Constrictive Headband', text: '“Jangan biarkan batas hari ini menentukan hari esok.”' },
-    { name: 'One Who Hunted the King of Disasters', text: '“Hadapi bug satu per satu. Jangan kabur dari target.”' },
-    { name: 'Dragon-Devouring Man', text: '“Buat sesuatu yang cukup berani untuk mengejutkan dirimu sendiri.”' },
-    { name: 'Bald General of Justice', text: '“Kerjakan dengan jujur. Hasil yang baik akan mengikuti.”' },
-    { name: 'Saviour of Corruption', text: '“Kesalahan bukan akhir cerita jika kamu mau memperbaikinya.”' },
-    { name: 'Best Friend of Justice and Love', text: '“Jangan lupa beristirahat. Bahkan protagonis butuh jeda.”' },
-    { name: 'Lily Blooming in the Abyss', text: '“Karya indah dapat tumbuh dari tempat yang tidak terduga.”' },
-    { name: 'Twilight-Capturing Sword', text: '“Pilih langkahmu dengan tenang, lalu jalani tanpa ragu.”' },
-    { name: 'Dokkaebi Channel Host', text: '“HAHAHA! Saluran Star Stream resmi dibuka! Tunjukkan skenariomu, pengunjung!”', type: 'dokkaebi' },
-    { name: 'The Keeper of Forgotten Pages', text: '“Aku akan menjaga ide-ide yang hampir terlupakan.”' },
-    { name: 'The Star That Reads Tomorrow', text: '“Masa depan belum ditulis. Kamu masih bisa mengubah bab berikutnya.”' },
-    { name: 'The Archivist Beyond the Fog', text: '“Setiap percobaan meninggalkan catatan yang berguna.”' },
-    { name: 'The Clockmaker of Lost Hours', text: '“Gunakan waktu dengan bijak, tetapi jangan takut mengambil jeda.”' },
-    { name: 'The Moonlit Guardian', text: '“Saat layar terasa gelap, ingat alasan kamu memulainya.”' },
-    { name: 'The Silent Witness of Winter', text: '“Aku tidak banyak bicara. Namun, aku melihat usahamu.”' },
-    { name: "The Librarian at World's End", text: '“Simpan pengetahuanmu. Suatu hari semuanya akan saling terhubung.”' },
-    { name: 'The Wanderer Between Chapters', text: '“Tidak apa-apa jika kamu belum tahu akhir ceritanya.”' },
-    { name: 'The Fox Behind the Crimson Moon', text: '“Nyaa~ Selamat datang, pengunjung! Kalau tersesat, panggil Hongsi. Hongsi akan membantu menunjukkan arah!”', type: 'hongsi' },
-    { name: 'The Little Star Beside the Developer', text: '“Aku akan bersinar kecil di sampingmu saat proyek ini tumbuh.”' }
+    { name: 'Demon King of Salvation', text: '“Nexora Story dimulai dari sebuah pilihan. Teruskan ceritanya dengan caramu sendiri.”' },
+    { name: 'Secretive Plotter', text: '“Jangan takut mencoba jalur baru saat merancang dunia Nexora.”' },
+    { name: 'Abyssal Black Flame Dragon', text: '“KWAHAHA! Ciptakan game yang membuat para pemain ingin menaklukkan satu bab lagi!”' },
+    { name: 'Prisoner of the Golden Headband', text: '“Selesaikan satu mekanik dengan baik sebelum membuka skenario berikutnya.”' },
+    { name: 'Most Ancient Dream', text: '“Sebuah dunia game hidup karena ada yang bermimpi, lalu mulai membangunnya.”' },
+    { name: 'Architect of the False Last Act', text: '“Sisakan satu kejutan di Nexora Story yang tak terlihat dari awal.”' },
+    { name: 'Maritime War God', text: '“Bug pertama bukan akhir perjalanan. Kembali ke layar kerja dan coba lagi.”' },
+    { name: 'General of Steel', text: '“Uji mekanikmu berulang kali. Pengalaman bermain dibangun dari detail.”' },
+    { name: 'Queen of the Darkest Spring', text: '“Satu ide kecil hari ini bisa tumbuh menjadi dunia yang luas.”' },
+    { name: 'Sage of the Great Heavens', text: '“Pelajari bagaimana setiap aturan game mengubah keputusan pemain.”' },
+    { name: 'Master of Steel', text: '“Fondasi Nexora yang rapi akan membantumu membangun lebih jauh.”' },
+    { name: 'Demon-like Judge of Fire', text: '“Jangan hanya membayangkan game-nya. Buat satu bagian, lalu uji.”' },
+    { name: 'Father of the Rich Night', text: '“Simpan ide terbaikmu untuk Nexora Story. Kelak ia bisa jadi harta.”' },
+    { name: 'Prisoner of the Constrictive Headband', text: '“Belum tahu caranya? Itulah alasan untuk mulai mempelajarinya.”' },
+    { name: 'One Who Hunted the King of Disasters', text: '“Cari penyebab bug dengan tenang; jangan biarkan boss terakhir itu kabur.”' },
+    { name: 'Dragon-Devouring Man', text: '“Beranikan diri membangun dunia game yang sebelumnya hanya ada di kepalamu.”' },
+    { name: 'Bald General of Justice', text: '“Catat apa yang sudah berfungsi dan apa yang masih perlu diperbaiki.”' },
+    { name: 'Saviour of Corruption', text: '“Setiap kesalahan di Nexora Story adalah kesempatan untuk memperbaiki skenario.”' },
+    { name: 'Best Friend of Justice and Love', text: '“Pengembang game juga butuh jeda. Simpan tenaga untuk level berikutnya.”' },
+    { name: 'Lily Blooming in the Abyss', text: '“Bahkan dari prototipe sederhana, game yang menarik bisa mulai tumbuh.”' },
+    { name: 'Twilight-Capturing Sword', text: '“Pilih mekanik yang ingin diuji, lalu buat prototipe pertamamu.”' },
+    { name: 'Dokkaebi Channel Host', text: '“Saluran dibuka! NEXORA STORY, tunjukkan skenario yang sedang kamu bangun!”', type: 'dokkaebi' },
+    { name: 'The Fox Behind the Crimson Moon', text: '“Nyaa~ Selamat datang, pengunjung. Semoga kamu menemukan sesuatu yang menarik di halaman ini. Nexora Story juga sedang menyiapkan petualangan kecil untukmu. Jelajahi pelan-pelan, ya!”', type: 'hongsi' }
 ];
 let messageIndex = 0, streamPaused = false, streamInterval = null;
 function sendConstellationMessage() { if (document.hidden || streamPaused)
     return; const entry = messages[messageIndex]; const toast = document.createElement('div'); toast.className = 'toast' + (entry.type === 'dokkaebi' ? ' dokkaebi-toast' : entry.type === 'hongsi' ? ' hongsi-toast' : ''); const channel = document.createElement('span'); channel.className = 'toast-channel'; channel.textContent = '✦ STAR STREAM · PESAN MASUK'; const name = document.createElement('span'); name.className = 'toast-name'; name.textContent = entry.name; const msg = document.createElement('span'); msg.className = 'toast-message'; msg.textContent = entry.text; toast.append(channel, name, msg); toastStack.appendChild(toast); messageIndex = (messageIndex + 1) % messages.length; setTimeout(() => toast.remove(), 6200); }
 setTimeout(() => { sendConstellationMessage(); streamInterval = setInterval(sendConstellationMessage, 9000); }, 4200);
-// Hidden Hongsi transmission
-const hongsiReveal = document.getElementById('hongsiReveal'), hongsiMessage = document.getElementById('hongsiMessage');
-hongsiReveal.addEventListener('click', () => { const open = hongsiReveal.getAttribute('aria-expanded') === 'true'; hongsiReveal.setAttribute('aria-expanded', String(!open)); hongsiMessage.hidden = open; hongsiReveal.textContent = open ? '✦ Dengarkan transmisi tersembunyi' : '✦ Tutup transmisi'; if (!open)
-    hongsiSay('HONGSI · TRANSMISI RAHASIA', 'Psst... sebuah pesan tersembunyi telah terbuka. Selamat menjelajah, pengunjung!', true); });
+// Hidden Star Stream transmission from the original constellation.
+const hongsiReveal = document.getElementById('hongsiReveal');
+const starstreamNotice = document.getElementById('starstreamNotice');
+const starstreamClose = document.getElementById('starstreamClose');
+let starstreamNoticeTimer = null;
+function closeStarstreamNotice() {
+    clearTimeout(starstreamNoticeTimer);
+    starstreamNotice.classList.remove('show');
+    starstreamNotice.hidden = true;
+    hongsiReveal.setAttribute('aria-expanded', 'false');
+    hongsiReveal.textContent = '✦ Buka transmisi tersembunyi';
+}
+function openStarstreamNotice() {
+    clearTimeout(starstreamNoticeTimer);
+    starstreamNotice.hidden = false;
+    hongsiReveal.setAttribute('aria-expanded', 'true');
+    hongsiReveal.textContent = '✦ Tutup transmisi';
+    requestAnimationFrame(() => starstreamNotice.classList.add('show'));
+    starstreamNoticeTimer = setTimeout(closeStarstreamNotice, 8000);
+}
+hongsiReveal.addEventListener('click', () => {
+    if (hongsiReveal.getAttribute('aria-expanded') === 'true')
+        closeStarstreamNotice();
+    else
+        openStarstreamNotice();
+});
+starstreamClose.addEventListener('click', closeStarstreamNotice);
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !starstreamNotice.hidden)
+        closeStarstreamNotice();
+});
+const snowfieldTrigger = document.getElementById('snowfieldTrigger');
+const snowfieldSecret = document.getElementById('snowfieldSecret');
+const snowfieldDialog = document.getElementById('snowfieldDialog');
+const snowfieldFlakes = document.getElementById('snowfieldFlakes');
+const snowfieldTitle = document.getElementById('snowfieldTitle');
+const snowfieldMessage = snowfieldDialog.querySelector('.snowfield-glitch');
+let snowfieldMessageText = snowfieldMessage.textContent;
+let snowfieldReturnFocus = null, snowfieldTransitionTimer = null, snowfieldMessageTimer = null, snowfieldNameTimer = null, snowfieldDismissTimer = null, snowfieldGlitchTimer = null, snowfieldGlitchResetTimer = null, snowfieldWordGlitchInterval = null;
+function setSnowfieldConstellationName(name) {
+    snowfieldMessageText = `A CONSTELLATION “${name}” IS LOOKING AT YOU.`;
+    snowfieldMessage.textContent = snowfieldMessageText;
+    snowfieldTitle.setAttribute('aria-label', snowfieldMessageText);
+    snowfieldDialog.setAttribute('aria-label', `${snowfieldMessageText} Klik untuk menutup.`);
+}
+function transitionSnowfieldConstellationName(name, onComplete) {
+    const targetText = `A CONSTELLATION “${name}” IS LOOKING AT YOU.`;
+    const glitchChars = ['#', '/', '▒', '?', '_'];
+    const renderGlitchFrame = () => {
+        const chars = [...targetText];
+        const candidates = chars.map((char, index) => /[A-Z]/.test(char) ? index : -1).filter(index => index !== -1);
+        const damageCount = 4 + Math.floor(Math.random() * 6);
+        for (let i = 0; i < damageCount; i++) {
+            const candidateIndex = Math.floor(Math.random() * candidates.length);
+            const [charIndex] = candidates.splice(candidateIndex, 1);
+            chars[charIndex] = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        snowfieldMessage.textContent = chars.join('');
+        snowfieldDialog.style.setProperty('--notice-x', `${Math.round(Math.random() * 8 - 4)}px`);
+        snowfieldDialog.style.setProperty('--notice-y', `${Math.round(Math.random() * 4 - 2)}px`);
+        snowfieldDialog.classList.add('signal-corrupt');
+    };
+    clearInterval(snowfieldWordGlitchInterval);
+    renderGlitchFrame();
+    snowfieldWordGlitchInterval = setInterval(renderGlitchFrame, 75);
+    snowfieldNameTimer = setTimeout(() => {
+        clearInterval(snowfieldWordGlitchInterval);
+        snowfieldWordGlitchInterval = null;
+        setSnowfieldConstellationName(name);
+        snowfieldDialog.classList.remove('signal-corrupt');
+        onComplete();
+    }, 720);
+}
+function scheduleSnowfieldGlitch() {
+    if (reducedMotion || snowfieldSecret.hidden || !snowfieldSecret.classList.contains('message-reveal'))
+        return;
+    snowfieldGlitchTimer = setTimeout(() => {
+        const chars = [...snowfieldMessageText];
+        const candidates = chars.map((char, index) => /[A-Z]/.test(char) ? index : -1).filter(index => index !== -1);
+        const glitchChars = ['#', '/', '▒', '?', '_'];
+        const damageCount = 2 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < damageCount; i++) {
+            const candidateIndex = Math.floor(Math.random() * candidates.length);
+            const [charIndex] = candidates.splice(candidateIndex, 1);
+            chars[charIndex] = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        snowfieldMessage.textContent = chars.join('');
+        snowfieldDialog.style.setProperty('--notice-x', `${Math.round(Math.random() * 6 - 3)}px`);
+        snowfieldDialog.style.setProperty('--notice-y', `${Math.round(Math.random() * 4 - 2)}px`);
+        snowfieldMessage.style.setProperty('--text-x', `${Math.round(Math.random() * 8 - 4)}px`);
+        snowfieldMessage.style.setProperty('--text-y', `${Math.round(Math.random() * 4 - 2)}px`);
+        snowfieldMessage.style.setProperty('--text-skew', `${(Math.random() * 4 - 2).toFixed(1)}deg`);
+        snowfieldDialog.classList.add('signal-corrupt');
+        snowfieldGlitchResetTimer = setTimeout(() => {
+            snowfieldMessage.textContent = snowfieldMessageText;
+            snowfieldDialog.classList.remove('signal-corrupt');
+            scheduleSnowfieldGlitch();
+        }, 120 + Math.random() * 180);
+    }, 350 + Math.random() * 1100);
+}
+function addSnowflakes(count, heavy = false) {
+    if (reducedMotion)
+        return;
+    const flakes = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        const flake = document.createElement('span');
+        flake.className = 'snowflake';
+        flake.style.setProperty('--snow-x', `${Math.random() * 100}%`);
+        flake.style.setProperty('--snow-size', `${heavy ? 2 + Math.random() * 5 : 2 + Math.random() * 3}px`);
+        flake.style.setProperty('--snow-opacity', `${.3 + Math.random() * .5}`);
+        flake.style.setProperty('--snow-duration', `${heavy ? 2.5 + Math.random() * 3 : 7 + Math.random() * 7}s`);
+        flake.style.setProperty('--snow-delay', `${heavy ? -Math.random() * 4 : -Math.random() * 7}s`);
+        flake.style.setProperty('--snow-drift', `${Math.random() * 150 - 75}px`);
+        flakes.appendChild(flake);
+    }
+    snowfieldFlakes.appendChild(flakes);
+}
+function addSnowGusts(count) {
+    if (reducedMotion)
+        return;
+    const flakes = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        const fromLeft = Math.random() < .5;
+        const flake = document.createElement('span');
+        flake.className = 'snowflake snow-gust';
+        flake.style.setProperty('--gust-side', fromLeft ? '-2%' : '102%');
+        flake.style.setProperty('--gust-top', `${Math.random() * 105}%`);
+        flake.style.setProperty('--gust-x', `${(fromLeft ? 1 : -1) * (105 + Math.random() * 70)}vw`);
+        flake.style.setProperty('--gust-drop', `${-12 + Math.random() * 44}vh`);
+        flake.style.setProperty('--snow-size', `${3 + Math.random() * 8}px`);
+        flake.style.setProperty('--snow-opacity', `${.55 + Math.random() * .45}`);
+        flake.style.setProperty('--gust-delay', `${Math.random() * .28}s`);
+        flakes.appendChild(flake);
+    }
+    snowfieldFlakes.appendChild(flakes);
+}
+function openSnowfield() {
+    snowfieldReturnFocus = document.activeElement;
+    clearTimeout(snowfieldTransitionTimer);
+    clearTimeout(snowfieldMessageTimer);
+    clearTimeout(snowfieldNameTimer);
+    clearTimeout(snowfieldDismissTimer);
+    clearTimeout(snowfieldGlitchTimer);
+    clearTimeout(snowfieldGlitchResetTimer);
+    clearInterval(snowfieldWordGlitchInterval);
+    snowfieldWordGlitchInterval = null;
+    setSnowfieldConstellationName('DEMON KING OF SALVATION');
+    snowfieldDialog.classList.remove('signal-corrupt');
+    snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal');
+    snowfieldFlakes.replaceChildren();
+    snowfieldSecret.hidden = false;
+    snowfieldSecret.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    snowfieldSecret.focus();
+    snowfieldSecret.classList.add('transitioning');
+    addSnowGusts(180);
+    snowfieldTransitionTimer = setTimeout(() => {
+        snowfieldSecret.classList.add('blizzard');
+        addSnowflakes(120, true);
+        snowfieldTransitionTimer = setTimeout(() => {
+            snowfieldSecret.classList.remove('transitioning');
+            snowfieldMessageTimer = setTimeout(() => {
+                snowfieldSecret.classList.add('message-reveal');
+                snowfieldDialog.focus();
+                snowfieldNameTimer = setTimeout(() => {
+                    transitionSnowfieldConstellationName('DEMON KING OF SALVATION?', () => {
+                        snowfieldNameTimer = setTimeout(() => {
+                            transitionSnowfieldConstellationName('????', () => {
+                                scheduleSnowfieldGlitch();
+                                snowfieldDismissTimer = setTimeout(closeSnowfield, 6000);
+                            });
+                        }, 700);
+                    });
+                }, 1100);
+            }, 550);
+        }, 1150);
+    }, 1050);
+}
+function closeSnowfield() {
+    if (snowfieldSecret.hidden)
+        return;
+    clearTimeout(snowfieldTransitionTimer);
+    clearTimeout(snowfieldMessageTimer);
+    clearTimeout(snowfieldNameTimer);
+    clearTimeout(snowfieldDismissTimer);
+    clearTimeout(snowfieldGlitchTimer);
+    clearTimeout(snowfieldGlitchResetTimer);
+    clearInterval(snowfieldWordGlitchInterval);
+    snowfieldWordGlitchInterval = null;
+    setSnowfieldConstellationName('DEMON KING OF SALVATION');
+    snowfieldDialog.classList.remove('signal-corrupt');
+    snowfieldSecret.hidden = true;
+    snowfieldSecret.setAttribute('aria-hidden', 'true');
+    snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal');
+    document.body.style.overflow = '';
+    if (snowfieldReturnFocus instanceof HTMLElement)
+        snowfieldReturnFocus.focus();
+}
+snowfieldTrigger.addEventListener('click', openSnowfield);
+snowfieldDialog.addEventListener('click', closeSnowfield);
+snowfieldDialog.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeSnowfield();
+    }
+});
+snowfieldSecret.addEventListener('click', e => {
+    if (e.target === snowfieldSecret)
+        closeSnowfield();
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !snowfieldSecret.hidden)
+        closeSnowfield();
+});
 // Hongsi visitor guide, walking, dragging and angry reactions.
 const hongsi = document.getElementById('hongsiCompanion'), hongsiBtn = document.getElementById('hongsiCharacter'), speech = document.getElementById('hongsiSpeech'), speechTitle = document.getElementById('hongsiSpeechTitle'), speechText = document.getElementById('hongsiSpeechText'), face = document.getElementById('hongsiFace'), globalToast = document.getElementById('globalToast');
-let speechTimer = null, walkTimer = null, clicks = 0, clickReset = null, angryTimer = null, drag = null, suppressClick = false, lastWalkLine = -1;
-const walkLines = ['Nyaa~ Hongsi sedang berpatroli di Star Stream!', 'Psst... bagian proyek menyimpan beberapa catatan karya.', 'Ingin mengenal pembuat website? Coba buka bagian Tentang.', 'Kalau ingin melihat kemampuan yang sedang dipelajari, kunjungi Keahlian!', 'Hongsi menyarankan menjelajahi halaman dengan santai.', 'Butuh cara menghubungi pemilik website? Ada gerbang kontak di bawah.'];
-const clickLines = ['Nyaa! Ada pengunjung yang memanggil Hongsi?', 'Hehe, ingin melihat proyek? Tekan “Jelajahi Proyek” di bagian atas!', 'Bingung mau ke mana? Coba gunakan menu navigasi.', 'Kamu bisa membaca profil, melihat proyek, atau membuka bagian kontak.', 'Selamat datang di Star Stream kecil ini. Semoga kamu menemukan hal menarik!'];
+let speechTimer = null, walkTimer = null, walkEndTimer = null, clicks = 0, clickReset = null, angryTimer = null, drag = null, suppressClick = false, lastWalkLine = -1;
+const walkLines = ['Nyaa~ Hongsi sedang keliling memeriksa skenario!', 'Ada arsip proyek di halaman ini. Yuk, kita lihat!', 'Penasaran dengan pembuat skenario? Bagian Tentang ada di sana.', 'Status keahlian sedang diperbarui—silakan intip!', 'Jelajahi pelan-pelan, pengunjung. Setiap bagian punya cerita.', 'Gerbang kontak ada di bawah kalau kamu ingin mengirim pesan.'];
+const clickLines = ['Nyaa! Pengunjung memanggil Hongsi?', 'Mau lihat proyek? Pilih “Jelajahi Proyek” di atas!', 'Tersesat di skenario? Coba gunakan menu navigasi.', 'Kamu bisa membaca profil, melihat proyek, atau membuka kontak.', 'Selamat datang di arsip kecil ini. Semoga menemukan cerita menarik!'];
 function hongsiSay(title, text, sticky = false) { speechTitle.textContent = title; speechText.textContent = text; speech.classList.add('show'); clearTimeout(speechTimer); if (!sticky)
     speechTimer = setTimeout(() => speech.classList.remove('show'), 5000); }
 function showToast(text) { globalToast.textContent = text; globalToast.classList.add('show'); setTimeout(() => globalToast.classList.remove('show'), 3600); }
 function summonGuide() { hongsiSay('HONGSI · PANDUAN PENGUNJUNG', 'Nyaa~ Kamu bisa membuka Tentang untuk mengenal pembuatnya, Keahlian untuk melihat hal yang sedang dipelajari, Proyek untuk melihat karya, atau Kontak untuk mengirim pesan!', true); showToast('Hongsi: gunakan menu navigasi untuk menemukan bagian yang kamu cari. Selamat menjelajah!'); }
-document.getElementById('hongsiReveal').insertAdjacentHTML('afterend', '');
-function calmDown() { hongsi.classList.remove('angry', 'shaken'); face.textContent = '🐯'; clicks = 0; hongsiSay('HONGSI · SUDAH TENANG', 'Hmph... Hongsi sudah tenang. Lain kali, pelan-pelan saja, ya. Nyaa~', true); clearTimeout(speechTimer); speechTimer = setTimeout(() => speech.classList.remove('show'), 5000); }
-function makeAngry(fromShake) { hongsi.classList.add('angry'); if (fromShake)
-    hongsi.classList.add('shaken'); face.textContent = '😾'; hongsiSay('HONGSI · MARAH!', fromShake ? 'NYAAAA!! Jangan goyang Hongsi secepat itu! Hongsi jadi pusing! 😾' : 'NYAAAH! Jangan klik Hongsi terus-terusan! Hongsi bukan tombol spam! 😾', true); clearTimeout(angryTimer); angryTimer = setTimeout(calmDown, 6500); }
-function bounds() { return { maxLeft: Math.max(0, innerWidth - hongsi.offsetWidth), maxBottom: Math.max(0, innerHeight - hongsi.offsetHeight) }; }
-function clampPosition() { const b = bounds(); hongsi.style.left = Math.max(0, Math.min(b.maxLeft, parseFloat(hongsi.style.left) || innerWidth - hongsi.offsetWidth)) + 'px'; hongsi.style.bottom = Math.max(0, Math.min(b.maxBottom, parseFloat(hongsi.style.bottom) || 20)) + 'px'; hongsi.style.right = 'auto'; }
-function walkHongsi() { if (drag || hongsi.classList.contains('angry'))
-    return; const b = bounds(); const current = parseFloat(hongsi.style.left) || Math.max(0, innerWidth - hongsi.offsetWidth - 8); const target = Math.random() < .5 ? Math.random() * Math.min(200, innerWidth * .3) : Math.max(0, innerWidth - hongsi.offsetWidth - Math.random() * Math.min(200, innerWidth * .3)); hongsi.style.transition = 'left 2.2s cubic-bezier(.2,.8,.2,1),bottom 1.5s ease'; hongsi.style.left = Math.max(0, Math.min(b.maxLeft, target)) + 'px'; hongsi.style.bottom = Math.max(8, Math.min(b.maxBottom, 10 + Math.random() * 80)) + 'px'; hongsi.classList.add('walking'); setTimeout(() => hongsi.classList.remove('walking'), 2200); let idx = Math.floor(Math.random() * walkLines.length); if (idx === lastWalkLine)
-    idx = (idx + 1) % walkLines.length; lastWalkLine = idx; hongsiSay('HONGSI · SEDANG MENJELAJAH', walkLines[idx]); }
+function bounds() {
+    const rect = hongsi.getBoundingClientRect();
+    return { maxLeft: Math.max(0, innerWidth - rect.width), maxBottom: Math.max(0, innerHeight - rect.height) };
+}
+function updateSpeechPosition() {
+    const rect = hongsi.getBoundingClientRect();
+    hongsi.classList.toggle('speech-left', rect.left + rect.width / 2 < innerWidth / 2);
+    hongsi.classList.toggle('speech-below', rect.top < 150);
+}
+function clampPosition() {
+    const rect = hongsi.getBoundingClientRect();
+    const b = bounds();
+    const left = Number.parseFloat(hongsi.style.left);
+    const bottom = Number.parseFloat(hongsi.style.bottom);
+    hongsi.style.left = `${Math.max(0, Math.min(b.maxLeft, Number.isFinite(left) ? left : rect.left))}px`;
+    hongsi.style.bottom = `${Math.max(0, Math.min(b.maxBottom, Number.isFinite(bottom) ? bottom : innerHeight - rect.bottom))}px`;
+    hongsi.style.right = 'auto';
+    updateSpeechPosition();
+}
+function calmDown() {
+    hongsi.classList.remove('angry', 'shaken');
+    hongsi.style.transition = 'left 1.5s cubic-bezier(.2,.8,.2,1),bottom 1s ease';
+    face.textContent = '🐯';
+    clicks = 0;
+    hongsiSay('HONGSI · SUDAH TENANG', 'Hmph... Hongsi sudah tenang. Lain kali, pelan-pelan saja, ya. Nyaa~', true);
+    clearTimeout(speechTimer);
+    speechTimer = setTimeout(() => speech.classList.remove('show'), 5000);
+}
+function makeAngry(fromShake) {
+    const rect = hongsi.getBoundingClientRect();
+    clearTimeout(walkEndTimer);
+    hongsi.classList.remove('walking');
+    hongsi.style.transition = 'none';
+    hongsi.style.left = `${rect.left}px`;
+    hongsi.style.bottom = `${innerHeight - rect.bottom}px`;
+    hongsi.style.right = 'auto';
+    hongsi.classList.add('angry');
+    if (fromShake)
+        hongsi.classList.add('shaken');
+    face.textContent = '😾';
+    hongsiSay('HONGSI · MARAH!', fromShake ? 'NYAAAA!! Jangan goyang Hongsi secepat itu! Hongsi jadi pusing! 😾' : 'NYAAAH! Jangan klik Hongsi terus-terusan! Hongsi bukan tombol spam! 😾', true);
+    clearTimeout(angryTimer);
+    angryTimer = setTimeout(calmDown, 6500);
+}
+function walkHongsi() {
+    if (document.hidden || drag || hongsi.classList.contains('angry'))
+        return;
+    const b = bounds();
+    const rect = hongsi.getBoundingClientRect();
+    const currentLeft = rect.left;
+    const minTravel = Math.min(140, b.maxLeft);
+    let targetLeft = Math.random() * b.maxLeft;
+    if (Math.abs(targetLeft - currentLeft) < minTravel)
+        targetLeft = targetLeft < b.maxLeft / 2 ? Math.min(b.maxLeft, targetLeft + minTravel) : Math.max(0, targetLeft - minTravel);
+    const maxBottom = Math.min(85, b.maxBottom);
+    hongsi.style.transition = 'left 2.2s cubic-bezier(.2,.8,.2,1),bottom 1.5s ease';
+    hongsi.style.left = `${targetLeft}px`;
+    hongsi.style.bottom = `${Math.min(maxBottom, 12 + Math.random() * maxBottom)}px`;
+    hongsi.classList.add('walking');
+    updateSpeechPosition();
+    clearTimeout(walkEndTimer);
+    walkEndTimer = setTimeout(() => hongsi.classList.remove('walking'), 2200);
+    let idx = Math.floor(Math.random() * walkLines.length);
+    if (idx === lastWalkLine)
+        idx = (idx + 1) % walkLines.length;
+    lastWalkLine = idx;
+    hongsiSay('HONGSI · SEDANG MENJELAJAH', walkLines[idx]);
+}
+clampPosition();
 if (!reducedMotion)
     walkTimer = setInterval(walkHongsi, 12500);
 window.addEventListener('resize', clampPosition);
-hongsiBtn.addEventListener('pointerdown', e => { if (hongsi.classList.contains('angry'))
-    return; drag = { id: e.pointerId, startX: e.clientX, startY: e.clientY, lastX: e.clientX, lastT: performance.now(), lastDir: 0, reversals: 0, moved: false, history: [] }; hongsiBtn.setPointerCapture(e.pointerId); hongsi.classList.add('dragging'); hongsi.style.transition = 'none'; });
-hongsiBtn.addEventListener('pointermove', e => { if (!drag || e.pointerId !== drag.id)
-    return; const now = performance.now(), dx = e.clientX - drag.lastX, dt = Math.max(1, now - drag.lastT), speed = Math.abs(dx) / dt, dir = Math.sign(dx); if (Math.abs(e.clientX - drag.startX) + Math.abs(e.clientY - drag.startY) > 8)
-    drag.moved = true; if (speed > .65 && dir && drag.lastDir && dir !== drag.lastDir)
-    drag.reversals++; if (dir)
-    drag.lastDir = dir; drag.history.push({ x: e.clientX, t: now }); drag.history = drag.history.filter(p => now - p.t < 600); const b = bounds(); hongsi.style.left = Math.min(b.maxLeft, Math.max(0, e.clientX - hongsi.offsetWidth / 2)) + 'px'; hongsi.style.bottom = Math.min(b.maxBottom, Math.max(0, innerHeight - e.clientY - hongsi.offsetHeight / 2)) + 'px'; hongsi.style.right = 'auto'; if (drag.moved && !hongsi.classList.contains('angry') && !speech.classList.contains('show'))
-    hongsiSay('HONGSI · E-EH?!', 'Hongsi mau dibawa ke mana?! Tarik pelan-pelan, ya!', true); if (drag.reversals >= 4 && !hongsi.classList.contains('angry')) {
-    hongsi.classList.add('shaken');
-    face.textContent = '😵‍💫';
-    hongsiSay('HONGSI · PUSING!', 'W-WOIII! Jangan goyang-goyang Hongsi secepat itu!!', true);
-} drag.lastX = e.clientX; drag.lastT = now; e.preventDefault(); });
-function finishDrag(e) { if (!drag || (e && e.pointerId !== undefined && e.pointerId !== drag.id))
-    return; const moved = drag.moved, shaken = drag.reversals >= 4; drag = null; hongsi.classList.remove('dragging'); hongsi.style.transition = 'left 1.5s cubic-bezier(.2,.8,.2,1),bottom 1s ease'; if (moved) {
-    suppressClick = true;
-    setTimeout(() => suppressClick = false, 350);
-} if (shaken)
-    makeAngry(true);
-else if (moved && !hongsi.classList.contains('angry'))
-    hongsiSay('HONGSI · PINDAH TEMPAT', 'Hehe... kita berhenti di sini, ya? Hongsi sudah mendarat!'); }
+hongsiBtn.addEventListener('pointerdown', e => {
+    if (hongsi.classList.contains('angry'))
+        return;
+    const rect = hongsi.getBoundingClientRect();
+    clearTimeout(walkEndTimer);
+    hongsi.classList.remove('walking');
+    hongsi.style.transition = 'none';
+    hongsi.style.left = `${rect.left}px`;
+    hongsi.style.bottom = `${innerHeight - rect.bottom}px`;
+    hongsi.style.right = 'auto';
+    drag = { id: e.pointerId, startX: e.clientX, startY: e.clientY, lastX: e.clientX, lastT: performance.now(), lastDir: 0, reversals: 0, moved: false };
+    hongsiBtn.setPointerCapture(e.pointerId);
+    hongsi.classList.add('dragging');
+});
+hongsiBtn.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id)
+        return;
+    const now = performance.now();
+    const dx = e.clientX - drag.lastX;
+    const dt = Math.max(1, now - drag.lastT);
+    const speed = Math.abs(dx) / dt;
+    const dir = Math.sign(dx);
+    if (Math.abs(e.clientX - drag.startX) + Math.abs(e.clientY - drag.startY) > 8)
+        drag.moved = true;
+    if (Math.abs(dx) > 10 && speed > .65 && dir && drag.lastDir && dir !== drag.lastDir)
+        drag.reversals++;
+    if (dir)
+        drag.lastDir = dir;
+    const b = bounds();
+    hongsi.style.left = `${Math.min(b.maxLeft, Math.max(0, e.clientX - hongsi.offsetWidth / 2))}px`;
+    hongsi.style.bottom = `${Math.min(b.maxBottom, Math.max(0, innerHeight - e.clientY - hongsi.offsetHeight / 2))}px`;
+    hongsi.style.right = 'auto';
+    updateSpeechPosition();
+    if (drag.moved && !hongsi.classList.contains('angry') && !speech.classList.contains('show'))
+        hongsiSay('HONGSI · E-EH?!', 'Hongsi mau dibawa ke mana?! Tarik pelan-pelan, ya!', true);
+    if (drag.reversals >= 4 && !hongsi.classList.contains('angry')) {
+        hongsi.classList.add('shaken');
+        face.textContent = '😵‍💫';
+        hongsiSay('HONGSI · PUSING!', 'W-WOIII! Jangan goyang-goyang Hongsi secepat itu!!', true);
+    }
+    drag.lastX = e.clientX;
+    drag.lastT = now;
+    e.preventDefault();
+});
+function finishDrag(e) {
+    if (!drag || (e && e.pointerId !== undefined && e.pointerId !== drag.id))
+        return;
+    const moved = drag.moved;
+    const shaken = drag.reversals >= 4;
+    drag = null;
+    hongsi.classList.remove('dragging');
+    hongsi.style.transition = 'left 1.5s cubic-bezier(.2,.8,.2,1),bottom 1s ease';
+    clampPosition();
+    if (moved) {
+        suppressClick = true;
+        setTimeout(() => suppressClick = false, 350);
+    }
+    if (shaken)
+        makeAngry(true);
+    else if (moved && !hongsi.classList.contains('angry'))
+        hongsiSay('HONGSI · PINDAH TEMPAT', 'Hehe... kita berhenti di sini, ya? Hongsi sudah mendarat!');
+}
 hongsiBtn.addEventListener('pointerup', finishDrag);
 hongsiBtn.addEventListener('pointercancel', finishDrag);
+hongsiBtn.addEventListener('lostpointercapture', finishDrag);
 hongsiBtn.addEventListener('click', () => { if (suppressClick)
     return; if (hongsi.classList.contains('angry')) {
     hongsiSay('HONGSI · MASIH NGAMBEK', 'Hmph! Beri Hongsi waktu untuk tenang dulu!', true);
