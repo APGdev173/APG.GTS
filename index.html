@@ -757,10 +757,25 @@ button {
   color: var(--gold);
   font-size: 1.05rem;
 }
-.dossier-note {
+ .dossier-note {
   color: var(--muted-2);
   font-size: .78rem !important;
   margin-top: 18px;
+}
+.secret-scenario-hint {
+  padding: 12px 14px;
+  border: 1px dashed rgba(101,223,255,.28);
+  border-radius: 12px;
+  background: rgba(101,223,255,.035);
+}
+.secret-scenario-hint kbd {
+  padding: 2px 5px;
+  border: 1px solid rgba(101,223,255,.32);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: rgba(4,11,24,.88);
+  color: #c9efff;
+  font: 700 .72rem "Space Grotesk",sans-serif;
 }
 .contact-panel {
   display: flex;
@@ -1228,8 +1243,8 @@ footer {
 .snowfield-secret.transitioning.blizzard {
   background: linear-gradient(180deg,#040b18 0%,#102744 48%,#71869b 100%);
 }
-.snowfield-secret[hidden] {
-  display: none;
+.snowfield-secret[hidden], #snowfieldTrigger[hidden] {
+  display: none !important;
 }
 .snowfield-secret:before,.snowfield-secret:after {
   content: "";
@@ -1363,6 +1378,38 @@ footer {
   visibility: visible;
   animation: snowfield-dialog-in .65s cubic-bezier(.16,1,.3,1) both;
 }
+.snowfield-secret.closing {
+  pointer-events: none;
+  background: #071326;
+  animation: snowfield-close-light .9s ease-out both;
+}
+.snowfield-secret.closing .snowfield-whiteout {
+  z-index: 5;
+  opacity: 1;
+  animation: snowfield-snow-reverse-wipe 1.15s cubic-bezier(.65,0,.35,1) both;
+}
+.snowfield-secret.closing .snowfield-dialog {
+  visibility: visible;
+  animation: snowfield-dialog-out .62s cubic-bezier(.4,0,1,1) both;
+}
+.snowfield-secret.closing .snowfield-flakes {
+  opacity: 1;
+  z-index: 6;
+  animation: snowfield-flakes-out .92s cubic-bezier(.65,0,.35,1) both;
+}
+.snowfield-secret.closing:before,
+.snowfield-secret.closing:after,
+.snowfield-secret.closing .snowfield-skyline {
+  opacity: 1;
+  animation: snowfield-surface-in .95s ease-out .2s both;
+}
+.snowfield-secret.closing:after {
+  transform-origin: center bottom;
+  animation-name: snowfield-surface-in,snowfield-ground-fade;
+  animation-duration: .95s,.75s;
+  animation-delay: .2s,.38s;
+  animation-fill-mode: both,both;
+}
 .snowfield-secret.message-reveal .snowfield-dialog.signal-corrupt {
   translate: var(--notice-x,0) var(--notice-y,0);
   filter: hue-rotate(18deg) brightness(1.12);
@@ -1440,6 +1487,62 @@ footer {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+@keyframes snowfield-dialog-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-4px) scale(.985);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(18px) scale(.94);
+    filter: blur(5px);
+  }
+}
+@keyframes snowfield-snow-reverse-wipe {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+  18% {
+    opacity: .92;
+  }
+  58% {
+    transform: scaleX(1.04);
+    transform-origin: right center;
+  }
+  62% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+}
+@keyframes snowfield-flakes-out {
+  0% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(8px); }
+}
+@keyframes snowfield-surface-in {
+  0% { opacity: 0; transform: scale(.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes snowfield-ground-fade {
+  0% { filter: blur(8px); }
+  100% { filter: blur(0); }
+}
+@keyframes snowfield-close-light {
+  0% { box-shadow: inset 0 0 0 rgba(164,231,255,0); }
+  42% { box-shadow: inset 0 0 180px rgba(164,231,255,.38); }
+  100% { box-shadow: inset 0 0 30px rgba(164,231,255,.1); }
 }
 @keyframes snowfield-text-glitch {
   0%,100% { transform: none; filter: none; text-shadow: 0 0 18px rgba(113,203,255,.34); }
@@ -1612,11 +1715,26 @@ footer {
   }
   .hongsi-companion {
     left: auto;
-    right: 8px;
-    bottom: 12px;
+    right: 6px;
+    bottom: 8px;
+    width: 72px;
+  }
+  .hongsi-character {
+    width: 58px;
+    height: 60px;
+  }
+  .hongsi-face {
+    font-size: 2rem;
+  }
+  .hongsi-cloak {
+    width: 52px;
   }
   .hongsi-speech {
-    width: 190px;
+    width: min(210px,calc(100vw - 24px));
+    max-width: none;
+  }
+  .hongsi-tip {
+    display: none;
   }
   .hongsi-tip {
     font-size: .54rem;
@@ -1639,7 +1757,7 @@ footer {
   .starstream-copy {
     font-size: .7rem;
   }
-  #hongsiReveal,#snowfieldTrigger {
+  #hongsiReveal {
     display: flex;
     width: 100%;
     margin: 12px 0 0 !important;
@@ -1659,12 +1777,13 @@ footer {
   .snowflake {
     display: none;
   }
-  .snowfield-secret.message-reveal .snowfield-dialog,.snowfield-secret.message-reveal .snowfield-glitch {
+  .snowfield-secret.message-reveal .snowfield-dialog,.snowfield-secret.message-reveal .snowfield-glitch,
+  .snowfield-secret.closing .snowfield-dialog,.snowfield-secret.closing .snowfield-whiteout {
     animation: none;
   }
 }
-    </style>
-</head>
+
+    </style></head>
 <body>
   <div id="starfield" aria-hidden="true">
   </div>
@@ -1991,7 +2110,7 @@ footer {
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">A reader's archive</span>
-          <h2>
+          <h2 id="orvSecretHeading" tabindex="0" title="" aria-label="ORV Archive">
             ORV <span class="gradient-text">Archive</span>
           </h2>
           <p>
@@ -2040,7 +2159,10 @@ footer {
               </div>
             </div>
             <button class="btn btn-secondary" id="hongsiReveal" type="button" aria-expanded="false" aria-controls="starstreamNotice" style="margin-top:20px">✦ Buka transmisi tersembunyi</button>
-            <button class="btn btn-secondary" id="snowfieldTrigger" type="button" aria-haspopup="dialog" aria-controls="snowfieldSecret" style="margin:12px 0 0 8px">❄ Buka secret Snowfield</button>
+            <p class="dossier-note secret-scenario-hint">
+              Petunjuk gerbang rahasia: klik judul <b>ORV Archive</b> sebanyak 5 kali beruntun, atau tekan <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>.
+            </p>
+            <button id="snowfieldTrigger" type="button" aria-haspopup="dialog" aria-controls="snowfieldSecret" hidden>Actuate secret scenario</button>
           </article>
         </div>
       </div>
@@ -2166,32 +2288,32 @@ else {
     revealElements.forEach(el => el.classList.add('visible'));
     skillFills.forEach(fill => fill.style.width = `${fill.dataset.level || 0}%`);
 }
-// Original Star Stream messages from ORV constellations and the creator's own constellation.
+// Star Stream berisi pesan fiksi yang terinspirasi atmosfer ORV.
 const toastStack = document.getElementById('toastStack');
 const messages = [
-    { name: 'Demon King of Salvation', text: '“Nexora Story dimulai dari sebuah pilihan. Teruskan ceritanya dengan caramu sendiri.”' },
-    { name: 'Secretive Plotter', text: '“Jangan takut mencoba jalur baru saat merancang dunia Nexora.”' },
-    { name: 'Abyssal Black Flame Dragon', text: '“KWAHAHA! Ciptakan game yang membuat para pemain ingin menaklukkan satu bab lagi!”' },
-    { name: 'Prisoner of the Golden Headband', text: '“Selesaikan satu mekanik dengan baik sebelum membuka skenario berikutnya.”' },
-    { name: 'Most Ancient Dream', text: '“Sebuah dunia game hidup karena ada yang bermimpi, lalu mulai membangunnya.”' },
-    { name: 'Architect of the False Last Act', text: '“Sisakan satu kejutan di Nexora Story yang tak terlihat dari awal.”' },
-    { name: 'Maritime War God', text: '“Bug pertama bukan akhir perjalanan. Kembali ke layar kerja dan coba lagi.”' },
-    { name: 'General of Steel', text: '“Uji mekanikmu berulang kali. Pengalaman bermain dibangun dari detail.”' },
-    { name: 'Queen of the Darkest Spring', text: '“Satu ide kecil hari ini bisa tumbuh menjadi dunia yang luas.”' },
-    { name: 'Sage of the Great Heavens', text: '“Pelajari bagaimana setiap aturan game mengubah keputusan pemain.”' },
-    { name: 'Master of Steel', text: '“Fondasi Nexora yang rapi akan membantumu membangun lebih jauh.”' },
-    { name: 'Demon-like Judge of Fire', text: '“Jangan hanya membayangkan game-nya. Buat satu bagian, lalu uji.”' },
-    { name: 'Father of the Rich Night', text: '“Simpan ide terbaikmu untuk Nexora Story. Kelak ia bisa jadi harta.”' },
-    { name: 'Prisoner of the Constrictive Headband', text: '“Belum tahu caranya? Itulah alasan untuk mulai mempelajarinya.”' },
-    { name: 'One Who Hunted the King of Disasters', text: '“Cari penyebab bug dengan tenang; jangan biarkan boss terakhir itu kabur.”' },
-    { name: 'Dragon-Devouring Man', text: '“Beranikan diri membangun dunia game yang sebelumnya hanya ada di kepalamu.”' },
-    { name: 'Bald General of Justice', text: '“Catat apa yang sudah berfungsi dan apa yang masih perlu diperbaiki.”' },
-    { name: 'Saviour of Corruption', text: '“Setiap kesalahan di Nexora Story adalah kesempatan untuk memperbaiki skenario.”' },
-    { name: 'Best Friend of Justice and Love', text: '“Pengembang game juga butuh jeda. Simpan tenaga untuk level berikutnya.”' },
-    { name: 'Lily Blooming in the Abyss', text: '“Bahkan dari prototipe sederhana, game yang menarik bisa mulai tumbuh.”' },
-    { name: 'Twilight-Capturing Sword', text: '“Pilih mekanik yang ingin diuji, lalu buat prototipe pertamamu.”' },
-    { name: 'Dokkaebi Channel Host', text: '“Saluran dibuka! NEXORA STORY, tunjukkan skenario yang sedang kamu bangun!”', type: 'dokkaebi' },
-    { name: 'The Fox Behind the Crimson Moon', text: '“Nyaa~ Selamat datang, pengunjung. Semoga kamu menemukan sesuatu yang menarik di halaman ini. Nexora Story juga sedang menyiapkan petualangan kecil untukmu. Jelajahi pelan-pelan, ya!”', type: 'hongsi' }
+    { name: 'Demon King of Salvation', text: '“Sub-scenario kecil itu bukan penundaan. Di dalam langkahmu yang pelan, Nexora sedang mengumpulkan kemungkinan.”' },
+    { name: 'Secretive Plotter', text: '“Jika skenario ditutup terlalu rapi, ingatlah bahwa jalan paling aman belum tentu satu-satunya jalan.”' },
+    { name: 'Abyssal Black Flame Dragon', text: '“KWAHAHA, begitu. Masukkan satu kekuatan baru; biarkan pemain yang gugup mencoba mengendalikanmu!”' },
+    { name: 'Prisoner of the Golden Headband', text: '“Hukuman saat ini adalah latihan. Ulangi satu mekanik sampai gerakannya terasa seperti milikmu.”' },
+    { name: 'Most Ancient Dream', text: '“Dunia yang lahir dari mimpi akan selalu menuntut seseorang untuk kembali membacanya.”' },
+    { name: 'Architect of the False Last Act', text: '“Bab terakhir yang paling berkesan bukanlah jawaban. Ia adalah pertanyaan yang tertinggal.”' },
+    { name: 'Maritime War God', text: '“Badai adalah skenario, bukan vonis. Perbaiki layar, lalu berlayar kembali.”' },
+    { name: 'General of Steel', text: '“Catat setiap percobaan. Pengembara yang tidak mengingat rute akan mengulang serangan yang sama.”' },
+    { name: 'Queen of the Darkest Spring', text: '“Dari satu batang pohon, Nexora dapat tumbuh. Jangan meremehkan ide yang terlihat sunyi.”' },
+    { name: 'Sage of the Great Heavens', text: '“Setiap aturan mengubah pilihan. Pertanyaan bagus selalu mengubah alur cerita.”' },
+    { name: 'Master of Steel', text: '“Fondasi yang kokoh tidak lahir dari sorotan. Ia lahir dari baris kode yang diperiksa tanpa henti.”' },
+    { name: 'Demon-like Judge of Fire', text: '“Keadilanmu bukan hanya di ide; tunjukkan pada layar satu bagian yang dapat dimainkan.”' },
+    { name: 'Father of the Rich Night', text: '“Simpan ide-ide kecilmu. Sebuah harta baru saja lahir dari satu percikan.”' },
+    { name: 'Prisoner of the Constrictive Headband', text: '“Apakah jalan itu belum terbuka? Maka angkat pula batu pertama dari jalanmu sendiri.”' },
+    { name: 'One Who Hunted the King of Disasters', text: '“Masalah selalu meninggalkan jejak. Cari jejak itu sebelum menyalahkan penghuni arena.”' },
+    { name: 'Dragon-Devouring Man', text: '“Dunia yang terlalu aman tidak pernah melahirkan legenda. Letakkan satu hal yang berani pada Nexora.”' },
+    { name: 'Bald General of Justice', text: '“Catatan pengujian adalah bukti. Tulis apa yang berhasil dan apa yang masih meminta pengorbanan.”' },
+    { name: 'Saviour of Corruption', text: '“Kesalahan bukan kegagalan skenario. Ia adalah pengembang yang meminta bab baru.”' },
+    { name: 'Best Friend of Justice and Love', text: '“Pahlawan juga harus istirahat. Selesaikan bab hari ini, simpan nyalimu untuk esok.”' },
+    { name: 'Lily Blooming in the Abyss', text: '“Bahaya itu gelap, tetapi bunga tetap tumbuh. Begitu pula prototipe pertamamu.”' },
+    { name: 'Twilight-Capturing Sword', text: '“Pilih satu mekanik. Uji satu keputusan. Satu pedang dapat mengubah medan perang.”' },
+    { name: 'Dokkaebi Channel Host', text: '“Saluran dibuka. Rekam skenario, tetapkan tarif, dan biarkan para konstelasi menilai.”', type: 'dokkaebi' },
+    { name: 'The Fox Behind the Crimson Moon', text: '“Nyaa~ pengunjung. Binar di layar ini tidak datang sia-sia. Hongsi akan menemanimu sampai gerbang berikutnya.”', type: 'hongsi' }
 ];
 let messageIndex = 0, streamPaused = false, streamInterval = null;
 function sendConstellationMessage() { if (document.hidden || streamPaused)
@@ -2235,7 +2357,7 @@ const snowfieldFlakes = document.getElementById('snowfieldFlakes');
 const snowfieldTitle = document.getElementById('snowfieldTitle');
 const snowfieldMessage = snowfieldDialog.querySelector('.snowfield-glitch');
 let snowfieldMessageText = snowfieldMessage.textContent;
-let snowfieldReturnFocus = null, snowfieldTransitionTimer = null, snowfieldMessageTimer = null, snowfieldNameTimer = null, snowfieldDismissTimer = null, snowfieldGlitchTimer = null, snowfieldGlitchResetTimer = null, snowfieldWordGlitchInterval = null;
+let snowfieldReturnFocus = null, snowfieldTransitionTimer = null, snowfieldMessageTimer = null, snowfieldNameTimer = null, snowfieldDismissTimer = null, snowfieldGlitchTimer = null, snowfieldGlitchResetTimer = null, snowfieldWordGlitchInterval = null, snowfieldCloseTimer = null, snowfieldClosing = false;
 function setSnowfieldConstellationName(name) {
     snowfieldMessageText = `A CONSTELLATION “${name}” IS LOOKING AT YOU.`;
     snowfieldMessage.textContent = snowfieldMessageText;
@@ -2341,11 +2463,13 @@ function openSnowfield() {
     clearTimeout(snowfieldDismissTimer);
     clearTimeout(snowfieldGlitchTimer);
     clearTimeout(snowfieldGlitchResetTimer);
+    clearTimeout(snowfieldCloseTimer);
     clearInterval(snowfieldWordGlitchInterval);
     snowfieldWordGlitchInterval = null;
+    snowfieldClosing = false;
     setSnowfieldConstellationName('DEMON KING OF SALVATION');
     snowfieldDialog.classList.remove('signal-corrupt');
-    snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal');
+    snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal', 'closing');
     snowfieldFlakes.replaceChildren();
     snowfieldSecret.hidden = false;
     snowfieldSecret.setAttribute('aria-hidden', 'false');
@@ -2376,8 +2500,9 @@ function openSnowfield() {
     }, 1050);
 }
 function closeSnowfield() {
-    if (snowfieldSecret.hidden)
+    if (snowfieldSecret.hidden || snowfieldClosing)
         return;
+    snowfieldClosing = true;
     clearTimeout(snowfieldTransitionTimer);
     clearTimeout(snowfieldMessageTimer);
     clearTimeout(snowfieldNameTimer);
@@ -2386,16 +2511,35 @@ function closeSnowfield() {
     clearTimeout(snowfieldGlitchResetTimer);
     clearInterval(snowfieldWordGlitchInterval);
     snowfieldWordGlitchInterval = null;
-    setSnowfieldConstellationName('DEMON KING OF SALVATION');
     snowfieldDialog.classList.remove('signal-corrupt');
-    snowfieldSecret.hidden = true;
     snowfieldSecret.setAttribute('aria-hidden', 'true');
-    snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal');
-    document.body.style.overflow = '';
-    if (snowfieldReturnFocus instanceof HTMLElement)
-        snowfieldReturnFocus.focus();
+    snowfieldSecret.classList.add('closing');
+    snowfieldCloseTimer = setTimeout(() => {
+        snowfieldSecret.hidden = true;
+        snowfieldSecret.classList.remove('blizzard', 'transitioning', 'message-reveal', 'closing');
+        snowfieldFlakes.replaceChildren();
+        document.body.style.overflow = '';
+        setSnowfieldConstellationName('DEMON KING OF SALVATION');
+        snowfieldClosing = false;
+        if (snowfieldReturnFocus instanceof HTMLElement)
+            snowfieldReturnFocus.focus();
+    }, reducedMotion ? 80 : 1150);
 }
 snowfieldTrigger.addEventListener('click', openSnowfield);
+let secretClickCount = 0, secretClickTimer = null;
+document.getElementById('orvSecretHeading').addEventListener('click', () => {
+    secretClickCount++;
+    clearTimeout(secretClickTimer);
+    secretClickTimer = setTimeout(() => secretClickCount = 0, 2600);
+    if (secretClickCount >= 5) {
+        secretClickCount = 0;
+        openSnowfield();
+    }
+});
+document.addEventListener('keydown', e => {
+    if (e.altKey && e.shiftKey && e.key.toLowerCase() === 's')
+        openSnowfield();
+});
 snowfieldDialog.addEventListener('click', closeSnowfield);
 snowfieldDialog.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -2410,6 +2554,10 @@ snowfieldSecret.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !snowfieldSecret.hidden)
         closeSnowfield();
+    if (e.key === 'Tab' && !snowfieldSecret.hidden) {
+        e.preventDefault();
+        snowfieldDialog.focus();
+    }
 });
 // Hongsi visitor guide, walking, dragging and angry reactions.
 const hongsi = document.getElementById('hongsiCompanion'), hongsiBtn = document.getElementById('hongsiCharacter'), speech = document.getElementById('hongsiSpeech'), speechTitle = document.getElementById('hongsiSpeechTitle'), speechText = document.getElementById('hongsiSpeechText'), face = document.getElementById('hongsiFace'), globalToast = document.getElementById('globalToast');
@@ -2489,6 +2637,7 @@ function walkHongsi() {
     hongsiSay('HONGSI · SEDANG MENJELAJAH', walkLines[idx]);
 }
 clampPosition();
+speechTimer = setTimeout(() => speech.classList.remove('show'), 7000);
 if (!reducedMotion)
     walkTimer = setInterval(walkHongsi, 12500);
 window.addEventListener('resize', clampPosition);
